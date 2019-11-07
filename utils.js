@@ -46,7 +46,7 @@ var generateSeqNo = (function () {
 function getMsgKey(dataWithPadding, isOut, authKey) {
     var x = isOut ? 0 : 8;
     var msgKeyLargePlain = bufferConcat(convertToUint8Array(authKey).subarray(88 + x, 88 + x + 32), dataWithPadding);
-    var msgKeyLarge = sha256HashSync(msgKeyLargePlain);
+    var msgKeyLarge = sha256HashSync(convertToUint8Array(msgKeyLargePlain));
     var msgKey = new Uint8Array(msgKeyLarge).subarray(8, 24);
     return msgKey;
 }
@@ -56,15 +56,14 @@ function getAesKeyIv(msgKey, isOut, authKey) {
     var x = isOut ? 0 : 8;
     var sha2aText = new Uint8Array(52);
     var sha2bText = new Uint8Array(52);
-    var promises = {};
 
     sha2aText.set(msgKey, 0);
     sha2aText.set(authKey.subarray(x, x + 36), 16);
-    var sha2a = sha256HashSync(sha2aText);
+    var sha2a = sha256HashSync(convertToUint8Array(sha2aText));
 
     sha2bText.set(authKey.subarray(40 + x, 40 + x + 36), 0);
     sha2bText.set(msgKey, 36);
-    var sha2b = sha256HashSync(sha2bText);
+    var sha2b = sha256HashSync(convertToUint8Array(sha2bText));
 
     var aesKey = new Uint8Array(32)
     var aesIv = new Uint8Array(32)

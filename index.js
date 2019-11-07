@@ -1,3 +1,10 @@
+window.Config.App = {
+    id: 2496,
+    hash: '8da85b0d5bfe62527e5b244c209159c3',
+    version: '0.7.0',
+    domains: ['web.telegram.org', 'zhukov.github.io']
+}
+
 ///// 1. Getting the PQ
 var reqPqBody = new TLSerialization({ mtproto: true });
 var nonce = randomNumber(16);
@@ -141,58 +148,76 @@ sendRequest(new Int32Array(reqPqRequestBuffer)).then((request) => {
 
                 /////
 
-                // var sessionId = randomNumber(8);
-                // var connectionInited = false;
-                // var method = 'help.getNearestDc';
+                var sessionId = randomNumber(8);
+                var connectionInited = true;
+                var method = 'help.getNearestDc';
 
                 /////
 
-                // var serializer = new TLSerialization(options);
-                //
-                // if (connectionInited) {
-                //     serializer.storeInt(0xda9b0d0d, 'invokeWithLayer')
-                //     serializer.storeInt(74, 'layer')
-                //     serializer.storeInt(0xc7481da6, 'initConnection')
-                //     serializer.storeInt(81724, 'api_id')
-                //     serializer.storeString(navigator.userAgent || 'Unknown UserAgent', 'device_model')
-                //     serializer.storeString(navigator.platform || 'Unknown Platform', 'system_version')
-                //     serializer.storeString('0.1.0', 'app_version')
-                //     serializer.storeString(navigator.language || 'en', 'system_lang_code')
-                //     serializer.storeString('', 'lang_pack')
-                //     serializer.storeString(navigator.language || 'en', 'lang_code')
-                // }
-                //
-                // options.resultType = serializer.storeMethod(method, {})
-                //
-                // var messageID = getMessageId();
-                // var seqNo = generateSeqNo()
-                // var message = {
-                //     msg_id: messageID,
-                //     seq_no: seqNo,
-                //     body: serializer.getBytes(true),
-                //     isAPI: true
-                // }
-                //
-                // return this.pushMessage(message, options)
+                /// MtpNetworker.prototype.wrapApiCall
 
-                // var data = new TLSerialization({startMaxLength: message.body.length + 2048})
-                //
-                // data.storeIntBytes(this.serverSalt, 64, 'salt')
-                // data.storeIntBytes(this.sessionID, 64, 'session_id')
-                //
-                // data.storeLong(message.msg_id, 'message_id')
-                // data.storeInt(message.seq_no, 'seq_no')
-                //
-                // data.storeInt(message.body.length, 'message_data_length')
-                // data.storeRawBytes(message.body, 'message_data')
-                //
-                // var dataBuffer = data.getBuffer()
-                //
-                // var paddingLength = (16 - (data.offset % 16)) + 16 * (1 + nextRandomInt(5))
-                // var padding = new Array(paddingLength)
-                // MtpSecureRandom.nextBytes(padding)
-                //
-                // var dataWithPadding = bufferConcat(dataBuffer, padding)
+                var serializer = new TLSerialization();
+
+                if (connectionInited) {
+                    serializer.storeInt(0xda9b0d0d, 'invokeWithLayer')
+                    serializer.storeInt(74, 'layer')
+                    serializer.storeInt(0xc7481da6, 'initConnection')
+                    serializer.storeInt(81724, 'api_id')
+                    serializer.storeString(navigator.userAgent || 'Unknown UserAgent', 'device_model')
+                    serializer.storeString(navigator.platform || 'Unknown Platform', 'system_version')
+                    serializer.storeString('0.1.0', 'app_version')
+                    serializer.storeString(navigator.language || 'en', 'system_lang_code')
+                    serializer.storeString('', 'lang_pack')
+                    serializer.storeString(navigator.language || 'en', 'lang_code')
+                }
+
+                serializer.storeMethod(method, {});
+
+                var messageID = getMessageId();
+                var seqNo = generateSeqNo()
+                var message = {
+                    msg_id: messageID,
+                    seq_no: seqNo,
+                    body: serializer.getBytes(true),
+                    isAPI: true
+                }
+
+                // MtpNetworker.prototype.sendEncryptedRequest = function (message, options) {
+
+                var data = new TLSerialization({startMaxLength: message.body.length + 2048})
+
+                data.storeIntBytes(serverSalt, 64, 'salt')
+                data.storeIntBytes(sessionId, 64, 'session_id')
+
+                data.storeLong(message.msg_id, 'message_id')
+                data.storeInt(message.seq_no, 'seq_no')
+
+                data.storeInt(message.body.length, 'message_data_length')
+                data.storeRawBytes(message.body, 'message_data')
+
+                var dataBuffer = data.getBuffer();
+
+                var paddingLength = (16 - (data.offset % 16)) + 16 * (1 + nextRandomInt(5));
+                var padding = new Array(paddingLength);
+                new SecureRandom().nextBytes(padding);
+
+                var dataWithPadding = bufferConcat(dataBuffer, padding);
+
+                // MtpNetworker.prototype.getEncryptedMessage = function (dataWithPadding) {
+
+                var msgKey = getMsgKey(dataWithPadding, true, authKey);
+                var aesKeyIv = getAesKeyIv(msgKey, true, authKey);
+
+                var ecryptedBytes = aesEncryptSync(dataWithPadding, aesKeyIv[0], aesKeyIv[1]);
+
+                var rq = new TLSerialization({startMaxLength: ecryptedBytes.byteLength + 256})
+                rq.storeIntBytes(authKeyID, 64, 'auth_key_id')
+                rq.storeIntBytes(msgKey, 128, 'msg_key')
+                rq.storeRawBytes(ecryptedBytes, 'encrypted_data')
+
+                var requestData = rq.getArray();
+
+                sendRequest(requestData).then(r => console.log(r));
             });
         }, 500); // it's not working without timeout
     });
