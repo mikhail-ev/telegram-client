@@ -29,6 +29,70 @@ var getMessageId = (function () {
     }
 })();
 
+var generateSeqNo = (function () {
+    var sn = 0;
+    return function (notContentRelated) {
+        var seqNo = sn * 2
+
+        if (!notContentRelated) {
+            seqNo++;
+            sn++;
+        }
+
+        return seqNo;
+    }
+})();
+
+function getMsgKey(dataWithPadding, isOut, authKey) {
+    var x = isOut ? 0 : 8;
+    var msgKeyLargePlain = bufferConcat(convertToUint8Array(authKey).subarray(88 + x, 88 + x + 32), dataWithPadding);
+    var msgKeyLarge = sha256HashSync(msgKeyLargePlain);
+    var msgKey = new Uint8Array(msgKeyLarge).subarray(8, 24);
+    return msgKey;
+}
+
+function getAesKeyIv(msgKey, isOut, authKey) {
+    authKey = convertToUint8Array(authKey);
+    var x = isOut ? 0 : 8;
+    var sha2aText = new Uint8Array(52);
+    var sha2bText = new Uint8Array(52);
+    var promises = {};
+
+    sha2aText.set(msgKey, 0);
+    sha2aText.set(authKey.subarray(x, x + 36), 16);
+    var sha2a = sha256HashSync(sha2aText);
+
+    sha2bText.set(authKey.subarray(40 + x, 40 + x + 36), 0);
+    sha2bText.set(msgKey, 36);
+    var sha2b = sha256HashSync(sha2bText);
+
+    var aesKey = new Uint8Array(32)
+    var aesIv = new Uint8Array(32)
+    var sha2a = new Uint8Array(sha2a)
+    var sha2b = new Uint8Array(sha2b)
+
+    aesKey.set(sha2a.subarray(0, 8))
+    aesKey.set(sha2b.subarray(8, 24), 8)
+    aesKey.set(sha2a.subarray(24, 32), 24)
+
+    aesIv.set(sha2b.subarray(0, 8))
+    aesIv.set(sha2a.subarray(8, 24), 8)
+    aesIv.set(sha2b.subarray(24, 32), 24)
+
+    return [aesKey, aesIv];
+}
+
+function getEncryptedMessage(dataWithPadding, authKey) {
+    var self = this
+    var msgKey = getMsgKey(dataWithPadding, true, authKey);
+    var keyIv = getAesKeyIv(msgKey, true, authKey);
+    var encryptedBytes = convertToArrayBuffer(aesEncryptSync(dataWithPadding, keyIv[0], keyIv[1]));
+    return {
+        bytes: encryptedBytes,
+        msgKey: msgKey
+    };
+}
+
 function sendRequest(byteArray) {
     return new Promise((resolve, reject) => {
         var request = new XMLHttpRequest();
@@ -105,12 +169,16 @@ function saveServerTimeOffset(serverUnixTime) {
     localStorage.setItem('server_time_offset', serverUnixTime - getUnixtime());
 }
 
-function prepareRequest(requestBuffer) {
+function prepareRequest(requestBuffer, authKeyId) {
     var requestLength = requestBuffer.byteLength,
         requestArray = new Int32Array(requestBuffer);
 
     var header = new TLSerialization();
-    header.storeLongP(0, 0, 'auth_key_id');
+    if (authKeyId) {
+        header.storeLong(authKeyId, 'auth_key_id');
+    } else {
+        header.storeLongP(0, 0, 'auth_key_id');
+    }
     var messageId = getMessageId();
     header.storeLong(messageId, 'msg_id');
     header.storeInt(requestLength, 'request_length');
