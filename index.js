@@ -150,13 +150,18 @@ sendRequest(new Int32Array(reqPqRequestBuffer)).then((request) => {
 
                 var sessionId = randomNumber(8);
                 var connectionInited = true;
-                var method = 'help.getNearestDc';
+                var method = 'http_wait';
+                var params = {
+                    max_delay: 500,
+                    wait_after: 150,
+                    max_wait: 3000
+                }
 
                 /////
 
                 /// MtpNetworker.prototype.wrapApiCall
 
-                var serializer = new TLSerialization();
+                var serializer = new TLSerialization({mtproto: true});
 
                 if (connectionInited) {
                     serializer.storeInt(0xda9b0d0d, 'invokeWithLayer')
@@ -171,10 +176,10 @@ sendRequest(new Int32Array(reqPqRequestBuffer)).then((request) => {
                     serializer.storeString(navigator.language || 'en', 'lang_code')
                 }
 
-                serializer.storeMethod(method, {});
+                serializer.storeMethod(method, params);
 
                 var messageID = getMessageId();
-                var seqNo = generateSeqNo()
+                var seqNo = generateSeqNo();
                 var message = {
                     msg_id: messageID,
                     seq_no: seqNo,

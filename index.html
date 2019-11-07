@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+    <!-- Vendors -->
     <script src="vendor/bigint.js"></script>
     <script src="vendor/crypto.js"></script>
     <script src="vendor/jsbn_combined.js"></script>
@@ -12,8 +13,14 @@
     <script src="vendor/rusha.js"></script>
     <script src="vendor/bin_utils.js"></script>
     <script src="vendor/tl_utils.js"></script>
-    <script src="schema.js"></script>
-    <script src="utils.js"></script>
-    <script src="index.js"></script>
+
+    <!-- Config -->
+    <script src="config.js"></script>
+
+    <!-- Modules -->
+    <script src="modules/mtproto/MtpDcConfigurator.js"></script>
+    <script src="modules/mtproto/MtpRsaKeysManager.js"></script>
+    <script src="modules/mtproto/MtpSecureRandom.js"></script>
+    <script src="modules/mtproto/MtpTimeManager.js"></script>
 </body>
 </html>
