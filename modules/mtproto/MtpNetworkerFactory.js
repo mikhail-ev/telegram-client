@@ -26,7 +26,7 @@ window.MtpNetworkerFactory = (function() {
         $(document.body).trigger('online')
     }
 
-    function MtpNetworker (dcID, authKey, serverSalt, options) {
+    function MtpNetworker(dcID, authKey, serverSalt, options) {
         options = options || {}
 
         this.dcID = dcID
@@ -316,11 +316,11 @@ window.MtpNetworkerFactory = (function() {
         sha2bText.set(msgKey, 36)
         promises.sha2b = CryptoWorker.sha256Hash(sha2bText)
 
-        return $q.all(promises).then(function (result) {
+        return Promise.all([promises.sha2a, promises.sha2b]).then(function (result) {
             var aesKey = new Uint8Array(32)
             var aesIv = new Uint8Array(32)
-            var sha2a = new Uint8Array(result.sha2a)
-            var sha2b = new Uint8Array(result.sha2b)
+            var sha2a = new Uint8Array(result[0]) //sha2a
+            var sha2b = new Uint8Array(result[1]) //sha2b
 
             aesKey.set(sha2a.subarray(0, 8))
             aesKey.set(sha2b.subarray(8, 24), 8)
@@ -462,8 +462,7 @@ window.MtpNetworkerFactory = (function() {
                     messagesByteLen += messageByteLength
                     if (message.isAPI) {
                         hasApiCall = true
-                    }
-                    else if (message.longPoll) {
+                    } else if (message.longPoll) {
                         hasHttpWait = true
                     }
                 } else {
@@ -833,8 +832,7 @@ window.MtpNetworkerFactory = (function() {
             if (message.notContentRelated && self.pendingMessages[msgID] === undefined) {
                 // console.log('clean notContentRelated', msgID)
                 delete self.sentMessages[msgID]
-            }
-            else if (message.container) {
+            } else if (message.container) {
                 for (var i = 0; i < message.inner.length; i++) {
                     if (self.sentMessages[message.inner[i]] !== undefined) {
                         // console.log('clean failed, found', msgID, message.inner[i], self.sentMessages[message.inner[i]].seq_no)
@@ -1037,14 +1035,14 @@ window.MtpNetworkerFactory = (function() {
         }
     }
 
-    function startAll () {
+    function startAll() {
         if (akStopped) {
             akStopped = false
             updatesProcessor({_: 'new_session_created'}, true)
         }
     }
 
-    function stopAll () {
+    function stopAll() {
         akStopped = true
     }
 
