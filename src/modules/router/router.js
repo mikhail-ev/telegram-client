@@ -4,11 +4,13 @@ window.TLRouter = (function () {
     function handleHashChange() {
         var hash = window.location.hash;
         var pureHash = hash.split('?')[0];
-
+        debugger;
         if (hash) {
-            loadScript(TLRoutingList[pureHash.slice(1, pureHash.length)].scriptUrl, function () {
-                console.log('script loaded');
-            });
+            var pageSettings = TLRoutingList[pureHash.slice(1, pureHash.length)];
+            window[pageSettings.scriptField].mount();
+            // loadScript(TLRoutingList[pureHash.slice(1, pureHash.length)].scriptUrl, function () {
+            //     console.log('script loaded');
+            // });
         }
     }
 

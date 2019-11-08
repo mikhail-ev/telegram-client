@@ -1,6 +1,7 @@
 window.TLRoutingList = {
     login: {
         templateSelector: '#loginPage',
-        scriptUrl: './pages/login.js'
+        scriptUrl: './modules/login/login.js',
+        scriptField: 'TlLoginPage'
     }
 };

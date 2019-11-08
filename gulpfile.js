@@ -7,7 +7,7 @@ var clean = require('gulp-clean');
 var connect = require('gulp-connect');
 
 gulp.task('clean', function () {
-    return gulp.src('dist/', { read: false })
+    return gulp.src('dist/', {read: false})
         .pipe(clean());
 });
 
@@ -39,7 +39,7 @@ gulp.task('js-lib', function () {
 gulp.task('js-src', function () {
     return gulp.src('src/index.js')
         .pipe(sourcemaps.init())
-        .pipe(rollup({}, { file: 'app.js', format: 'iife' }))
+        .pipe(rollup({}, {file: 'app.js', format: 'iife', strict: false}))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('dist'))
         .pipe(connect.reload());
@@ -53,11 +53,11 @@ gulp.task('js-src', function () {
 
 gulp.task('index', function () {
     return gulp.src('src/index.html')
-        .pipe(inject(gulp.src(['dist/**/*.js'], { read: false })))
+        .pipe(inject(gulp.src(['dist/**/*.js'], {read: false})))
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', function () {
     gulp.watch('src/**/*', gulp.series('js-src'));
 });
 
