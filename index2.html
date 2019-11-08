@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="appRootContainer"></div>
+    <!-- Vendors -->
+    <script src="vendor/bigint.js"></script>
+    <script src="vendor/crypto.js"></script>
+    <script src="vendor/jsbn_combined.js"></script>
+    <script src="vendor/long.js"></script>
+    <script src="vendor/rusha.js"></script>
+    <script src="vendor/bin_utils.js"></script>
+    <script src="vendor/tl_utils.js"></script>
+
+    <!-- Utils -->
+    <script src="modules/mtproto-utils/utils.js"></script>
+    <script src="modules/mtproto-utils/angular.js"></script>
+
+    <!-- Config -->
+    <script src="config.js"></script>
+
+    <!-- Modules -->
+    <script src="router/app.routing.js"></script>
+    <script src="router/router.js"></script>
+    <script src="modules/mtproto-utils/Storage.js"></script>
+    <script src="modules/mtproto-utils/timeout.js"></script>
+    <script src="modules/mtproto-utils/q.js"></script>
+    <script src="modules/mtproto-utils/interval.js"></script>
+    <script src="modules/mtproto-utils/http.js"></script>
+    <script src="modules/mtproto-utils/rootScope.js"></script>
+    <script src="modules/mtproto-utils/CryptoWorker.js"></script>
+    <script src="modules/mtproto/MtpDcConfigurator.js"></script>
+    <script src="modules/mtproto/MtpRsaKeysManager.js"></script>
+    <script src="modules/mtproto/MtpSecureRandom.js"></script>
+    <script src="modules/mtproto/MtpTimeManager.js"></script>
+    <script src="modules/mtproto/MtpAuthorizer.js"></script>
+    <script src="modules/mtproto/MtpNetworkerFactory.js"></script>
+    <script src="modules/mtproto/MtpApiManager.js"></script>
+
+    <!-- Scripts -->
+    <script src="index.js"></script>
+
+    <template id="loginPage">
+        <div class="tlc-page">
+            <div class="tlc-page__logo-wrap">
+                <img class="tlc-page__main-logo" src="./assests/img/t_logo.png"/>
+                <div class="tlc-page__main-logo-title ">Sign in to Telegram</div>
+                <div class="tlc-page__main-logo-sub-title ">Please confirm your country and enter your phone number</div>
+            </div>
+        </div>
+    </template>
+</body>
+</html>
