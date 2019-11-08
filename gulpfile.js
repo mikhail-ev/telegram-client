@@ -37,7 +37,7 @@ gulp.task('js-lib', function () {
 });
 
 gulp.task('js-src', function () {
-    return gulp.src('index.js')
+    return gulp.src('src/index.js')
         .pipe(sourcemaps.init())
         .pipe(rollup({}, { file: 'app.js', format: 'iife' }))
         .pipe(sourcemaps.write())
@@ -52,7 +52,7 @@ gulp.task('js-src', function () {
 // });
 
 gulp.task('index', function () {
-    return gulp.src('index.html')
+    return gulp.src('src/index.html')
         .pipe(inject(gulp.src(['dist/**/*.js'], { read: false })))
         .pipe(gulp.dest('dist'));
 });
