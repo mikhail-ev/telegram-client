@@ -1,9 +1,13 @@
 // MtpDcConfigurator, MtpRsaKeysManager, MtpSecureRandom, MtpTimeManager, CryptoWorker, $http, $q, $timeout
-window.MtpAuthorizer = (function() {
+window.MtpAuthorizer = (function () {
     var MtpDcConfigurator = window.MtpDcConfigurator;
     var MtpRsaKeysManager = window.MtpRsaKeysManager;
     var MtpSecureRandom = window.MtpSecureRandom;
     var MtpTimeManager = window.MtpTimeManager;
+    var CryptoWorker = window.CryptoWorker;
+    var $http = window.$http;
+    var $q = window.$q;
+    var $timeout = window.$timeout;
     var chromeMatches = navigator.userAgent.match(/Chrome\/(\d+(\.\d+)?)/)
     var chromeVersion = chromeMatches && parseFloat(chromeMatches[1]) || false
     var xhrSendBuffer = !('ArrayBufferView' in window) && (chromeVersion > 0 && chromeVersion < 30)
@@ -11,7 +15,7 @@ window.MtpAuthorizer = (function() {
     delete $http.defaults.headers.post['Content-Type']
     delete $http.defaults.headers.common['Accept']
 
-    function mtpSendPlainRequest (dcID, requestBuffer) {
+    function mtpSendPlainRequest(dcID, requestBuffer) {
         var requestLength = requestBuffer.byteLength,
             requestArray = new Int32Array(requestBuffer)
 
@@ -33,14 +37,14 @@ window.MtpAuthorizer = (function() {
         var requestData = xhrSendBuffer ? resultBuffer : resultArray,
             requestPromise
         var url = MtpDcConfigurator.chooseServer(dcID)
-        var baseError = {code: 406, type: 'NETWORK_BAD_RESPONSE', url: url}
+        var baseError = { code: 406, type: 'NETWORK_BAD_RESPONSE', url: url }
         try {
             requestPromise = $http.post(url, requestData, {
                 responseType: 'arraybuffer',
                 transformRequest: null
             })
         } catch (e) {
-            requestPromise = $q.reject(angular.extend(baseError, {originalError: e}))
+            requestPromise = $q.reject(angular.extend(baseError, { originalError: e }))
         }
         return requestPromise.then(
             function (result) {
@@ -49,31 +53,31 @@ window.MtpAuthorizer = (function() {
                 }
 
                 try {
-                    var deserializer = new TLDeserialization(result.data, {mtproto: true})
+                    var deserializer = new TLDeserialization(result.data, { mtproto: true })
                     var auth_key_id = deserializer.fetchLong('auth_key_id')
                     var msg_id = deserializer.fetchLong('msg_id')
                     var msg_len = deserializer.fetchInt('msg_len')
                 } catch (e) {
-                    return $q.reject(angular.extend(baseError, {originalError: e}))
+                    return $q.reject(angular.extend(baseError, { originalError: e }))
                 }
 
                 return deserializer
             },
             function (error) {
                 if (!error.message && !error.type) {
-                    error = angular.extend(baseError, {originalError: error})
+                    error = angular.extend(baseError, { originalError: error })
                 }
                 return $q.reject(error)
             }
         )
     }
 
-    function mtpSendReqPQ (auth) {
+    function mtpSendReqPQ(auth) {
         var deferred = auth.deferred
 
-        var request = new TLSerialization({mtproto: true})
+        var request = new TLSerialization({ mtproto: true })
 
-        request.storeMethod('req_pq', {nonce: auth.nonce})
+        request.storeMethod('req_pq', { nonce: auth.nonce })
 
         console.log(dT(), 'Send req_pq', bytesToHex(auth.nonce))
         mtpSendPlainRequest(auth.dcID, request.getBuffer()).then(function (deserializer) {
@@ -119,13 +123,13 @@ window.MtpAuthorizer = (function() {
         })
     }
 
-    function mtpSendReqDhParams (auth) {
+    function mtpSendReqDhParams(auth) {
         var deferred = auth.deferred
 
         auth.newNonce = new Array(32)
         MtpSecureRandom.nextBytes(auth.newNonce)
 
-        var data = new TLSerialization({mtproto: true})
+        var data = new TLSerialization({ mtproto: true })
         data.storeObject({
             _: 'p_q_inner_data',
             pq: auth.pq,
@@ -138,7 +142,7 @@ window.MtpAuthorizer = (function() {
 
         var dataWithHash = sha1BytesSync(data.getBuffer()).concat(data.getBytes())
 
-        var request = new TLSerialization({mtproto: true})
+        var request = new TLSerialization({ mtproto: true })
         request.storeMethod('req_DH_params', {
             nonce: auth.nonce,
             server_nonce: auth.serverNonce,
@@ -190,7 +194,7 @@ window.MtpAuthorizer = (function() {
         })
     }
 
-    function mtpDecryptServerDhDataAnswer (auth, encryptedAnswer) {
+    function mtpDecryptServerDhDataAnswer(auth, encryptedAnswer) {
         auth.localTime = tsNow()
 
         auth.tmpAesKey = sha1BytesSync(auth.newNonce.concat(auth.serverNonce)).concat(sha1BytesSync(auth.serverNonce.concat(auth.newNonce)).slice(0, 12))
@@ -202,7 +206,7 @@ window.MtpAuthorizer = (function() {
         var answerWithPadding = answerWithHash.slice(20)
         var buffer = bytesToArrayBuffer(answerWithPadding)
 
-        var deserializer = new TLDeserialization(buffer, {mtproto: true})
+        var deserializer = new TLDeserialization(buffer, { mtproto: true })
         var response = deserializer.fetchObject('Server_DH_inner_data')
 
         if (response._ != 'server_DH_inner_data') {
@@ -273,7 +277,7 @@ window.MtpAuthorizer = (function() {
         return true
     }
 
-    function mtpSendSetClientDhParams (auth) {
+    function mtpSendSetClientDhParams(auth) {
         var deferred = auth.deferred
         var gBytes = bytesFromHex(auth.g.toString(16))
 
@@ -281,7 +285,7 @@ window.MtpAuthorizer = (function() {
         MtpSecureRandom.nextBytes(auth.b)
 
         CryptoWorker.modPow(gBytes, auth.b, auth.dhPrime).then(function (gB) {
-            var data = new TLSerialization({mtproto: true})
+            var data = new TLSerialization({ mtproto: true })
             data.storeObject({
                 _: 'client_DH_inner_data',
                 nonce: auth.nonce,
@@ -294,7 +298,7 @@ window.MtpAuthorizer = (function() {
 
             var encryptedData = aesEncryptSync(dataWithHash, auth.tmpAesKey, auth.tmpAesIv)
 
-            var request = new TLSerialization({mtproto: true})
+            var request = new TLSerialization({ mtproto: true })
             request.storeMethod('set_client_DH_params', {
                 nonce: auth.nonce,
                 server_nonce: auth.serverNonce,
@@ -377,7 +381,7 @@ window.MtpAuthorizer = (function() {
 
     var cached = {}
 
-    function mtpAuth (dcID) {
+    function mtpAuth(dcID) {
         if (cached[dcID] !== undefined) {
             return cached[dcID]
         }

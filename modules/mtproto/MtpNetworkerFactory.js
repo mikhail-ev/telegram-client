@@ -1,6 +1,16 @@
-// MtpDcConfigurator, MtpTimeManager, MtpSecureRandom, Storage, CryptoWorker, AppRuntimeManager, $http, $q, $timeout, $interval, $rootScope
+// MtpDcConfigurator, MtpTimeManager, MtpSecureRandom, Storage, CryptoWorker, $http, $q, $timeout, $interval, $rootScope
 window.MtpNetworkerFactory = (function() {
-    var updatesProcessor
+    var MtpDcConfigurator = window.MtpDcConfigurator;
+    var MtpTimeManager = window.MtpTimeManager;
+    var MtpSecureRandom = window.MtpSecureRandom;
+    var Storage = window.Storage;
+    var CryptoWorker = window.CryptoWorker;
+    var $http = window.$http;
+    var $q = window.$q;
+    var $timeout = window.$timeout;
+    var $interval = window.$interval;
+    var $rootScope = window.$rootScope;
+    var updatesProcessor;
     var iii = 0,
         offline
     var offlineInited = false
