@@ -11,7 +11,9 @@ window.$timeout = (function () {
     }
 
     $timeout.cancel = function (promise) {
-        clearTimeout(promise.id);
+        if (promise) {
+            clearTimeout(promise.id);
+        }
     };
 
     return $timeout;

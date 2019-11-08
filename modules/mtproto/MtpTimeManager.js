@@ -1,8 +1,10 @@
 window.MtpTimeManager = (function () {
+    var Storage = window.Storage;
     var lastMessageID = [0, 0]
     var timeOffset = 0
 
-    var to = localStorage.getItem('server_time_offset');
+    // var to = localStorage.getItem('server_time_offset');
+    var to = Storage.get('server_time_offset');
     if (to) {
         timeOffset = to;
     }
@@ -29,7 +31,7 @@ window.MtpTimeManager = (function () {
     function applyServerTime(serverTime, localTime) {
         var newTimeOffset = serverTime - Math.floor((localTime || tsNow()) / 1000)
         var changed = Math.abs(timeOffset - newTimeOffset) > 10;
-        localStorage.set({ server_time_offset: newTimeOffset });
+        Storage.set({ server_time_offset: newTimeOffset });
 
         lastMessageID = [0, 0];
         timeOffset = newTimeOffset;

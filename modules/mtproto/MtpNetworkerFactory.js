@@ -10,6 +10,7 @@ window.MtpNetworkerFactory = (function() {
     var $timeout = window.$timeout;
     var $interval = window.$interval;
     var $rootScope = window.$rootScope;
+    var angular = window.angular;
     var updatesProcessor;
     var iii = 0,
         offline
@@ -253,7 +254,7 @@ window.MtpNetworkerFactory = (function() {
             longPoll: true
         }).then(function () {
             delete self.longPollPending
-            setZeroTimeout(self.checkLongPoll.bind(self))
+            setTimeout(self.checkLongPoll.bind(self)); // TODO setZeroTimeout
         }, function (error) {
             console.log('Long-poll failed', error)
         })
@@ -805,7 +806,7 @@ window.MtpNetworkerFactory = (function() {
         if (delay > 0) {
             this.nextReqPromise = $timeout(this.performSheduledRequest.bind(this), delay || 0)
         } else {
-            setZeroTimeout(this.performSheduledRequest.bind(this))
+            setTimeout(this.performSheduledRequest.bind(this)) // TODO setZeroTimeout
         }
 
         this.nextReq = nextReq

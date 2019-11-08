@@ -7,6 +7,7 @@ window.MtpAuthorizer = (function () {
     var CryptoWorker = window.CryptoWorker;
     var $http = window.$http;
     var $q = window.$q;
+    var angular = window.angular;
     var $timeout = window.$timeout;
     var chromeMatches = navigator.userAgent.match(/Chrome\/(\d+(\.\d+)?)/)
     var chromeVersion = chromeMatches && parseFloat(chromeMatches[1]) || false
