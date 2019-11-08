@@ -10,7 +10,7 @@ window.MtpAuthorizer = (function () {
     var $timeout = window.$timeout;
     var chromeMatches = navigator.userAgent.match(/Chrome\/(\d+(\.\d+)?)/)
     var chromeVersion = chromeMatches && parseFloat(chromeMatches[1]) || false
-    var xhrSendBuffer = !('ArrayBufferView' in window) && (chromeVersion > 0 && chromeVersion < 30)
+    var xhrSendBuffer = !('ArrayBufferView' in window) && (chromeVersion > 0 && chromeVersion < 30);
 
     delete $http.defaults.headers.post['Content-Type']
     delete $http.defaults.headers.common['Accept']

@@ -16,4 +16,4 @@ window.$q = (function () {
             return Promise.reject(e);
         }
     };
-}());
+})();
