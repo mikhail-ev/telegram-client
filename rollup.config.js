@@ -1,3 +1,5 @@
+const babel = require('rollup-plugin-babel');
+
 module.exports = [
     {
         input: 'src/modules/login/login.js',
@@ -6,7 +8,8 @@ module.exports = [
             file: 'dist/login.js',
             format: 'umd',
             sourcemap: true
-        }
+        },
+        plugins: [babel({ plugins: [['@babel/plugin-proposal-class-properties', { loose: true }]] })]
     },
     {
         input: 'src/modules/messenger/messenger.js',

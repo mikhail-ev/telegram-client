@@ -8,6 +8,8 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/plugin-proposal-class-properties": "^7.7.0",
     "gulp": "^4.0.2",
     "gulp-clean": "^0.4.0",
     "gulp-concat": "^2.6.1",
@@ -15,7 +17,8 @@
     "gulp-inject": "^5.0.4",
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.5",
-    "rollup": "^1.26.3"
+    "rollup": "^1.26.3",
+    "rollup-plugin-babel": "^4.3.3"
   },
   "scripts": {
     "start": "gulp default:serve",
