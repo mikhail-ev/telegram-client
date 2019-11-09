@@ -1,14 +1,14 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
-var sourcemaps = require('gulp-sourcemaps');
-var rollup = require('gulp-better-rollup');
 var inject = require('gulp-inject');
 var clean = require('gulp-clean');
 var connect = require('gulp-connect');
 var sass = require('gulp-sass');
+var rollup = require('rollup');
+var config = require('./rollup.config');
 
 gulp.task('clean', function () {
-    return gulp.src('dist/', {read: false})
+    return gulp.src('dist/', { read: false })
         .pipe(clean());
 });
 
@@ -37,13 +37,14 @@ gulp.task('js-lib', function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('js-src', function () {
-    return gulp.src('src/index.js')
-        .pipe(sourcemaps.init())
-        .pipe(rollup({}, {file: 'app.js', format: 'umd', strict: false}))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest('dist'))
-        .pipe(connect.reload());
+gulp.task('js-src', function (callback) {
+    var watcher = rollup.watch(config);
+    watcher.on('event', function (event) {
+        if (event.code === 'END') {
+            watcher.close();
+            callback();
+        }
+    });
 });
 
 gulp.task('css', function () {
@@ -53,14 +54,14 @@ gulp.task('css', function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('assets', function() {
+gulp.task('assets', function () {
     return gulp.src('src/assets/**/*')
         .pipe(gulp.dest('dist/assets'));
 });
 
 gulp.task('index', function () {
     return gulp.src('src/index.html')
-        .pipe(inject(gulp.src(['dist/**/*.js'], {read: false})))
+        .pipe(inject(gulp.src(['dist/**/*.js'], { read: false })))
         .pipe(gulp.dest('dist'));
 });
 

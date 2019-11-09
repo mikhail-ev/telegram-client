@@ -1,7 +1,5 @@
-import './modules/router/app.routing';
-import './modules/router/router';
-import './modules/login/login';
+import { init as initRouter } from './modules/router/router';
 
-TLRouter.init();
+initRouter();
 
 console.log('bootstrap!');

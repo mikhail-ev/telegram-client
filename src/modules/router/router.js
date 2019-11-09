@@ -1,53 +1,74 @@
-window.TLRouter = (function () {
-    var appContainerElem = document.querySelectorAll('#appRootContainer')[0];
+import { routing } from './routing';
 
-    function handleHashChange() {
-        var hash = window.location.hash;
+var rootId = 'root';
+
+var loadedFiles = {};
+var activeModule = null;
+
+function handleHashChange() {
+    var hash = window.location.hash;
+    var route;
+
+    if (hash) {
         var pureHash = hash.split('?')[0];
-        if (hash) {
-            var pageSettings = TLRoutingList[pureHash.slice(1, pureHash.length)];
-            window[pageSettings.scriptField].mount();
-            // loadScript(TLRoutingList[pureHash.slice(1, pureHash.length)].scriptUrl, function () {
-            //     console.log('script loaded');
-            // });
-        }
+        var routeName = pureHash.slice(1, pureHash.length);
+        route = routing[routeName];
+    } else {
+        route = routing['*'];
     }
 
-    function loadScript(url, callback) {
-        var script = document.createElement("script");
-        script.type = "text/javascript";
-
-        if (script.readyState) {  //IE
-            script.onreadystatechange = function () {
-                if (script.readyState === 'loaded' || script.readyState === 'complete') {
-                    script.onreadystatechange = null;
-                    callback();
-                }
-            };
-        } else {  //Others
-            script.onload = function () {
-                callback();
-            };
+    loadScript('./' + route.file, () => {
+        if (activeModule) {
+            activeModule.unmount();
         }
+        activeModule = window[route.name];
+        activeModule.mount(rootId);
+    });
+}
 
-        script.src = url;
-        document.getElementsByTagName("body")[0].appendChild(script);
+function loadScript(url, callback) {
+    if (loadedFiles[url]) {
+        return callback();
     }
 
-    return {
-        init: function () {
-            window.addEventListener('hashchange', function () {
-                console.log('[JS_EVENT:: hashchange] Hash was changed.');
-                handleHashChange();
-            });
+    var script = document.createElement("script");
+    script.type = "text/javascript";
 
-            window.addEventListener('DOMContentLoaded', function (ev) {
-                console.log('[JS_EVENT:: DOMContentLoaded] Content was loaded.');
-                handleHashChange();
-            });
-        }
+    if (script.readyState) {  //IE
+        script.onreadystatechange = function () {
+            if (script.readyState === 'loaded' || script.readyState === 'complete') {
+                script.onreadystatechange = null;
+                return onLoad();
+            }
+        };
+    } else {  //Others
+        script.onload = function () {
+            return onLoad();
+        };
     }
-}());
+
+    function onLoad() {
+        loadedFiles[url] = true;
+        return callback();
+    }
+
+    script.src = url;
+    document.getElementsByTagName("body")[0].appendChild(script);
+}
+
+function init() {
+    window.addEventListener('hashchange', function () {
+        console.log('[JS_EVENT:: hashchange] Hash was changed.');
+        handleHashChange();
+    });
+
+    window.addEventListener('DOMContentLoaded', function (ev) {
+        console.log('[JS_EVENT:: DOMContentLoaded] Content was loaded.');
+        handleHashChange();
+    });
+}
+
+export { init };
 
 
 
