@@ -4,7 +4,6 @@ window.TLRouter = (function () {
     function handleHashChange() {
         var hash = window.location.hash;
         var pureHash = hash.split('?')[0];
-        debugger;
         if (hash) {
             var pageSettings = TLRoutingList[pureHash.slice(1, pureHash.length)];
             window[pageSettings.scriptField].mount();
@@ -15,7 +14,6 @@ window.TLRouter = (function () {
     }
 
     function loadScript(url, callback) {
-
         var script = document.createElement("script");
         script.type = "text/javascript";
 

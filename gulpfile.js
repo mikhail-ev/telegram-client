@@ -5,6 +5,7 @@ var rollup = require('gulp-better-rollup');
 var inject = require('gulp-inject');
 var clean = require('gulp-clean');
 var connect = require('gulp-connect');
+var sass = require('gulp-sass');
 
 gulp.task('clean', function () {
     return gulp.src('dist/', {read: false})
@@ -39,17 +40,23 @@ gulp.task('js-lib', function () {
 gulp.task('js-src', function () {
     return gulp.src('src/index.js')
         .pipe(sourcemaps.init())
-        .pipe(rollup({}, {file: 'app.js', format: 'iife', strict: false}))
+        .pipe(rollup({}, {file: 'app.js', format: 'umd', strict: false}))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('dist'))
         .pipe(connect.reload());
 });
 
-// gulp.task('pack-css', function () {
-//     return gulp.src(['assets/css/main.css', 'assets/css/custom.css'])
-//         .pipe(concat('stylesheet.css'))
-//         .pipe(gulp.dest('public/build/css'));
-// });
+gulp.task('css', function () {
+    return gulp.src(['src/**/*.scss'])
+        .pipe(sass.sync().on('error', sass.logError))
+        .pipe(concat('styles.css'))
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('assets', function() {
+    return gulp.src('src/assets/**/*')
+        .pipe(gulp.dest('dist/assets'));
+});
 
 gulp.task('index', function () {
     return gulp.src('src/index.html')
@@ -57,8 +64,12 @@ gulp.task('index', function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('watch', function () {
-    gulp.watch('src/**/*', gulp.series('js-src'));
+gulp.task('watch:js', function () {
+    gulp.watch(['src/**/*.js', 'src/index.html'], gulp.series('js-src', 'index'));
+});
+
+gulp.task('watch:scss', function () {
+    gulp.watch('src/**/*.scss', gulp.series('css', 'index'));
 });
 
 gulp.task('serve', function () {
@@ -70,5 +81,5 @@ gulp.task('serve', function () {
     });
 });
 
-gulp.task('default', gulp.series('clean', 'js-lib', 'js-src', 'index'));
-gulp.task('default:serve', gulp.series('clean', 'js-lib', 'js-src', 'index', gulp.parallel('watch', 'serve')));
+gulp.task('default', gulp.series('clean', 'css', 'js-lib', 'js-src', 'assets', 'index'));
+gulp.task('default:serve', gulp.series('default', gulp.parallel('watch:js', 'watch:scss', 'serve')));
