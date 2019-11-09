@@ -1,16 +1,10 @@
-import {mount as mountForm} from './components/form/form';
-import {mount as mountInput} from '../common/components/input/input';
+import { mount as mountSignIn } from './components/sign-in-form/sign-in-form';
 
-function mount(containerId) {
+function mount(container) {
     var templateId = 'loginPage';
     var template = document.getElementById(templateId);
-    var container = document.getElementById(containerId);
-    container.innerHTML = '';
     container.innerHTML = template.innerHTML;
-    setTimeout(() => {
-        mountForm();
-        mountInput();
-    }, 1000);
+    mountSignIn(container.querySelectorAll('.login-page')[0]);
 }
 
 function unmount() {

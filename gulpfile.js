@@ -37,13 +37,18 @@ gulp.task('js-lib', function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('js-src', function (callback) {
-    var watcher = rollup.watch(config);
-    watcher.on('event', function (event) {
-        if (event.code === 'END') {
-            watcher.close();
-            callback();
-        }
+gulp.task('js-src', function (done) {
+    return new Promise((resolve, reject) => {
+        var watcher = rollup.watch(config);
+        watcher.on('event', function (event) {
+            if (event.code === 'END') {
+                watcher.close();
+                resolve();
+            } else if(event.code === 'ERROR') {
+                console.log('Rollup error: ', event);
+                reject();
+            }
+        });
     });
 });
 
@@ -66,15 +71,15 @@ gulp.task('index', function () {
 });
 
 gulp.task('watch:js', function () {
-    gulp.watch(['src/**/*.js', 'src/index.html'], gulp.series('js-src', 'index'));
+    return gulp.watch(['src/**/*.js', 'src/index.html'], gulp.series('js-src', 'index'));
 });
 
 gulp.task('watch:scss', function () {
-    gulp.watch('src/**/*.scss', gulp.series('css', 'index'));
+    return gulp.watch('src/**/*.scss', gulp.series('css', 'index'));
 });
 
 gulp.task('serve', function () {
-    connect.server({
+    return connect.server({
         name: 'App',
         root: ['dist'],
         port: 4000,

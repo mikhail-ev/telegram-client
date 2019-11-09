@@ -1,6 +1,7 @@
 import { routing } from './routing';
 
 var rootId = 'root';
+var root = document.getElementById(rootId);
 
 var loadedFiles = {};
 var activeModule = null;
@@ -22,7 +23,7 @@ function handleHashChange() {
             activeModule.unmount();
         }
         activeModule = window[route.name];
-        activeModule.mount(rootId);
+        activeModule.mount(root);
     });
 }
 
