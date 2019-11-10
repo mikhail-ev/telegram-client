@@ -1,0 +1,5 @@
+@import '../mixins/buttons';
+
+.tl-button {
+	@include tl-button();
+}

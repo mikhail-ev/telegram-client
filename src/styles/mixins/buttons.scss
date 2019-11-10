@@ -1,0 +1,25 @@
+@import "../utils/variables/values";
+@import "../utils/variables/colors";
+
+@mixin tl-button {
+	display: inline-block;
+	background: 0 0;
+	outline: 0;
+	position: relative;
+	cursor: pointer;
+	border: none;
+	text-align: center;
+	font-size: 15px;
+	border-radius: $tl-default-border-radius;
+	padding: 10px 15px;
+	width: auto;
+
+	&_primary {
+		color: $tl-c-white;
+		background-color: $tl-c-malibu;
+	}
+
+	&_wide {
+		width: 100%;
+	}
+}

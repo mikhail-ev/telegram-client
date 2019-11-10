@@ -35,8 +35,8 @@ HtmlDropDownElement.prototype.$$initMenuEvents = function () {
 				return item.id == event.target.getAttribute('data.id');
 			});
 
-			if (this.$$options.onSelectFn) {
-				this.$$options.onSelectFn(value);
+			if (self.$$options.onSelectFn) {
+				self.$$options.onSelectFn(value);
 			}
 
 			self.hide();
