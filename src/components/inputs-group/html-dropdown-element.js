@@ -13,7 +13,6 @@ HtmlDropDownElement.prototype.$$initMenuEvents = function () {
 	self.$$input = self.element.querySelectorAll('.tl-dropdown__input')[0];
 	self.$$content = self.element.querySelectorAll('.tl-dropdown__content')[0];
 	self.$$handleDocumentClickFn = function (event) {
-		console.log(arguments);
 		if (!self.$$isOpened || !event.target /*|| jQuery(event.target).hasClass(dd.toogleIconClass)*/) {
 			return;
 		} else if ((self.$$input !== event.target && !self.$$content.contains(event.target))) {
@@ -42,7 +41,6 @@ HtmlDropDownElement.prototype.$$initMenuEvents = function () {
 
 			self.hide();
 		}
-		console.log(this, arguments[0].target);
 	};
 	self.$$content.addEventListener('click', self.$$handleSelectFn);
 	self.$$wrapper.addEventListener('click', self.$$handleInputClickFn);
