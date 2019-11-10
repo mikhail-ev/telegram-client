@@ -2,12 +2,11 @@
 @import "../utils/variables/values";
 @import '../mixins/input.mixin';
 
-$c-color-select-item: $tl-c-gray-suit;
+$c-color-select-item: $tl-c-whitesmoke;
 
 @mixin tl-dropdown {
 	max-width: 100%;
 	position: relative;
-
 	////// when ct is open
 	&_open {
 		.tl-dropdown__content {
@@ -28,11 +27,11 @@ $c-color-select-item: $tl-c-gray-suit;
 	}
 
 	&__input {
+		line-height: $tl-input-height - $tl-input-vertical-padding * 2 - $tl-default-border-size * 2;
 		width: 100%;
 		outline: none;
 		border: 0;
 		vertical-align: middle;
-		height: $tl-input-height;
 		font-size: $tl-input-font-size;
 	}
 
@@ -46,19 +45,23 @@ $c-color-select-item: $tl-c-gray-suit;
 		max-height: 301px;
 		overflow: auto;
 		background-color: $tl-c-white;
-		border: 1px solid $tl-c-malibu;
+		border: $tl-default-border-size solid $tl-c-malibu;
 		border-radius: $tl-default-border-radius;
 	}
 
 	&__list {
 		padding: 0;
+		margin: 0;
 	}
 
 	&__list-item {
+		line-height: 35px;
 		padding: 5px 10px;
 		transition: all .2s ease-in-out;
 		cursor: pointer;
 		list-style: none;
+		display: flex;
+		vertical-align: middle;
 
 		&:hover {
 			background-color: $c-color-select-item;

@@ -1,16 +1,16 @@
 @import "../utils/variables/values";
 @import "../utils/variables/colors";
 
-@mixin tl-input(){
+@mixin tl-input() {
 	font-size: $tl-input-font-size;
 	line-height: $tl-input-height;
 	box-shadow: 0 0 5px $tl-c-athens-gray inset;
 	outline: 0;
 	width: 100%;
-	padding: 3px 10px;
+	padding: $tl-input-vertical-padding 10px;
 	background: $tl-c-white;
-	border: 1px solid $tl-c-gray-suit;
-	min-height: $tl-input-height;
+	border: $tl-default-border-size solid $tl-c-gray-suit;
+	min-height: $tl-input-height - $tl-input-vertical-padding * 2 - $tl-default-border-size * 2;
 	border-radius: $tl-default-border-radius;
 
 	&_border-black {

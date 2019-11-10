@@ -13,6 +13,7 @@
 	border-radius: $tl-default-border-radius;
 	padding: 10px 15px;
 	width: auto;
+	min-height: $tl-button-height;
 
 	&_primary {
 		color: $tl-c-white;

@@ -34,7 +34,7 @@ HtmlDropDownElement.prototype.$$initMenuEvents = function () {
 			var value = self.$$data.find(function (item) {
 				return item.id == event.target.getAttribute('data.id');
 			});
-
+			self.$$input.value = value[self.$$displayName];
 			if (self.$$options.onSelectFn) {
 				self.$$options.onSelectFn(value);
 			}
@@ -47,20 +47,22 @@ HtmlDropDownElement.prototype.$$initMenuEvents = function () {
 	document.addEventListener('click', self.$$handleDocumentClickFn);
 };
 HtmlDropDownElement.prototype.setData = function (dataArray, options) {
-	var id = 'id', displayName = 'name';
 	var self = this;
+	self.$$id = 'id';
+	self.$$displayName = 'name';
 	self.$$data = dataArray;
+
 	if (options) {
-		id = options.id || id;
-		displayName = options.displayName || displayName;
+		self.$$id = options.id || self.$$id;
+		self.$$displayName = options.displayName || self.$$displayName;
 	}
 	var ul = document.createElement('ul');
 	ul.classList.add('tl-dropdown__list');
 	for (var i = 0; i < dataArray.length; i++) {
 		var li = document.createElement('li');
 		li.classList.add('tl-dropdown__list-item');
-		li.innerText = dataArray[i][displayName];
-		li.setAttribute('data.id', dataArray[i][id]);
+		li.innerText = dataArray[i][self.$$displayName];
+		li.setAttribute('data.id', dataArray[i][self.$$id]);
 		ul.appendChild(li)
 	}
 	self.$$content.appendChild(ul);
