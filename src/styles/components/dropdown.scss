@@ -1,0 +1,6 @@
+@import '../mixins/dropdown.mixin';
+@import '../mixins/input.mixin';
+
+.tl-dropdown {
+	@include tl-dropdown();
+}

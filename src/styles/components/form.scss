@@ -1,0 +1,11 @@
+.tl-control-group {
+	position: relative;
+
+	input[value=""] {
+		border-color: #000000;
+	}
+
+	input[value=""] + label {
+		display: none;
+	}
+}

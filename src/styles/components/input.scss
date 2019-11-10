@@ -1,0 +1,5 @@
+@import '../mixins/input.mixin';
+
+.tl-input {
+	@include tl-input();
+}

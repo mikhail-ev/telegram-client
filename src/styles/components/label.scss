@@ -1,0 +1,5 @@
+@import '../mixins/label.mixin';
+
+.tl-label {
+	@include tl-label();
+}

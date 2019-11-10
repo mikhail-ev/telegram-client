@@ -5,6 +5,7 @@
 	<link rel="stylesheet" href="./styles.css">
 </head>
 <body>
+
     <div id="root"></div>
 
     <!------------ Templates section ---------------->
@@ -61,9 +62,32 @@
     </div>
     <div style="margin-bottom: 10px"></div>
     <div class="tl-control-group">
+        <input id="test" type="text" class="tl-input tl-input_border-blue" placeholder="Bio (optional)" value=""/>
         <label class="tl-label tl-label_text-blue">Bio (optional)</label>
-        <input type="text" class="tl-input tl-input_border-blue" placeholder="Bio (optional)"/>
     </div>
+    <div style="margin-bottom: 10px"></div>
+        <div id="ddtest" class="tl-dropdown">
+                <label class="tl-dropdown__wrapper">
+                    <input class="tl-dropdown__input"
+                           type="text"
+                           autocomplete="off"/>
+<!--                    <i class="fa btn-toggle" [ngClass]="isOpened ? 'fa-chevron-up' : 'fa-chevron-down'"></i>-->
+                </label>
+            <div class="tl-dropdown__content">
+<!--                <ul class="tl-dropdown__list">-->
+<!--                    <li class="tl-dropdown__list-item">-->
+<!--                     1-->
+<!--                    </li>-->
+<!--                    <li class="tl-dropdown__list-item">-->
+<!--                        2-->
+<!--                    </li>-->
+<!--                    <li class="tl-dropdown__list-item">-->
+<!--                        3-->
+<!--                    </li>-->
+<!--                </ul>-->
+            </div>
+        </div>
+
     <!------------ Scripts section ---------------->
     <script src="./vendors.js"></script>
     <script src="./bootstrap.js"></script>

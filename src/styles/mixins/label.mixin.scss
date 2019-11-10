@@ -1,0 +1,14 @@
+@import "../utils/variables/colors";
+
+@mixin tl-label() {
+	position: absolute;
+	top: -7px;
+	left: 30px;
+	padding: 0 3px;
+	background-color: $tl-c-white;
+	color: $tl-c-black;
+
+	&_text-blue {
+		color: $tl-c-malibu;
+	}
+}

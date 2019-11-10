@@ -1,0 +1,75 @@
+@import "../utils/variables/z-indexes";
+@import "../utils/variables/values";
+@import '../mixins/input.mixin';
+
+$c-color-select-item: $tl-c-gray-suit;
+
+@mixin tl-dropdown {
+	max-width: 100%;
+	position: relative;
+
+	////// when ct is open
+	&_open {
+		.tl-dropdown__content {
+			display: block !important;
+			z-index: $tl-dropdown-z-index;
+			border: 1px solid $tl-c-gray-suit;
+		}
+
+		.tl-dropdown__wrapper {
+			z-index: $tl-dropdown-z-index;
+		}
+	}
+
+	&__wrapper {
+		@include tl-input();
+		width: auto;
+		display: block;
+	}
+
+	&__input {
+		width: 100%;
+		outline: none;
+		border: 0;
+		vertical-align: middle;
+		height: $tl-input-height;
+		font-size: $tl-input-font-size;
+	}
+
+	&__content {
+		display: none;
+		position: absolute;
+		top: $tl-input-height + 20px;
+		right: 0;
+		left: 0;
+		padding: 5px 0;
+		max-height: 301px;
+		overflow: auto;
+		background-color: $tl-c-white;
+		border: 1px solid $tl-c-malibu;
+		border-radius: $tl-default-border-radius;
+	}
+
+	&__list {
+		padding: 0;
+	}
+
+	&__list-item {
+		padding: 5px 10px;
+		transition: all .2s ease-in-out;
+		cursor: pointer;
+		list-style: none;
+
+		&:hover {
+			background-color: $c-color-select-item;
+		}
+
+		&:active {
+			background-color: $c-color-select-item;
+		}
+
+		&.hover {
+			background-color: $c-color-select-item;
+		}
+	}
+}
