@@ -3,6 +3,7 @@ import {addClass, removeClass, hasClass} from '../../utils/dom';//
 
 function HtmlDropDownElement(element, options) {
 	this.element = element;
+	this.$$options = options;
 	this.$$initMenuEvents();
 }
 
@@ -30,16 +31,13 @@ HtmlDropDownElement.prototype.$$initMenuEvents = function () {
 	};
 
 	self.$$handleSelectFn = function (event) {
-		// debugger;
-		debugger;
-
 		if (hasClass(event.target, 'tl-dropdown__list-item')) {
 			var value = self.$$data.find(function (item) {
 				return item.id == event.target.getAttribute('data.id');
 			});
 
-			if (options.onSelectFn) {
-				options.onSelectFn(value);
+			if (this.$$options.onSelectFn) {
+				this.$$options.onSelectFn(value);
 			}
 
 			self.hide();
