@@ -3,7 +3,7 @@ import { backStepEvent, nextStepEvent } from '../../constants/events';
 class ConfirmationFormComponent {
     constructor() {
         this.backButton = null;
-        this.nextButton = null;
+        this.form = null;
         this.container = null;
     }
 
@@ -14,13 +14,15 @@ class ConfirmationFormComponent {
         var template = document.getElementById(templateId);
         this.container.innerHTML = template.innerHTML;
 
-        this.backButton = this.container.querySelectorAll('button')[0];
-        this.nextButton = this.container.querySelectorAll('button')[1];
+        this.backButton = this.container.querySelector('button');
         this.backButton.addEventListener('click', this.backStep);
-        this.nextButton.addEventListener('click', this.nextStep);
+
+        this.form = this.container.querySelector('form');
+        this.form.addEventListener('submit', this.nextStep);
     }
 
-    nextStep = () => {
+    nextStep = (event) => {
+        event.preventDefault();
         this.container.dispatchEvent(new Event(nextStepEvent));
     };
 
@@ -30,10 +32,10 @@ class ConfirmationFormComponent {
 
     unmount() {
         this.backButton.removeEventListener('click', this.backStep);
-        this.nextButton.removeEventListener('click', this.nextStep);
-
         this.backButton = null;
-        this.nextButton = null;
+
+        this.form.removeEventListener('submit', this.nextStep);
+        this.form = null;
 
         this.container.innerHTML = '';
         this.container = null;

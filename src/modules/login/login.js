@@ -10,9 +10,10 @@ class LoginModule {
         this.innerContainer = null;
         this.forms = [
             new SignInFormComponent(),
+            new ConfirmationFormComponent(),
             new PasswordFormComponent(),
             new DetailsFormComponent(),
-            new ConfirmationFormComponent()];
+        ]
         this.activeFormIndex = 0;
     }
 

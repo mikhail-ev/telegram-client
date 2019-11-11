@@ -4,12 +4,12 @@ import {HtmlDropDownElement} from './components/inputs-group/html-dropdown-eleme
 
 initRouter();
 
-var input = document.querySelectorAll("#test")[0];
-var tlinput = new HtmlInputElement(input);
-var ddel = document.querySelectorAll("#ddtest")[0];
-var dd = new HtmlDropDownElement(ddel, {onSelectFn: function (selectedvalue) {
-		console.log('sv', selectedvalue);
-	}});
-dd.setData([{id: 1, name: 'Text'}, {id: 2, name: 'test'}]);
+// var input = document.querySelectorAll("#test")[0];
+// var tlinput = new HtmlInputElement(input);
+// var ddel = document.querySelectorAll("#ddtest")[0];
+// var dd = new HtmlDropDownElement(ddel, {onSelectFn: function (selectedvalue) {
+// 		console.log('sv', selectedvalue);
+// 	}});
+// dd.setData([{id: 1, name: 'Text'}, {id: 2, name: 'test'}]);
 
 console.log('bootstrap!');

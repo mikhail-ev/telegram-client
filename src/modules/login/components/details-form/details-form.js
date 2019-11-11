@@ -1,10 +1,10 @@
-import { backStepEvent, nextStepEvent } from '../../constants/events';
+import { nextStepEvent } from '../../constants/events';
 
 class DetailsFormComponent {
     constructor() {
-        this.backButton = null;
         this.nextButton = null;
         this.container = null;
+        this.form = null;
     }
 
     mount(mountContainer) {
@@ -14,26 +14,24 @@ class DetailsFormComponent {
         var template = document.getElementById(templateId);
         this.container.innerHTML = template.innerHTML;
 
-        this.backButton = this.container.querySelectorAll('button')[0];
-        this.nextButton = this.container.querySelectorAll('button')[1];
-        this.backButton.addEventListener('click', this.backStep);
+        this.nextButton = this.container.querySelector('button');
         this.nextButton.addEventListener('click', this.nextStep);
+
+        this.form = this.container.querySelector('form');
+        this.form.addEventListener('submit', this.nextStep);
     }
 
-    nextStep = () => {
+    nextStep = (event) => {
+        event.preventDefault();
         this.container.dispatchEvent(new Event(nextStepEvent));
     };
 
-    backStep = () => {
-        this.container.dispatchEvent(new Event(backStepEvent));
-    };
-
     unmount() {
-        this.backButton.removeEventListener('click', this.backStep);
         this.nextButton.removeEventListener('click', this.nextStep);
-
-        this.backButton = null;
         this.nextButton = null;
+
+        this.form.removeEventListener('submit', this.nextStep);
+        this.form = null;
 
         this.container.innerHTML = '';
         this.container = null;

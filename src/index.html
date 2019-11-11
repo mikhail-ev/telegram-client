@@ -1,8 +1,8 @@
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Title</title>
-	<link rel="stylesheet" href="./styles.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
 
@@ -12,7 +12,9 @@
 
     <!-- Login page -->
     <template id="loginPage">
-        <div class="login-page"></div>
+        <!--        <img src="assets/img/Login_1@1x.png">-->
+        <div class="login-page">
+        </div>
         <!--        <div class="tlc-page">-->
         <!--            <div class="tlc-page__logo-wrap">-->
         <!--                <img class="tlc-page__main-logo" src="./assets/img/t_logo.png"/>-->
@@ -24,60 +26,149 @@
 
     <!-- Sign-in form -->
     <template id="signInFormComponent">
-        <img src="./assets/img/Login_3_Country_Hover@2x.png" style="max-width: 100%; max-height: 100%;"/>
-<!--        <div>Sign in to Telegram</div>-->
-<!--        <button>Next</button>-->
+        <div class="sign-in-form login-page-submission">
+            <div class="login-page-submission__image">
+                <img src="./assets/img/logo.png">
+            </div>
+            <h1 class="login-page-submission__heading login-page__heading">
+                Sign in to Telegram
+            </h1>
+            <div class="login-page-submission__info login-page__sub-heading">
+                Please confirm your country and <br>
+                enter your phone number
+            </div>
+            <form class="login-page-submission__form">
+                <div class="tl-control-group login-page-submission__control">
+                    <input type="text" class="tl-input tl-input_border-blue"
+                           placeholder="Country"/>
+                    <label class="tl-label tl-label_text-blue">Country</label>
+                </div>
+                <div class="tl-control-group login-page-submission__control">
+                    <input type="text" class="tl-input tl-input_border-blue"
+                           placeholder="Phone Number"/>
+                    <label class="tl-label tl-label_text-blue">Phone Number</label>
+                </div>
+                <div class="sign-in-form__checkbox">
+                    <label>
+                        <input type="checkbox">
+                        <span>Keep me signed in</span>
+                    </label>
+                </div>
+                <button class="tl-button tl-button_wide tl-button_primary sign-in-form__button">Next</button>
+            </form>
+        </div>
     </template>
 
     <!-- Password form -->
     <template id="passwordFormComponent">
-        <div>Enter password</div>
-        <button class="button-back">Back</button>
-        <button class="button-next">Next</button>
+        <div class="login-page-submission">
+            <div class="login-page-submission__image login-page-submission__image_small login-page-submission__image_pulled">
+                <img src="./assets/img/monkey2.png">
+            </div>
+            <div class="login-page-submission__heading login-page__heading">
+                Enter a password
+            </div>
+            <div class="login-page-submission__info login-page__sub-heading">
+                Your account is protected with <br>
+                an additional password
+            </div>
+            <form class="login-page-submission__form">
+                <div class="tl-control-group login-page-submission__control">
+                    <input type="text" class="tl-input tl-input_border-blue"
+                           placeholder="Code"/>
+                    <label class="tl-label tl-label_text-blue">Code</label>
+                </div>
+                <button class="tl-button tl-button_wide tl-button_primary login-page-submission__button">Next</button>
+            </form>
+        </div>
     </template>
 
     <!-- Details form component -->
     <template id="detailsFormComponent">
-        <div>Details form component</div>
-        <button class="button-back">Back</button>
-        <button class="button-next">Next</button>
+        <div class="login-page-submission">
+            <div class="login-page-submission__image login-page-submission__image_medium login-page-submission__image_pulled">
+                <img src="./assets/img/profile-picture-placeholder.png">
+            </div>
+            <div class="login-page-submission__heading login-page__heading">
+                Your Name
+            </div>
+            <div class="login-page-submission__info login-page__sub-heading">
+                Enter your name and add <br>
+                a profile picture
+            </div>
+            <form class="login-page-submission__form">
+                <div class="tl-control-group login-page-submission__control">
+                    <input type="text" class="tl-input tl-input_border-blue"
+                           placeholder="Name"/>
+                    <label class="tl-label tl-label_text-blue">Name</label>
+                </div>
+                <div class="tl-control-group login-page-submission__control">
+                    <input type="text" class="tl-input tl-input_border-blue"
+                           placeholder="Last Name (optional)"/>
+                    <label class="tl-label tl-label_text-blue">Last Name (optional)</label>
+                </div>
+                <button class="tl-button tl-button_wide tl-button_primary login-page-submission__button">
+                    Start Messaging
+                </button>
+            </form>
+        </div>
     </template>
 
     <!-- Confirmation form component -->
     <template id="confirmationFormComponent">
-        <div>Confirmation form</div>
-        <button class="button-back">Back</button>
-        <button class="button-next">Next</button>
+        <div class="login-page-submission">
+            <div class="login-page-submission__image login-page-submission__image_small login-page-submission__image_pulled">
+                <img src="./assets/img/monkey1.png">
+            </div>
+            <div class="login-page-submission__heading login-page__heading">
+                +33 7 30 88 72 61
+                <button hidden>
+                    Back
+                </button>
+            </div>
+            <div class="login-page-submission__info login-page__sub-heading">
+                We have sent you an SMS <br>
+                with the code.
+            </div>
+            <form class="login-page-submission__form">
+                <div class="tl-control-group login-page-submission__control">
+                    <input type="text" class="tl-input tl-input_border-blue"
+                           placeholder="Code"/>
+                    <label class="tl-label tl-label_text-blue">Code</label>
+                </div>
+            </form>
+        </div>
     </template>
 
     <!-- Messenger page -->
     <template id="messengerPage">
-        Messenger
+        <div style="font-family: 'Roboto'">Messenger</div>
     </template>
 
-    <input type="text" class="tl-input" placeholder="Bio (optional)"/>
-    <div style="margin-bottom: 10px"></div>
-    <div class="tl-control-group">
-        <label class="tl-label">Bio (optional)</label>
-        <input type="text" class="tl-input tl-input_border-black" placeholder="Bio (optional)"/>
-    </div>
-    <div style="margin-bottom: 10px"></div>
-    <div class="tl-control-group">
-        <input id="test" type="text" class="tl-input tl-input_border-blue" placeholder="Bio (optional)" value=""/>
-        <label class="tl-label tl-label_text-blue">Bio (optional)</label>
-    </div>
-    <div style="margin-bottom: 10px"></div>
-        <div id="ddtest" class="tl-dropdown">
-                <label class="tl-dropdown__wrapper">
-                    <input class="tl-dropdown__input"
-                           type="text"
-                           autocomplete="off"/>
-<!--                    <i class="fa btn-toggle" [ngClass]="isOpened ? 'fa-chevron-up' : 'fa-chevron-down'"></i>-->
-                </label>
-            <div class="tl-dropdown__content"></div>
-        </div>
-    <div style="margin-bottom: 10px"></div>
-    <button type="button" class="tl-button tl-button_primary tl-button_wide">Next</button>
+    <!--    <input type="text" class="tl-input" placeholder="Bio (optional)"/>-->
+    <!--    <div style="margin-bottom: 10px"></div>-->
+    <!--    <div class="tl-control-group">-->
+    <!--        <label class="tl-label">Bio (optional)</label>-->
+    <!--        <input type="text" class="tl-input tl-input_border-black" placeholder="Bio (optional)"/>-->
+    <!--    </div>-->
+    <!--    <div style="margin-bottom: 10px"></div>-->
+    <!--    <div class="tl-control-group">-->
+    <!--        <input id="test" type="text" class="tl-input tl-input_border-blue" placeholder="Bio (optional)" value=""/>-->
+    <!--        <label class="tl-label tl-label_text-blue">Bio (optional)</label>-->
+    <!--    </div>-->
+    <!--    <div style="margin-bottom: 10px"></div>-->
+    <!--        <div id="ddtest" class="tl-dropdown">-->
+    <!--                <label class="tl-dropdown__wrapper">-->
+    <!--                    <input class="tl-dropdown__input"-->
+    <!--                           type="text"-->
+    <!--                           autocomplete="off"/>-->
+    <!--&lt;!&ndash;                    <i class="fa btn-toggle" [ngClass]="isOpened ? 'fa-chevron-up' : 'fa-chevron-down'"></i>&ndash;&gt;-->
+    <!--                </label>-->
+    <!--            <div class="tl-dropdown__content"></div>-->
+    <!--        </div>-->
+    <!--    <div style="margin-bottom: 10px"></div>-->
+    <!--    <button type="button" class="tl-button tl-button_primary tl-button_wide">Next</button>-->
+
     <!------------ Scripts section ---------------->
     <script src="./vendors.js"></script>
     <script src="./bootstrap.js"></script>

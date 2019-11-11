@@ -9,11 +9,12 @@
 	cursor: pointer;
 	border: none;
 	text-align: center;
-	font-size: 15px;
+	font-size: 13px;
 	border-radius: $tl-default-border-radius;
 	padding: 10px 15px;
 	width: auto;
 	min-height: $tl-button-height;
+	text-transform: uppercase;
 
 	&_primary {
 		color: $tl-c-white;
