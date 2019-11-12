@@ -22,12 +22,12 @@
 		border-color: $tl-c-malibu;
 	}
 
-	&:focus {
+	&:valid {
 		border-color: $tl-c-malibu;
 		caret-color: $tl-c-malibu;
 	}
 
-	&:valid {
+	&:focus {
 		border-color: $tl-c-malibu;
 		caret-color: $tl-c-malibu;
 	}

@@ -3,13 +3,6 @@
 .tl-control-group {
 	position: relative;
 
-	input[value=""] {
-		border-color: $tl-c-gray-suit;
-		top: 19px;
-		left: 8px;
-		color: $tl-c-gray-suit;
-	}
-
 	input:valid + label {
 		top: -7px;
 		left: 15px;
