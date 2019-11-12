@@ -1,11 +1,18 @@
-import { backStepEvent, nextStepEvent } from '../../constants/events';
 import { focusFirstInput } from '../../../../utils/dom';
+import { changePhoneEvent, codeConfirmedEvent } from '../../constants/events';
+import { phoneToString } from '../../../../utils/phone';
+import { applyNumericInput } from '../../../common/components/numeric-input/numeric-input';
 
 class ConfirmationFormComponent {
-    constructor() {
+    constructor(signInInfo) {
         this.backButton = null;
         this.form = null;
         this.container = null;
+        this.input = null;
+        this.maxLength = 5;
+        this.isLoading = false;
+        this.heading = null;
+        this.signInInfo = signInInfo;
     }
 
     mount(mountContainer) {
@@ -21,16 +28,35 @@ class ConfirmationFormComponent {
         this.form = this.container.querySelector('form');
         this.form.addEventListener('submit', this.nextStep);
 
+        this.input = this.container.querySelector('#confirmationCodeInput');
+        applyNumericInput(this.input);
+        this.input.setAttribute('maxlength', this.maxLength);
+        this.input.addEventListener('input', this.handleInput);
+
+        this.heading = this.container.querySelector('#confirmationFormHeadingText');
+        this.heading.innerText = phoneToString(this.signInInfo.country, this.signInInfo.phone);
+
         focusFirstInput(this.container);
     }
 
+    handleInput = (event) => {
+        var value = event.target.value;
+        if (this.isLoading) {
+            return;
+        }
+        if (value && value.length === this.maxLength) {
+            this.isLoading = true;
+            console.log('sumbmit');
+        }
+    };
+
     nextStep = (event) => {
         event.preventDefault();
-        this.container.dispatchEvent(new Event(nextStepEvent));
+        this.container.dispatchEvent(new Event(codeConfirmedEvent));
     };
 
     backStep = () => {
-        this.container.dispatchEvent(new Event(backStepEvent));
+        this.container.dispatchEvent(new Event(changePhoneEvent));
     };
 
     unmount() {
@@ -42,6 +68,8 @@ class ConfirmationFormComponent {
 
         this.container.innerHTML = '';
         this.container = null;
+
+        this.input = null;
     }
 }
 

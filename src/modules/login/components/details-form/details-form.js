@@ -1,4 +1,3 @@
-import { nextStepEvent } from '../../constants/events';
 import Modal from '../../../common/components/modal/modal';
 import { focusFirstInput } from '../../../../utils/dom';
 import { applyRipple } from '../../../common/components/ripple/ripple';
@@ -33,7 +32,7 @@ class DetailsFormComponent {
 
     nextStep = (event) => {
         event.preventDefault();
-        this.container.dispatchEvent(new Event(nextStepEvent));
+        // this.container.dispatchEvent(new Event(nextStepEvent));
     };
 
     openModal = () => {

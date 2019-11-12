@@ -1,3 +1,3 @@
-export var setCodeHashEvent = 'set-code-hash';
-export var nextStepEvent = 'next-step';
-export var backStepEvent = 'back-step';
+export var codeSentEvent = 'code-sent';
+export var codeConfirmedEvent = 'code-confirmed';
+export var changePhoneEvent = 'change-phone';

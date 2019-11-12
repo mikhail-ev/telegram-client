@@ -1,13 +1,25 @@
-import { nextStepEvent, setCodeHashEvent } from '../../constants/events';
 import { focusFirstInput } from '../../../../utils/dom';
 import { applyRipple } from '../../../common/components/ripple/ripple';
+import { codeSentEvent } from '../../constants/events';
+import { applyNumericInput } from '../../../common/components/numeric-input/numeric-input';
+
+class SignInInfo {
+    constructor(phone, country, codeHash) {
+        this.phone = phone;
+        this.country = country;
+        this.codeHash = codeHash;
+    }
+}
 
 class SignInFormComponent {
-	constructor() {
+	constructor(signInInfo) {
+        this.signInInfo = signInInfo;
+        this.isLoading = false;
 		this.button = null;
 		this.container = null;
 		this.form = null;
-		this.countryInputEl = null;
+        this.phoneInput = null;
+        this.countryInputEl = null;
 		this.phoneNumberInputEl = null;
 
 		this.countryInputWrapped = null;
@@ -28,6 +40,11 @@ class SignInFormComponent {
         this.form.addEventListener('submit', this.handleSubmit);
 
         this.phoneInput = this.container.querySelector('#phoneNumberInput');
+        applyNumericInput(this.phoneInput);
+
+        if (this.signInInfo) {
+            this.phoneInput.value = this.signInInfo.phone || '';
+        }
 
         this.countryInputEl = this.form.querySelector('#countryInput');
         this.phoneNumberInputEl = this.form.querySelector('#phoneNumberInput');
@@ -43,10 +60,10 @@ class SignInFormComponent {
             return;
         }
         this.isLoading = true;
-		var codeHashEvent = new Event(setCodeHashEvent);
-		codeHashEvent.data = 'fsdfsdFSDFSDFsdfsd';
-		this.container.dispatchEvent(codeHashEvent);
-		this.container.dispatchEvent(new Event(nextStepEvent));
+        var componentEvent = new Event(codeSentEvent);
+        var codeHash = 'dasddasd';
+        componentEvent.data = new SignInInfo(this.phoneInput.value, '7', codeHash);
+        this.container.dispatchEvent(componentEvent);
         // window.MtpApiManager.invokeApi('auth.sendCode', {
         //     flags: 0,
         //     phone_number: this.phoneInput.value,

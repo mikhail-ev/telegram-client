@@ -1,4 +1,3 @@
-import { nextStepEvent } from '../../constants/events';
 import { focusFirstInput } from '../../../../utils/dom';
 import { applyPasswordPreview } from '../../../common/components/password-preview/password-preview';
 import { applyRipple } from '../../../common/components/ripple/ripple';
@@ -33,7 +32,7 @@ class PasswordFormComponent {
 
     nextStep = (event) => {
         event.preventDefault();
-        this.container.dispatchEvent(new Event(nextStepEvent));
+        // this.container.dispatchEvent(new Event(nextStepEvent));
     };
 
     unmount() {

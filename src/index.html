@@ -31,11 +31,12 @@
             </div>
             <form class="login-page-submission__form">
                 <div class="tl-control-group login-page-submission__control">
-                    <input id="countryInput" type="text" class="tl-input" required/>
+                    <input id="countryInput" type="text" class="tl-input" autocomplete="off"/>
                     <label class="tl-label" for="countryInput">Country</label>
                 </div>
                 <div class="tl-control-group login-page-submission__control">
-                    <input id="phoneNumberInput" type="text" class="tl-input tl-control-group__input" required/>
+                    <input id="phoneNumberInput" type="text" class="tl-input tl-control-group__input" required
+                           autocomplete="off"/>
                     <label class="tl-label" for="phoneNumberInput">Phone Number</label>
                 </div>
                 <div class="sign-in-form__checkbox">
@@ -119,7 +120,9 @@
                 <img src="./assets/img/monkey1.png">
             </div>
             <div class="login-page-submission__heading login-page__heading">
-                +33 7 30 88 72 61
+                <span id="confirmationFormHeadingText">
+                    +33 7 30 88 72 61
+                </span>
                 <button>
                     <div class="tl-down_svg tl-down_svg-dims tl-edit_svg confirmation-form-edit-button"></div>
                 </button>
@@ -130,8 +133,9 @@
             </div>
             <form class="login-page-submission__form">
                 <div class="tl-control-group login-page-submission__control">
-                    <input id="code2" type="text" class="tl-input"/>
-                    <label class="tl-label" for="code2">Code</label>
+                    <input id="confirmationCodeInput"
+                           type="text" class="tl-input tl-control-group__input" required/>
+                    <label class="tl-label" for="confirmationCodeInput">Code</label>
                 </div>
             </form>
         </div>
