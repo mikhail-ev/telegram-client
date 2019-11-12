@@ -1,4 +1,5 @@
 import { backStepEvent, nextStepEvent } from '../../constants/events';
+import { focusFirstInput } from '../../../../utils/dom';
 
 class ConfirmationFormComponent {
     constructor() {
@@ -19,6 +20,8 @@ class ConfirmationFormComponent {
 
         this.form = this.container.querySelector('form');
         this.form.addEventListener('submit', this.nextStep);
+
+        focusFirstInput(this.container);
     }
 
     nextStep = (event) => {

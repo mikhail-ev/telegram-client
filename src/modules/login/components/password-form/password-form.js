@@ -1,4 +1,5 @@
 import { nextStepEvent } from '../../constants/events';
+import { focusFirstInput } from '../../../../utils/dom';
 
 class PasswordFormComponent {
     constructor() {
@@ -19,6 +20,8 @@ class PasswordFormComponent {
 
         this.form = this.container.querySelector('form');
         this.form.addEventListener('submit', this.nextStep);
+
+        focusFirstInput(this.container);
     }
 
     nextStep = (event) => {
