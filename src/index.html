@@ -127,8 +127,8 @@
             </div>
             <div class="login-page-submission__heading login-page__heading">
                 +33 7 30 88 72 61
-                <button hidden>
-                    Back
+                <button>
+                    <div class="tl-down_svg tl-down_svg-dims tl-edit_svg confirmation-form-edit-button"></div>
                 </button>
             </div>
             <div class="login-page-submission__info login-page__sub-heading">
@@ -148,33 +148,34 @@
     <!-- Messenger page -->
     <template id="messengerPage">
         <div style="font-family: 'Roboto'">Messenger</div>
+
+        <input type="text" class="tl-input" placeholder="Bio (optional)"/>
+        <div style="margin-bottom: 10px"></div>
+        <div class="tl-control-group">
+            <label class="tl-label">Bio (optional)</label>
+            <input type="text" class="tl-input tl-input_border-black" placeholder="Bio (optional)"/>
+        </div>
+        <div style="margin-bottom: 10px"></div>
+        <div class="tl-control-group">
+            <input id="test" type="text" class="tl-input tl-input_border-blue" placeholder="Bio (optional)" value=""/>
+            <label class="tl-label tl-label_text-blue">Bio (optional)</label>
+        </div>
+        <div style="margin-bottom: 10px"></div>
+        <div id="ddtest" class="tl-dropdown">
+            <label class="tl-dropdown__wrapper">
+                <input class="tl-dropdown__input"
+                       type="text"
+                       autocomplete="off"/>
+                <div class="tl-up_svg tl-up_svg-dims tl-dropdown__toggle-icon tl-dropdown__toggle-icon-up"></div>
+                <div class="tl-down_svg tl-down_svg-dims tl-dropdown__toggle-icon tl-dropdown__toggle-icon-down"></div>
+            </label>
+            <div class="tl-dropdown__content"></div>
+        </div>
+        <div style="margin-bottom: 10px"></div>
+        <button type="button" class="tl-button tl-button_primary tl-button_wide">Next</button>
+        <div class="tl-1check_svg tl-1check_svg-dims"></div>
     </template>
 
-<!--        <input type="text" class="tl-input" placeholder="Bio (optional)"/>-->
-<!--        <div style="margin-bottom: 10px"></div>-->
-<!--        <div class="tl-control-group">-->
-<!--            <label class="tl-label">Bio (optional)</label>-->
-<!--            <input type="text" class="tl-input tl-input_border-black" placeholder="Bio (optional)"/>-->
-<!--        </div>-->
-<!--        <div style="margin-bottom: 10px"></div>-->
-<!--        <div class="tl-control-group">-->
-<!--            <input id="test" type="text" class="tl-input tl-input_border-blue" placeholder="Bio (optional)" value=""/>-->
-<!--            <label class="tl-label tl-label_text-blue">Bio (optional)</label>-->
-<!--        </div>-->
-<!--        <div style="margin-bottom: 10px"></div>-->
-<!--            <div id="ddtest" class="tl-dropdown">-->
-<!--                    <label class="tl-dropdown__wrapper">-->
-<!--                        <input class="tl-dropdown__input"-->
-<!--                               type="text"-->
-<!--                               autocomplete="off"/>-->
-<!--                        <div class="tl-up_svg tl-up_svg-dims tl-dropdown__toggle-icon tl-dropdown__toggle-icon-up"></div>-->
-<!--                        <div class="tl-down_svg tl-down_svg-dims tl-dropdown__toggle-icon tl-dropdown__toggle-icon-down"></div>-->
-<!--                    </label>-->
-<!--                <div class="tl-dropdown__content"></div>-->
-<!--            </div>-->
-<!--        <div style="margin-bottom: 10px"></div>-->
-<!--        <button type="button" class="tl-button tl-button_primary tl-button_wide">Next</button>-->
-<!--    <div class="tl-1check_svg tl-1check_svg-dims"></div>-->
     <!------------ Scripts section ---------------->
     <script src="./vendors.js"></script>
     <script src="./bootstrap.js"></script>
