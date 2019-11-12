@@ -43,6 +43,7 @@ gulp.task('js-src', function (done) {
         watcher.on('event', function (event) {
             if (event.code === 'END') {
                 watcher.close();
+                connect.reload();
                 resolve();
             } else if(event.code === 'ERROR') {
                 console.log('Rollup error: ', event);
@@ -67,7 +68,8 @@ gulp.task('assets', function () {
 gulp.task('index', function () {
     return gulp.src('src/index.html')
         .pipe(inject(gulp.src(['dist/**/*.js'], { read: false })))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('dist'))
+        .pipe(connect.reload());
 });
 
 gulp.task('watch:js', function () {
@@ -80,8 +82,7 @@ gulp.task('watch:scss', function () {
 
 gulp.task('serve', function () {
     return connect.server({
-        name: 'App',
-        root: ['dist'],
+        root: 'dist',
         port: 4000,
         livereload: true
     });
