@@ -1,5 +1,5 @@
 import { focusFirstInput } from '../../../../utils/dom';
-import { changePhoneEvent, codeConfirmedEvent } from '../../constants/events';
+import { changePhoneEvent, codeConfirmedEvent, codeSentEvent } from '../../constants/events';
 import { phoneToString } from '../../../../utils/phone';
 import { applyNumericInput } from '../../../common/components/numeric-input/numeric-input';
 
@@ -9,7 +9,6 @@ class ConfirmationFormComponent {
         this.form = null;
         this.container = null;
         this.input = null;
-        this.maxLength = 5;
         this.isLoading = false;
         this.heading = null;
         this.signInInfo = signInInfo;
@@ -30,7 +29,7 @@ class ConfirmationFormComponent {
 
         this.input = this.container.querySelector('#confirmationCodeInput');
         applyNumericInput(this.input);
-        this.input.setAttribute('maxlength', this.maxLength);
+        this.input.setAttribute('maxlength', this.signInInfo.codeLength);
         this.input.addEventListener('input', this.handleInput);
 
         this.heading = this.container.querySelector('#confirmationFormHeadingText');
@@ -44,9 +43,20 @@ class ConfirmationFormComponent {
         if (this.isLoading) {
             return;
         }
-        if (value && value.length === this.maxLength) {
+        if (value && value.length === this.signInInfo.codeLength) {
             this.isLoading = true;
-            console.log('sumbmit');
+            MtpApiManager.invokeApi('auth.signIn', {
+                phone_number: this.signInInfo.fullPhone,
+                phone_code_hash: this.signInInfo.codeHash,
+                phone_code: value
+            }, {
+                dcID: 2,
+                createNetworker: true
+            }).then((result) => { // "{"_":"auth.authorization","pFlags":{},"flags":0,"user":{"_":"user","pFlags":{"self":true,"contact":true},"flags":3159,"id":696018,"access_hash":"11134724570702625712","first_name":"Mikhail","last_name":"mmm","phone":"48730887261","status":{"_":"userStatusOffline","was_online":1572983061}}}"
+                this.container.dispatchEvent(new Event(codeConfirmedEvent));
+            }, () => {
+                this.isLoading = false;
+            });
         }
     };
 

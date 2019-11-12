@@ -1,8 +1,6 @@
 import SignInFormComponent from './components/sign-in-form/sign-in-form';
-import PasswordFormComponent from './components/password-form/password-form';
-import DetailsFormComponent from './components/details-form/details-form';
 import ConfirmationFormComponent from './components/confirmation-form/confirmation-form';
-import { changePhoneEvent, codeSentEvent } from './constants/events';
+import { changePhoneEvent, codeConfirmedEvent, codeSentEvent } from './constants/events';
 
 class LoginModule {
     constructor() {
@@ -23,6 +21,7 @@ class LoginModule {
 
         this.container.addEventListener(codeSentEvent, this.handleSentCode, true);
         this.container.addEventListener(changePhoneEvent, this.handleChangePhone, true);
+        this.container.addEventListener(codeConfirmedEvent, this.handleConfirmedCode, true);
 
         this.activeView = new SignInFormComponent();
         this.activeView.mount(this.innerContainer);
@@ -31,6 +30,7 @@ class LoginModule {
     unmount() {
         this.container.removeEventListener(codeSentEvent, this.handleSentCode);
         this.container.removeEventListener(changePhoneEvent, this.handleChangePhone);
+        this.container.removeEventListener(codeConfirmedEvent, this.handleConfirmedCode);
         this.container = null;
         this.innerContainer = null;
         this.activeView = null;
@@ -53,7 +53,7 @@ class LoginModule {
 
     handleConfirmedCode = () => {
         console.log('confirmed!');
-        location.replace('/')
+        location.replace('/#');
     }
 }
 

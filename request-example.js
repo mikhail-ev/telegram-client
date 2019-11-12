@@ -7,7 +7,7 @@ window.MtpApiManager.invokeApi('help.getNearestDc', {}, {
     console.log(nearestDcResult);
     console.warn('1 >>>>>', nearestDcResult);
     // auth.sendCode
-    window.MtpApiManager.invokeApi('auth.sendCode', {
+    MtpApiManager.invokeApi('auth.sendCode', {
         flags: 0,
         phone_number: '48730887261',
         api_id: Config.App.id,

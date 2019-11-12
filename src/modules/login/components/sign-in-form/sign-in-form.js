@@ -4,27 +4,28 @@ import { codeSentEvent } from '../../constants/events';
 import { applyNumericInput } from '../../../common/components/numeric-input/numeric-input';
 
 class SignInInfo {
-    constructor(phone, country, codeHash) {
+    get fullPhone() {
+        return this.country.toString() + this.phone.toString();
+    }
+
+    constructor(phone, country, codeHash, codeLength) {
         this.phone = phone;
         this.country = country;
         this.codeHash = codeHash;
+        this.codeLength = codeLength;
     }
 }
 
 class SignInFormComponent {
-	constructor(signInInfo) {
+    constructor(signInInfo) {
         this.signInInfo = signInInfo;
         this.isLoading = false;
-		this.button = null;
-		this.container = null;
-		this.form = null;
+        this.button = null;
+        this.container = null;
+        this.form = null;
         this.phoneInput = null;
-        this.countryInputEl = null;
-		this.phoneNumberInputEl = null;
-
-		this.countryInputWrapped = null;
-		this.phoneNumberInputWrapped = null;
-	}
+        this.countryInput = null;
+    }
 
     mount(mountContainer) {
         this.container = mountContainer;
@@ -39,20 +40,19 @@ class SignInFormComponent {
         this.form = this.container.querySelector('form');
         this.form.addEventListener('submit', this.handleSubmit);
 
+        this.countryInput = this.container.querySelector('#countryInput');
+        applyNumericInput(this.countryInput);
+
         this.phoneInput = this.container.querySelector('#phoneNumberInput');
         applyNumericInput(this.phoneInput);
 
         if (this.signInInfo) {
             this.phoneInput.value = this.signInInfo.phone || '';
+            this.countryInput.value = this.signInInfo.country || '';
         }
 
-        this.countryInputEl = this.form.querySelector('#countryInput');
-        this.phoneNumberInputEl = this.form.querySelector('#phoneNumberInput');
-
-        this.countryInputWrapped = new HtmlInputElement(this.countryInputEl);
-        this.phoneNumberInputWrapped = new HtmlInputElement(this.phoneNumberInputEl);
         focusFirstInput(this.container);
-	}
+    }
 
     handleSubmit = (event) => {
         event.preventDefault();
@@ -60,38 +60,33 @@ class SignInFormComponent {
             return;
         }
         this.isLoading = true;
-        var componentEvent = new Event(codeSentEvent);
-        var codeHash = 'dasddasd';
-        componentEvent.data = new SignInInfo(this.phoneInput.value, '7', codeHash);
-        this.container.dispatchEvent(componentEvent);
-        // window.MtpApiManager.invokeApi('auth.sendCode', {
-        //     flags: 0,
-        //     phone_number: this.phoneInput.value,
-        //     api_id: Config.App.id,
-        //     api_hash: Config.App.hash,
-        //     lang_code: navigator.language || 'en'
-        //     /* TODO take nearest DC */
-        // }, { dcID: 2, createNetworker: true }).then((result) => {
-        //     console.warn('2 >>>>>', result); // { phone_code_hash }
-        //     this.isLoading = false;
-        //     var codeHashEvent = new Event(setCodeHashEvent);
-        //     codeHashEvent.data = result.phone_code_hash;
-        //     this.container.dispatchEvent(codeHashEvent);
-        //     this.container.dispatchEvent(new Event(nextStepEvent));
-        // }, () => {
-        //     // TODO error handling
-        // });
+        var country = this.countryInput.value.toString();
+        var phone = this.phoneInput.value.toString();
+        MtpApiManager.invokeApi('auth.sendCode', {
+            flags: 0,
+            phone_number: country + phone,
+            api_id: Config.App.id,
+            api_hash: Config.App.hash,
+            lang_code: navigator.language || 'en'
+        }, {
+            dcID: 2,
+            createNetworker: true
+        }).then((result) => { // {phone_code_hash, type: { length }}
+            var componentEvent = new Event(codeSentEvent);
+            componentEvent.data = new SignInInfo(phone, country, result.phone_code_hash, result.type.length);
+            this.container.dispatchEvent(componentEvent);
+        }, () => {
+            this.isLoading = false;
+        });
     };
 
-	unmount() {
-		this.button = null;
-		this.form.removeEventListener('submit', this.nextStep);
-		this.form = null;
-		this.container.innerHTML = '';
-		this.container = null;
-        this.countryInputWrapped.destroy();
-        this.phoneNumberInputWrapped.destroy();
-	}
+    unmount() {
+        this.button = null;
+        this.form.removeEventListener('submit', this.handleSubmit);
+        this.form = null;
+        this.container.innerHTML = '';
+        this.container = null;
+    }
 }
 
 export default SignInFormComponent;
