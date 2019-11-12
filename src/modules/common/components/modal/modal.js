@@ -3,6 +3,7 @@ import Overlay from '../overlay/overlay';
 class Modal {
     constructor() {
         this.container = null;
+        this.overlay = new Overlay();
     }
 
     mount(template) {
@@ -12,7 +13,7 @@ class Modal {
         this.container.classList.add('modal');
 
 
-        Overlay.mount().then(() => this.unmount());
+        this.overlay.mount().then(() => this.unmount());
         document.body.appendChild(this.container);
         return this.container;
     }
@@ -26,7 +27,7 @@ class Modal {
     unmount() {
         this.container.removeEventListener('click', this.handleClick);
         document.body.removeChild(this.container);
-        Overlay.unmount();
+        this.overlay.unmount();
     }
 }
 

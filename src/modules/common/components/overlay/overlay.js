@@ -1,9 +1,17 @@
+var instance;
+
 class Overlay {
     constructor() {
+        if (instance) {
+            return instance;
+        }
+
         this.isMounted = false;
         this.element = null;
         this.onClose = null;
         this.onCloseResolver = null;
+
+        instance = this;
     }
 
     mount() {
@@ -25,7 +33,7 @@ class Overlay {
     handleClick = () => {
         this.onCloseResolver();
         this.unmount();
-    }
+    };
 
     unmount() {
         if (this.isMounted) {
@@ -36,4 +44,6 @@ class Overlay {
     }
 }
 
-export default new Overlay();
+instance = new Overlay();
+
+export default Overlay;
