@@ -19,6 +19,7 @@ HtmlInputElement.prototype.enableSyncValue = function () {
 };
 
 HtmlInputElement.prototype.destroy = function () {
+	var self = this;
 	self.element.removeEventListener('keyup', self.syncValueFn);
 	self.element.removeEventListener('change', self.syncValueFn);
 };

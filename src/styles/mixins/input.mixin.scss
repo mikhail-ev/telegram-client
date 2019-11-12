@@ -13,6 +13,7 @@
 	min-height: $tl-input-height - $tl-input-vertical-padding * 2 - $tl-default-border-size * 2;
 	border-radius: $tl-default-border-radius;
 
+
 	&_border-black {
 		border-color: $tl-c-black;
 	}
@@ -23,5 +24,6 @@
 
 	&:focus {
 		border-color: $tl-c-malibu;
+		caret-color: $tl-c-malibu;
 	}
 }

@@ -39,14 +39,12 @@
             </div>
             <form class="login-page-submission__form">
                 <div class="tl-control-group login-page-submission__control">
-                    <input type="text" class="tl-input tl-input_border-blue"
-                           placeholder="Country"/>
-                    <label class="tl-label tl-label_text-blue">Country</label>
+                    <input id="countryInput" type="text" class="tl-input"/>
+                    <label class="tl-label" for="countryInput">Country</label>
                 </div>
                 <div class="tl-control-group login-page-submission__control">
-                    <input type="text" class="tl-input tl-input_border-blue"
-                           placeholder="Phone Number"/>
-                    <label class="tl-label tl-label_text-blue">Phone Number</label>
+                    <input id="phoneNumberInput" type="text" class="tl-input"/>
+                    <label class="tl-label" for="phoneNumberInput">Phone Number</label>
                 </div>
                 <div class="sign-in-form__checkbox">
                     <label>
@@ -74,9 +72,8 @@
             </div>
             <form class="login-page-submission__form">
                 <div class="tl-control-group login-page-submission__control">
-                    <input type="text" class="tl-input tl-input_border-blue"
-                           placeholder="Code"/>
-                    <label class="tl-label tl-label_text-blue">Code</label>
+                    <input id="code" type="text" class="tl-input"/>
+                    <label class="tl-label" for="code">Code</label>
                 </div>
                 <button class="tl-button tl-button_wide tl-button_primary login-page-submission__button">Next</button>
             </form>
@@ -98,14 +95,12 @@
             </div>
             <form class="login-page-submission__form">
                 <div class="tl-control-group login-page-submission__control">
-                    <input type="text" class="tl-input tl-input_border-blue"
-                           placeholder="Name"/>
-                    <label class="tl-label tl-label_text-blue">Name</label>
+                    <input id="name" type="text" class="tl-input"/>
+                    <label class="tl-label" for="name">Name</label>
                 </div>
                 <div class="tl-control-group login-page-submission__control">
-                    <input type="text" class="tl-input tl-input_border-blue"
-                           placeholder="Last Name (optional)"/>
-                    <label class="tl-label tl-label_text-blue">Last Name (optional)</label>
+                    <input id="lname" type="text" class="tl-input"/>
+                    <label class="tl-label" for="lname">Last Name (optional)</label>
                 </div>
                 <button class="tl-button tl-button_wide tl-button_primary login-page-submission__button">
                     Start Messaging
@@ -137,9 +132,8 @@
             </div>
             <form class="login-page-submission__form">
                 <div class="tl-control-group login-page-submission__control">
-                    <input type="text" class="tl-input tl-input_border-blue"
-                           placeholder="Code"/>
-                    <label class="tl-label tl-label_text-blue">Code</label>
+                    <input id="code2" type="text" class="tl-input"/>
+                    <label class="tl-label" for="code2">Code</label>
                 </div>
             </form>
         </div>
@@ -176,6 +170,26 @@
         <div class="tl-1check_svg tl-1check_svg-dims"></div>
     </template>
 
+<!--        <div style="margin-bottom: 10px"></div>-->
+<!--        <div class="tl-control-group">-->
+<!--            <input id="test" type="text" class="tl-input"/>-->
+<!--            <label class="tl-label" for="test">Bio (optional)</label>-->
+<!--        </div>-->
+<!--        <div style="margin-bottom: 10px"></div>-->
+<!--            <div id="ddtest" class="tl-dropdown">-->
+<!--                    <label class="tl-dropdown__wrapper">-->
+<!--                        <input class="tl-dropdown__input"-->
+<!--                               type="text"-->
+<!--                               autocomplete="off"/>-->
+<!--                        <label class="tl-dropdown__label">Bio (optional)</label>-->
+<!--                        <div class="tl-up_svg tl-up_svg-dims tl-dropdown__toggle-icon_blue tl-dropdown__toggle-icon-up"></div>-->
+<!--                        <div class="tl-down_svg tl-down_svg-dims tl-dropdown__toggle-icon_grey tl-dropdown__toggle-icon-down"></div>-->
+<!--                    </label>-->
+<!--                <div class="tl-dropdown__content"></div>-->
+<!--            </div>-->
+<!--        <div style="margin-bottom: 10px"></div>-->
+<!--        <button type="button" class="tl-button tl-button_primary tl-button_wide">Next</button>-->
+<!--    <div class="tl-1check_svg tl-1check_svg-dims"></div>-->
     <!------------ Scripts section ---------------->
     <script src="./vendors.js"></script>
     <script src="./bootstrap.js"></script>

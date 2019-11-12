@@ -2,12 +2,13 @@
 
 @mixin tl-label() {
 	position: absolute;
-	top: -7px;
-	left: 30px;
+	top: 19px;
+	left: 8px;
 	padding: 0 3px;
 	background-color: $tl-c-white;
-	color: $tl-c-black;
-
+	color: $tl-c-gray-suit;
+	transition: top 0.1s, left 0.1s;
+	
 	&_text-blue {
 		color: $tl-c-malibu;
 	}

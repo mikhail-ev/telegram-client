@@ -1,11 +1,19 @@
+@import "../utils/variables/colors";
+
 .tl-control-group {
 	position: relative;
 
 	input[value=""] {
-		border-color: #000000;
+		border-color: $tl-c-gray-suit;
+		top: 19px;
+		left: 8px;
+		color: $tl-c-gray-suit;
 	}
 
-	input[value=""] + label {
-		display: none;
+	input:focus + label {
+		top: -7px;
+		left: 15px;
+		color: $tl-c-malibu;
 	}
 }
+

@@ -1,6 +1,7 @@
 @import "../utils/variables/z-indexes";
 @import "../utils/variables/values";
 @import '../mixins/input.mixin';
+@import '../mixins/label.mixin';
 
 $c-color-select-item: $tl-c-whitesmoke;
 
@@ -28,9 +29,14 @@ $c-color-select-item: $tl-c-whitesmoke;
 	}
 
 	&__toggle-icon {
-		filter: invert(66%) sepia(33%) saturate(2352%) hue-rotate(182deg) brightness(100%) contrast(94%);
+		&_grey {
+			filter: invert(83%) sepia(17%) saturate(199%) hue-rotate(219deg) brightness(93%) contrast(85%);
+		}
+		&_blue {
+			filter: invert(66%) sepia(33%) saturate(2352%) hue-rotate(182deg) brightness(100%) contrast(94%);
+		}
 	}
-	
+
 	&__toggle-icon-up {
 		display: none;
 	}
@@ -42,6 +48,23 @@ $c-color-select-item: $tl-c-whitesmoke;
 		border: 0;
 		vertical-align: middle;
 		font-size: $tl-input-font-size;
+		//
+		//&:focus {
+		//	border-color: $tl-c-malibu;
+		//	caret-color: $tl-c-malibu;
+		//}
+	}
+
+	&__label {
+		@include tl-label();
+		line-height: initial;
+		top: 16px;
+	}
+
+	&__input:focus + &__label{
+		top: -7px;
+		left: 15px;
+		color: $tl-c-malibu;
 	}
 
 	&__content {

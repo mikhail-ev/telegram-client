@@ -50,11 +50,11 @@ HtmlDropDownElement.prototype.$$initMenuEvents = function () {
 	};
 
 	self.$$handleInputFocusFn = function (event) {
-		addClass(self.$$wrapper, 'tl-dropdown__wrapper_blue-border');
+		addClass(self.$$wrapper, 'tl-dropdown__wrapper_border-blue');
 	};
 
 	self.$$handleInputBlurFn = function (event) {
-		removeClass(self.$$wrapper, 'tl-dropdown__wrapper_blue-border');
+		removeClass(self.$$wrapper, 'tl-dropdown__wrapper_border-blue');
 	};
 	self.$$input.addEventListener('focus', self.$$handleInputFocusFn);
 	self.$$input.addEventListener('blur', self.$$handleInputBlurFn);
@@ -136,7 +136,10 @@ HtmlDropDownElement.prototype.hide = function () {
 
 HtmlDropDownElement.prototype.destroy = function () {
 	var self = this;
+	self.$$input.removeEventListener('focus', self.$$handleInputFocusFn);
+	self.$$input.removeEventListener('blur', self.$$handleInputBlurFn);
 	self.$$input.removeEventListener('keyup', self.$$handleInputChangeFn);
+	self.$$content.removeEventListener('click', self.$$handleSelectFn);
 	self.$$wrapper.removeEventListener('click', self.$$handleInputClickFn);
 	document.removeEventListener('click', self.$$handleDocumentClickFn);
 };
