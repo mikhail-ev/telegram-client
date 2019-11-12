@@ -33,5 +33,5 @@ function playRipple(element, event) {
     setTimeout(() => {
         element.removeChild(ripple);
         element.dispatchEvent(event);
-    }, 300);
+    }, 301);
 }
