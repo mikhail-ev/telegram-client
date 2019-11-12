@@ -1,9 +1,11 @@
 import { nextStepEvent } from '../../constants/events';
 import { focusFirstInput } from '../../../../utils/dom';
+import { applyPasswordPreview } from '../../../common/components/password-preview/password-preview';
 
 class PasswordFormComponent {
     constructor() {
         this.nextButton = null;
+        this.input = null;
         this.container = null;
         this.form = null;
     }
@@ -17,6 +19,9 @@ class PasswordFormComponent {
 
         this.nextButton = this.container.querySelector('button');
         this.nextButton.addEventListener('click', this.nextStep);
+
+        this.input = this.container.querySelector('input');
+        applyPasswordPreview(this.input);
 
         this.form = this.container.querySelector('form');
         this.form.addEventListener('submit', this.nextStep);
@@ -38,6 +43,8 @@ class PasswordFormComponent {
 
         this.container.innerHTML = '';
         this.container = null;
+
+        this.input = null;
     }
 }
 

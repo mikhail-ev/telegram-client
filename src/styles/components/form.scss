@@ -10,7 +10,7 @@
 		color: $tl-c-gray-suit;
 	}
 
-	input:focus + label {
+	input:focus + label, input.tl-control-group__input:valid + label {
 		top: -7px;
 		left: 15px;
 		color: $tl-c-malibu;
