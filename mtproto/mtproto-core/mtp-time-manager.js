@@ -4,9 +4,9 @@ window.MtpTimeManager = (function () {
     var timeOffset = 0
 
     // var to = localStorage.getItem('server_time_offset');
-    var to = Storage.get('server_time_offset');
+    var to = Storage.getSync('server_time_offset');
     if (to) {
-        timeOffset = to;
+        timeOffset = +to;
     }
 
     function generateMessageID() {
