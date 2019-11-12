@@ -1,0 +1,53 @@
+@import "../utils/variables/colors";
+
+@mixin tl-checkbox {
+	display: block;
+	position: relative;
+	padding-left: 45px;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+	&__input {
+		position: absolute;
+		opacity: 0;
+		cursor: pointer;
+		height: 0;
+		width: 0;
+	}
+
+	&__checkmark {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 15px;
+		width: 15px;
+		background-color: $tl-c-gray-suit;
+		border-radius: 3px;
+	}
+
+	&__input:checked ~ &__checkmark {
+		background-color: $tl-c-malibu;
+	}
+
+	&__checkmark:after {
+		content: "";
+		position: absolute;
+		display: none;
+	}
+
+	&__input:checked ~ &__checkmark:after {
+		display: block;
+	}
+
+	&__checkmark:after {
+		filter: invert(100%) sepia(0%) saturate(2%) hue-rotate(344deg) brightness(109%) contrast(101%);
+		background-image: url('../../assets/icons/icons.svg');
+		background-position: -2 0;
+		background-repeat: no-repeat;
+		width: 19px;
+		height: 15px;
+	}
+}

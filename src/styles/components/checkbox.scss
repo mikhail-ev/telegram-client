@@ -1,0 +1,5 @@
+@import '../mixins/checkbox.mixin';
+
+.tl-checkbox {
+	@include tl-checkbox();
+}
