@@ -2,7 +2,7 @@
 
 .tl-control-group {
 	position: relative;
-	
+
 	input[value=""] {
 		border-color: $tl-c-gray-suit;
 		top: 19px;
@@ -10,7 +10,13 @@
 		color: $tl-c-gray-suit;
 	}
 
-	input:focus + label, input.tl-control-group__input:valid + label {
+	input:valid + label {
+		top: -7px;
+		left: 15px;
+		color: $tl-c-malibu;
+	}
+
+	input:focus + label {
 		top: -7px;
 		left: 15px;
 		color: $tl-c-malibu;
