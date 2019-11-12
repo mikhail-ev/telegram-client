@@ -1,6 +1,7 @@
 import { nextStepEvent } from '../../constants/events';
 import Modal from '../../../common/components/modal/modal';
 import { focusFirstInput } from '../../../../utils/dom';
+import { applyRipple } from '../../../common/components/ripple/ripple';
 
 class DetailsFormComponent {
     constructor() {
@@ -19,6 +20,7 @@ class DetailsFormComponent {
 
         this.nextButton = this.container.querySelector('button');
         this.nextButton.addEventListener('click', this.nextStep);
+        applyRipple(this.nextButton);
 
         this.photoPlaceholder = this.container.querySelector('img.details-form-photo-placeholder');
         this.photoPlaceholder.addEventListener('click', this.openModal)

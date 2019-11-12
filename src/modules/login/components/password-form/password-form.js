@@ -1,6 +1,7 @@
 import { nextStepEvent } from '../../constants/events';
 import { focusFirstInput } from '../../../../utils/dom';
 import { applyPasswordPreview } from '../../../common/components/password-preview/password-preview';
+import { applyRipple } from '../../../common/components/ripple/ripple';
 
 class PasswordFormComponent {
     constructor() {
@@ -19,6 +20,7 @@ class PasswordFormComponent {
 
         this.nextButton = this.container.querySelector('button');
         this.nextButton.addEventListener('click', this.nextStep);
+        applyRipple(this.nextButton);
 
         this.input = this.container.querySelector('input');
         applyPasswordPreview(this.input);
