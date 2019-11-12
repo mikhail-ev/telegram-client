@@ -1,0 +1,914 @@
+// Icons from directory ""
+%tl {
+	background-repeat: no-repeat
+}
+.tl-1check_svg,
+.tl-1check_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 0;
+}
+.tl-1check_svg-dims {
+	width: 19px;
+	height: 14px;
+}
+.tl-2checks_svg,
+.tl-2checks_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -14px;
+}
+.tl-2checks_svg-dims {
+	width: 19px;
+	height: 14px;
+}
+.tl-FullScreen_svg,
+.tl-FullScreen_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -28px;
+}
+.tl-FullScreen_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-activesessions_svg,
+.tl-activesessions_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -52px;
+}
+.tl-activesessions_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-add_svg,
+.tl-add_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -76px;
+}
+.tl-add_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-addmember_filled_svg,
+.tl-addmember_filled_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -100px;
+}
+.tl-addmember_filled_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-adduser_svg,
+.tl-adduser_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -124px;
+}
+.tl-adduser_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-admin_svg,
+.tl-admin_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -148px;
+}
+.tl-admin_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-animals_svg,
+.tl-animals_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -172px;
+}
+.tl-animals_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-archive_svg,
+.tl-archive_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -196px;
+}
+.tl-archive_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-attach_svg,
+.tl-attach_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -220px;
+}
+.tl-attach_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-avatar_archivedchats_svg,
+.tl-avatar_archivedchats_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -244px;
+}
+.tl-avatar_archivedchats_svg-dims {
+	width: 54px;
+	height: 54px;
+}
+.tl-avatar_deletedaccount_svg,
+.tl-avatar_deletedaccount_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -298px;
+}
+.tl-avatar_deletedaccount_svg-dims {
+	width: 54px;
+	height: 54px;
+}
+.tl-avatar_savedmessages_svg,
+.tl-avatar_savedmessages_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -352px;
+}
+.tl-avatar_savedmessages_svg-dims {
+	width: 54px;
+	height: 54px;
+}
+.tl-back_svg,
+.tl-back_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -406px;
+}
+.tl-back_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-camera_svg,
+.tl-camera_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -430px;
+}
+.tl-camera_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-cameraadd_svg,
+.tl-cameraadd_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -454px;
+}
+.tl-cameraadd_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-car_svg,
+.tl-car_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -478px;
+}
+.tl-car_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-channel_svg,
+.tl-channel_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -502px;
+}
+.tl-channel_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-channelviews_svg,
+.tl-channelviews_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -526px;
+}
+.tl-channelviews_svg-dims {
+	width: 19px;
+	height: 14px;
+}
+.tl-chatsplaceholder_svg,
+.tl-chatsplaceholder_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -540px;
+}
+.tl-chatsplaceholder_svg-dims {
+	width: 144px;
+	height: 144px;
+}
+.tl-check_svg,
+.tl-check_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -684px;
+}
+.tl-check_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-checkbox_svg,
+.tl-checkbox_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -708px;
+}
+.tl-checkbox_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-checkboxblock_svg,
+.tl-checkboxblock_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -732px;
+}
+.tl-checkboxblock_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-checkboxempty_svg,
+.tl-checkboxempty_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -756px;
+}
+.tl-checkboxempty_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-checkboxon_svg,
+.tl-checkboxon_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -780px;
+}
+.tl-checkboxon_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-close_svg,
+.tl-close_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -804px;
+}
+.tl-close_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-copy_svg,
+.tl-copy_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -828px;
+}
+.tl-copy_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-data_svg,
+.tl-data_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -852px;
+}
+.tl-data_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-delete_filled_svg,
+.tl-delete_filled_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -876px;
+}
+.tl-delete_filled_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-delete_svg,
+.tl-delete_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -900px;
+}
+.tl-delete_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-deleteuser_svg,
+.tl-deleteuser_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -924px;
+}
+.tl-deleteuser_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-document_svg,
+.tl-document_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -948px;
+}
+.tl-document_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-down_svg,
+.tl-down_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -972px;
+}
+.tl-down_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-download_svg,
+.tl-download_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -996px;
+}
+.tl-download_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-eats_svg,
+.tl-eats_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1020px;
+}
+.tl-eats_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-edit_svg,
+.tl-edit_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1044px;
+}
+.tl-edit_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-eye1_svg,
+.tl-eye1_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1068px;
+}
+.tl-eye1_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-eye2_svg,
+.tl-eye2_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1092px;
+}
+.tl-eye2_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-flag_svg,
+.tl-flag_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1116px;
+}
+.tl-flag_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-forward_svg,
+.tl-forward_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1140px;
+}
+.tl-forward_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-group_svg,
+.tl-group_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1164px;
+}
+.tl-group_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-help_svg,
+.tl-help_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1188px;
+}
+.tl-help_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-info_svg,
+.tl-info_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1212px;
+}
+.tl-info_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-lamp_svg,
+.tl-lamp_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1236px;
+}
+.tl-lamp_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-language_svg,
+.tl-language_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1260px;
+}
+.tl-language_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-largepause_svg,
+.tl-largepause_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1284px;
+}
+.tl-largepause_svg-dims {
+	width: 36px;
+	height: 36px;
+}
+.tl-largeplay_svg,
+.tl-largeplay_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1320px;
+}
+.tl-largeplay_svg-dims {
+	width: 36px;
+	height: 36px;
+}
+.tl-location_svg,
+.tl-location_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1356px;
+}
+.tl-location_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-lock_svg,
+.tl-lock_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1380px;
+}
+.tl-lock_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-logout_svg,
+.tl-logout_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1404px;
+}
+.tl-logout_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-menu_svg,
+.tl-menu_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1428px;
+}
+.tl-menu_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-message_svg,
+.tl-message_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1452px;
+}
+.tl-message_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-microphone_svg,
+.tl-microphone_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1476px;
+}
+.tl-microphone_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-more_svg,
+.tl-more_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1500px;
+}
+.tl-more_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-mute_svg,
+.tl-mute_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1524px;
+}
+.tl-mute_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-newchannel_svg,
+.tl-newchannel_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1548px;
+}
+.tl-newchannel_svg-dims {
+	width: 36px;
+	height: 36px;
+}
+.tl-newchat_filled_svg,
+.tl-newchat_filled_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1584px;
+}
+.tl-newchat_filled_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-newgroup_svg,
+.tl-newgroup_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1608px;
+}
+.tl-newgroup_svg-dims {
+	width: 36px;
+	height: 36px;
+}
+.tl-newprivate_svg,
+.tl-newprivate_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1644px;
+}
+.tl-newprivate_svg-dims {
+	width: 36px;
+	height: 36px;
+}
+.tl-next_svg,
+.tl-next_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1680px;
+}
+.tl-next_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-pause_svg,
+.tl-pause_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1704px;
+}
+.tl-pause_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-permissions_svg,
+.tl-permissions_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1728px;
+}
+.tl-permissions_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-phone_svg,
+.tl-phone_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1752px;
+}
+.tl-phone_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-photo_svg,
+.tl-photo_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1776px;
+}
+.tl-photo_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-pin_svg,
+.tl-pin_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1800px;
+}
+.tl-pin_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-pinnedchat_svg,
+.tl-pinnedchat_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1824px;
+}
+.tl-pinnedchat_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-play_svg,
+.tl-play_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1848px;
+}
+.tl-play_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-radiooff_svg,
+.tl-radiooff_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1872px;
+}
+.tl-radiooff_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-radioon_svg,
+.tl-radioon_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1896px;
+}
+.tl-radioon_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-recent_svg,
+.tl-recent_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1920px;
+}
+.tl-recent_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-reply_svg,
+.tl-reply_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1944px;
+}
+.tl-reply_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-savedmessages_svg,
+.tl-savedmessages_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1968px;
+}
+.tl-savedmessages_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-search_svg,
+.tl-search_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -1992px;
+}
+.tl-search_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-send2_svg,
+.tl-send2_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -2016px;
+}
+.tl-send2_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-send_svg,
+.tl-send_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -2040px;
+}
+.tl-send_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-sending_svg,
+.tl-sending_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -2064px;
+}
+.tl-sending_svg-dims {
+	width: 19px;
+	height: 14px;
+}
+.tl-sendingerror_svg,
+.tl-sendingerror_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -2078px;
+}
+.tl-sendingerror_svg-dims {
+	width: 19px;
+	height: 14px;
+}
+.tl-settings_svg,
+.tl-settings_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -2092px;
+}
+.tl-settings_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-smallscreen_svg,
+.tl-smallscreen_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -2116px;
+}
+.tl-smallscreen_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-smile_svg,
+.tl-smile_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -2140px;
+}
+.tl-smile_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-sport_svg,
+.tl-sport_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -2164px;
+}
+.tl-sport_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-stop_svg,
+.tl-stop_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -2188px;
+}
+.tl-stop_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-unarchive_svg,
+.tl-unarchive_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -2212px;
+}
+.tl-unarchive_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-unlock_svg,
+.tl-unlock_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -2236px;
+}
+.tl-unlock_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-unmute_svg,
+.tl-unmute_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -2260px;
+}
+.tl-unmute_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-unpin_svg,
+.tl-unpin_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -2284px;
+}
+.tl-unpin_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-unread_svg,
+.tl-unread_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -2308px;
+}
+.tl-unread_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-up_svg,
+.tl-up_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -2332px;
+}
+.tl-up_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-user_svg,
+.tl-user_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -2356px;
+}
+.tl-user_svg-dims {
+	width: 24px;
+	height: 24px;
+}
+.tl-username_svg,
+.tl-username_svg\:regular {
+	@extend %tl;
+	background-image: url('../../assets/icons/icons.svg');
+	background-position: 0 -2380px;
+}
+.tl-username_svg-dims {
+	width: 24px;
+	height: 24px;
+}

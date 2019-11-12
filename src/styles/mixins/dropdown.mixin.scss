@@ -23,7 +23,16 @@ $c-color-select-item: $tl-c-whitesmoke;
 	&__wrapper {
 		@include tl-input();
 		width: auto;
-		display: block;
+		display: flex;
+		align-items: center;
+	}
+
+	&__toggle-icon {
+		filter: invert(66%) sepia(33%) saturate(2352%) hue-rotate(182deg) brightness(100%) contrast(94%);
+	}
+	
+	&__toggle-icon-up {
+		display: none;
 	}
 
 	&__input {

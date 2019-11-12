@@ -20,4 +20,8 @@
 	&_border-blue {
 		border-color: $tl-c-malibu;
 	}
+
+	&:focus {
+		border-color: $tl-c-malibu;
+	}
 }

@@ -9,7 +9,8 @@ function hasClass(ele, cls) {
 }
 
 function addClass(ele, cls) {
-    if (!hasClass(ele, cls)) ele.className += ' ' + cls;
+	if (!hasClass(ele, cls)) ele.className += ' ' + cls;
+	ele.className = ele.className.replace(/\s+/g, ' ').trim();
 }
 
 function removeClass(ele, cls) {
