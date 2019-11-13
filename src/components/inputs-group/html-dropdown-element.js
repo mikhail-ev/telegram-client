@@ -32,21 +32,32 @@ HtmlDropDownElement.prototype.$$initMenuEvents = function () {
 	};
 
 	self.$$handleSelectFn = function (event) {
-		if (hasClass(event.target, 'tl-dropdown__list-item')) {
+		if (hasClass(event.target, 'tl-dropdown__list-item-content-wrapper')) {
 			var value = self.$$data.find(function (item) {
 				return item.id == event.target.getAttribute('data.id');
 			});
-			self.$$input.value = value[self.$$displayName];
+			self.$$input.value = value.phoneCode;
 			if (self.$$options.onSelectFn) {
 				self.$$options.onSelectFn(value);
 			}
 
+			addClass(self.$$wrapper, 'tl-dropdown__wrapper_border-blue');
 			self.hide();
 		}
 	};
-
+	var oldValue = self.$$input.value;
 	self.$$handleInputChangeFn = function (event) {
-		self.$$callAutosuggest(self.$$input.value);
+		var value = event.target.value;
+		if (!/^[+]?[0-9]*$/.test(value)) {
+			event.stopPropagation();
+			event.stopImmediatePropagation();
+			event.preventDefault();
+			event.target.value = oldValue;
+		} else {
+			oldValue = value;
+		}
+		self.$$input.setAttribute('value', oldValue);
+		self.$$callAutosuggest(oldValue);
 	};
 
 	self.$$handleInputFocusFn = function (event) {
@@ -54,11 +65,13 @@ HtmlDropDownElement.prototype.$$initMenuEvents = function () {
 	};
 
 	self.$$handleInputBlurFn = function (event) {
-		removeClass(self.$$wrapper, 'tl-dropdown__wrapper_border-blue');
+		if (!self.$$input.value) {
+			removeClass(self.$$wrapper, 'tl-dropdown__wrapper_border-blue');
+		}
 	};
 	self.$$input.addEventListener('focus', self.$$handleInputFocusFn);
 	self.$$input.addEventListener('blur', self.$$handleInputBlurFn);
-	self.$$input.addEventListener('keyup', self.$$handleInputChangeFn);
+	self.$$input.addEventListener('input', self.$$handleInputChangeFn);
 	self.$$content.addEventListener('click', self.$$handleSelectFn);
 	self.$$wrapper.addEventListener('click', self.$$handleInputClickFn);
 	document.addEventListener('click', self.$$handleDocumentClickFn);
@@ -66,19 +79,17 @@ HtmlDropDownElement.prototype.$$initMenuEvents = function () {
 
 HtmlDropDownElement.prototype.$$callAutosuggest = function (substring) {
 	var self = this;
-	if (!self.$$isOpened) {
-		return;
-	}
+	// if (!self.$$isOpened) {
+	// 	return;
+	// }
 	if (substring) {
 		var items = self.$$data.filter(function (item) {
-			return item[self.$$displayName].toLowerCase().includes(substring.toLowerCase());
+			return item.phoneCode.toLowerCase().includes(substring.toLowerCase().replace('+', ''));
 		});
 
-		if (items.length > 0) {
-			self.$$availableItems = items;
-		} else {
-			self.$$availableItems = self.$$data;
-		}
+		self.$$availableItems = items;
+	} else {
+		self.$$availableItems = self.$$data;
 	}
 	self.$$renderData(self.$$availableItems);
 
@@ -93,7 +104,11 @@ HtmlDropDownElement.prototype.$$renderData = function (dataArray) {
 	for (var i = 0; i < self.$$availableItems.length; i++) {
 		var li = document.createElement('li');
 		li.classList.add('tl-dropdown__list-item');
-		li.innerText = dataArray[i][self.$$displayName];
+		li.innerHTML += "<div class='tl-dropdown__list-item-content-wrapper' data.id='" + dataArray[i].id + "'><div class='tl-dropdown__list-item-flag-name'><i class='tl-dropdown__list-item-flag tl__flag " + dataArray[i].iconClass + "'></i>" +
+			"<span>" + dataArray[i][self.$$displayName] + "</span></div>" +
+			"<span class='tl-dropdown__list-item-phone-code'>" + dataArray[i].phoneCode + "</span></div>";
+
+
 		li.setAttribute('data.id', dataArray[i][self.$$id]);
 		ul.appendChild(li)
 	}
@@ -138,7 +153,7 @@ HtmlDropDownElement.prototype.destroy = function () {
 	var self = this;
 	self.$$input.removeEventListener('focus', self.$$handleInputFocusFn);
 	self.$$input.removeEventListener('blur', self.$$handleInputBlurFn);
-	self.$$input.removeEventListener('keyup', self.$$handleInputChangeFn);
+	self.$$input.removeEventListener('input', self.$$handleInputChangeFn);
 	self.$$content.removeEventListener('click', self.$$handleSelectFn);
 	self.$$wrapper.removeEventListener('click', self.$$handleInputClickFn);
 	document.removeEventListener('click', self.$$handleDocumentClickFn);

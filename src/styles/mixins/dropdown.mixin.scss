@@ -32,6 +32,7 @@ $c-color-select-item: $tl-c-whitesmoke;
 		&_grey {
 			filter: invert(83%) sepia(17%) saturate(199%) hue-rotate(219deg) brightness(93%) contrast(85%);
 		}
+
 		&_blue {
 			filter: invert(66%) sepia(33%) saturate(2352%) hue-rotate(182deg) brightness(100%) contrast(94%);
 		}
@@ -61,7 +62,8 @@ $c-color-select-item: $tl-c-whitesmoke;
 		top: 16px;
 	}
 
-	&__input:focus + &__label{
+	&__input:valid + &__label,
+	&__input:focus + &__label {
 		top: -7px;
 		left: 15px;
 		color: $tl-c-malibu;
@@ -106,5 +108,30 @@ $c-color-select-item: $tl-c-whitesmoke;
 		&.hover {
 			background-color: $c-color-select-item;
 		}
+	}
+
+	&__list-item-content-wrapper {
+		display: flex;
+		align-items: center;
+		width: 100%;
+		justify-content: space-between;
+	}
+
+	&__list-item-flag-name {
+		display: flex;
+		align-items: center;
+	}
+
+	&__list-item-flag {
+		margin-right: 5px;
+	}
+
+	&__list-item-phone-code {
+		margin-right: 5px;
+		color: $tl-c-gray-suit;
+	}
+
+	&__country-group {
+
 	}
 }

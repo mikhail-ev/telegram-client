@@ -30,10 +30,21 @@
                 enter your phone number
             </div>
             <form class="login-page-submission__form">
-                <div class="tl-control-group login-page-submission__control">
-                    <input id="countryInput" type="text" class="tl-input" autocomplete="off" required/>
-                    <label class="tl-label" for="countryInput">Country</label>
-                </div>
+<!--                <div class="tl-control-group login-page-submission__control">-->
+<!--                    <input id="countryInput" type="text" class="tl-input" autocomplete="off" required/>-->
+<!--                    <label class="tl-label" for="countryInput">Country</label>-->
+<!--                </div>-->
+				<div id="countryDd" class="tl-dropdown">
+					<label class="tl-dropdown__wrapper">
+						<input class="tl-dropdown__input"
+							   type="text"
+							   autocomplete="off" required/>
+						<label class="tl-dropdown__label">Country</label>
+						<div class="tl-up_svg tl-up_svg-dims tl-dropdown__toggle-icon_blue tl-dropdown__toggle-icon-up"></div>
+						<div class="tl-down_svg tl-down_svg-dims tl-dropdown__toggle-icon_grey tl-dropdown__toggle-icon-down"></div>
+					</label>
+					<div class="tl-dropdown__content"></div>
+				</div>
                 <div class="tl-control-group login-page-submission__control">
                     <input id="phoneNumberInput" type="text" class="tl-input" required
                            autocomplete="off"/>
