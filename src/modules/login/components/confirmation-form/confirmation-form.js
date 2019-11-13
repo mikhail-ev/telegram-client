@@ -3,6 +3,13 @@ import { changePhoneEvent, codeConfirmedEvent, codeSentEvent } from '../../const
 import { phoneToString } from '../../../../utils/phone';
 import { applyNumericInput } from '../../../common/components/numeric-input/numeric-input';
 
+class ConfirmationInfo {
+	constructor(code, userId) {
+		this.code = code;
+		this.userId = userId;
+	}
+}
+
 class ConfirmationFormComponent {
     constructor(signInInfo) {
         this.backButton = null;
@@ -43,6 +50,8 @@ class ConfirmationFormComponent {
         if (this.isLoading) {
             return;
         }
+        var componentEvent = new Event(codeConfirmedEvent);
+        componentEvent.data = new ConfirmationInfo(value);
         if (value && value.length === this.signInInfo.codeLength) {
             this.isLoading = true;
             MtpApiManager.invokeApi('auth.signIn', {
@@ -53,8 +62,12 @@ class ConfirmationFormComponent {
                 dcID: 2,
                 createNetworker: true
             }).then((result) => { // "{"_":"auth.authorization","pFlags":{},"flags":0,"user":{"_":"user","pFlags":{"self":true,"contact":true},"flags":3159,"id":696018,"access_hash":"11134724570702625712","first_name":"Mikhail","last_name":"mmm","phone":"48730887261","status":{"_":"userStatusOffline","was_online":1572983061}}}"
-                this.container.dispatchEvent(new Event(codeConfirmedEvent));
-            }, () => {
+            	componentEvent.data.userId = result.user.id;
+                this.container.dispatchEvent(componentEvent);
+            }, (error) => {
+            	if (error.type === 'PHONE_NUMBER_UNOCCUPIED') {
+					this.container.dispatchEvent(componentEvent);
+				}
                 this.isLoading = false;
             });
         }

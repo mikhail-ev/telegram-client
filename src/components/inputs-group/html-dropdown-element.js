@@ -96,7 +96,6 @@ HtmlDropDownElement.prototype.$$callAutosuggest = function (substring) {
 };
 
 HtmlDropDownElement.prototype.$$renderData = function (dataArray) {
-	console.log(dataArray);
 	var self = this;
 	var ul = document.createElement('ul');
 	self.$$content.innerHTML = '';

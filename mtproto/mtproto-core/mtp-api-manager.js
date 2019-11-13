@@ -166,25 +166,25 @@ window.MtpApiManager = (function() {
                 if (!options.noErrorBox) {
                     error.input = method
                     error.stack = stack || (error.originalError && error.originalError.stack) || error.stack || (new Error()).stack
-                    setTimeout(function () {
-                        if (!error.handled) {
-                            if (error.code == 401) {
-                                mtpLogOut()['finally'](function () {
-                                    if (location.protocol == 'http:' &&
-                                        !Config.Modes.http &&
-                                        Config.App.domains.indexOf(location.hostname) != -1) {
-                                        location.href = location.href.replace(/^http:/, 'https:')
-                                    } else {
-                                        location.hash = '/login'
-                                        // AppRuntimeManager.reload() // TODO
-                                    }
-                                })
-                            } else {
-                                // ErrorService.show({error: error}) // TODO
-                            }
-                            error.handled = true
-                        }
-                    }, 100)
+                    // setTimeout(function () {
+                    //     if (!error.handled) {
+                    //         if (error.code == 401) {
+                    //             mtpLogOut()['finally'](function () {
+                    //                 if (location.protocol == 'http:' &&
+                    //                     !Config.Modes.http &&
+                    //                     Config.App.domains.indexOf(location.hostname) != -1) {
+                    //                     location.href = location.href.replace(/^http:/, 'https:')
+                    //                 } else {
+                    //                     location.hash = '/login'
+                    //                     // AppRuntimeManager.reload() // TODO
+                    //                 }
+                    //             })
+                    //         } else {
+                    //             // ErrorService.show({error: error}) // TODO
+                    //         }
+                    //         error.handled = true
+                    //     }
+                    // }, 100)
                 }
             },
             dcID,

@@ -1,6 +1,18 @@
 const babel = require('rollup-plugin-babel');
 
+const plugins = [babel({ plugins: [['@babel/plugin-proposal-class-properties', { loose: true }]] })];
+
 module.exports = [
+    {
+        input: 'src/modules/debug/debug.js',
+        output: {
+            name: 'debug',
+            file: 'dist/debug.js',
+            format: 'umd',
+            sourcemap: true
+        },
+        plugins
+    },
     {
         input: 'src/modules/login/login.js',
         output: {
@@ -9,7 +21,7 @@ module.exports = [
             format: 'umd',
             sourcemap: true
         },
-        plugins: [babel({ plugins: [['@babel/plugin-proposal-class-properties', { loose: true }]] })]
+        plugins
     },
     {
         input: 'src/modules/messenger/messenger.js',
@@ -21,7 +33,8 @@ module.exports = [
             file: 'dist/messenger.js',
             format: 'umd',
             sourcemap: true
-        }
+        },
+		plugins
     },
     {
         input: 'src/bootstrap.js',
@@ -30,6 +43,7 @@ module.exports = [
             file: 'dist/bootstrap.js',
             format: 'umd',
             sourcemap: true
-        }
+        },
+		plugins
     },
 ]

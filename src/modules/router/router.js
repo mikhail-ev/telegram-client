@@ -22,7 +22,7 @@ function handleHashChange() {
         if (activeModule) {
             activeModule.unmount();
         }
-        activeModule = window[route.name];
+        activeModule = new window[route.name](); // TODO error handling
         activeModule.mount(root);
     });
 }
