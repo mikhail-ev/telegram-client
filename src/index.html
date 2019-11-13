@@ -1,20 +1,20 @@
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="./styles.css">
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" href="./styles.css">
 </head>
 <body>
 
-    <div id="root"></div>
+<div id="root"></div>
 
-    <!------------ Templates section ---------------->
+<!------------ Templates section ---------------->
 
-    <!-- Login page -->
-    <template id="loginPage">
-        <div class="login-page">
-        </div>
-    </template>
+<!-- Login page -->
+<template id="loginPage">
+	<div class="login-page">
+	</div>
+</template>
 
     <!-- Sign-in form -->
     <template id="signInFormComponent">
@@ -77,40 +77,40 @@
         </div>
     </template>
 
-    <!-- Details form component -->
-    <template id="detailsFormComponent">
-        <div class="login-page-submission">
-            <div
-                    class="login-page-submission__image login-page-submission__image_medium login-page-submission__image_pulled">
-                <img class="details-form-photo-placeholder" src="./assets/img/profile-picture-placeholder.png">
-            </div>
-            <div class="login-page-submission__heading login-page__heading">
-                Your Name
-            </div>
-            <div class="login-page-submission__info login-page__sub-heading">
-                Enter your name and add <br>
-                a profile picture
-            </div>
-            <form class="login-page-submission__form">
-                <div class="tl-control-group login-page-submission__control">
-                    <input id="name" type="text" class="tl-input"/>
-                    <label class="tl-label" for="name">Name</label>
-                </div>
-                <div class="tl-control-group login-page-submission__control">
-                    <input id="lname" type="text" class="tl-input"/>
-                    <label class="tl-label" for="lname">Last Name (optional)</label>
-                </div>
-                <button class="tl-button tl-button_wide tl-button_primary login-page-submission__button">
-                    Start Messaging
-                </button>
-            </form>
-        </div>
-    </template>
+<!-- Details form component -->
+<template id="detailsFormComponent">
+	<div class="login-page-submission">
+		<div
+			class="login-page-submission__image login-page-submission__image_medium login-page-submission__image_pulled">
+			<img class="details-form-photo-placeholder" src="./assets/img/profile-picture-placeholder.png">
+		</div>
+		<div class="login-page-submission__heading login-page__heading">
+			Your Name
+		</div>
+		<div class="login-page-submission__info login-page__sub-heading">
+			Enter your name and add <br>
+			a profile picture
+		</div>
+		<form class="login-page-submission__form">
+			<div class="tl-control-group login-page-submission__control">
+				<input id="name" type="text" class="tl-input"/>
+				<label class="tl-label" for="name">Name</label>
+			</div>
+			<div class="tl-control-group login-page-submission__control">
+				<input id="lname" type="text" class="tl-input"/>
+				<label class="tl-label" for="lname">Last Name (optional)</label>
+			</div>
+			<button class="tl-button tl-button_wide tl-button_primary login-page-submission__button">
+				Start Messaging
+			</button>
+		</form>
+	</div>
+</template>
 
-    <template id="detailsFormComponentModal">
-        <div>Modal content</div>
-        <div class="close-modal">close modal</div>
-    </template>
+<template id="detailsFormComponentModal">
+	<div>Modal content</div>
+	<div class="close-modal">close modal</div>
+</template>
 
     <!-- Confirmation form component -->
     <template id="confirmationFormComponent">
@@ -141,45 +141,45 @@
         </div>
     </template>
 
-    <!-- Messenger page -->
-    <template id="messengerPage">
-        <div style="font-family: 'Roboto'">Messenger</div>
-        <div style="margin-bottom: 10px"></div>
-        <label class="tl-checkbox"> asd
-            <input class="tl-checkbox__input" type="checkbox" checked="checked">
-            <span class="tl-1check_svg tl-1check_svg-dims tl-checkbox__checkmark"></span>
-        </label>
-        <div style="margin-bottom: 10px"></div>
-        <label class="tl-checkbox"> asd
-            <input class="tl-checkbox__input" type="checkbox">
-            <span class="tl-1check_svg tl-1check_svg-dims tl-checkbox__checkmark"></span>
-        </label>
-        <div style="margin-bottom: 10px"></div>
+<!-- Messenger page -->
+<template id="messengerPage">
+	<div style="font-family: 'Roboto'">Messenger</div>
+	<div style="margin-bottom: 10px"></div>
+	<label class="tl-checkbox"> asd
+		<input class="tl-checkbox__input" type="checkbox" checked="checked">
+		<span class="tl-1check_svg tl-1check_svg-dims tl-checkbox__checkmark"></span>
+	</label>
+	<div style="margin-bottom: 10px"></div>
+	<label class="tl-checkbox"> asd
+		<input class="tl-checkbox__input" type="checkbox">
+		<span class="tl-1check_svg tl-1check_svg-dims tl-checkbox__checkmark"></span>
+	</label>
+	<div style="margin-bottom: 10px"></div>
 
-        <div style="margin-bottom: 10px"></div>
-        <div class="tl-control-group">
-            <input id="test" type="text" class="tl-input"/>
-            <label class="tl-label" for="test">Bio (optional)</label>
-        </div>
-        <div style="margin-bottom: 10px"></div>
-        <div id="ddtest" class="tl-dropdown">
-            <label class="tl-dropdown__wrapper">
-                <input class="tl-dropdown__input"
-                       type="text"
-                       autocomplete="off"/>
-                <label class="tl-dropdown__label">Bio (optional)</label>
-                <div class="tl-up_svg tl-up_svg-dims tl-dropdown__toggle-icon_blue tl-dropdown__toggle-icon-up"></div>
-                <div class="tl-down_svg tl-down_svg-dims tl-dropdown__toggle-icon_grey tl-dropdown__toggle-icon-down"></div>
-            </label>
-            <div class="tl-dropdown__content"></div>
-        </div>
-        <div style="margin-bottom: 10px"></div>
-        <button type="button" class="tl-button tl-button_primary tl-button_wide">Next</button>
-        <div class="tl-1check_svg tl-1check_svg-dims"></div>
-    </template>
+	<div style="margin-bottom: 10px"></div>
+	<div class="tl-control-group">
+		<input id="test" type="text" class="tl-input"/>
+		<label class="tl-label" for="test">Bio (optional)</label>
+	</div>
+	<div style="margin-bottom: 10px"></div>
+	<div id="ddtest" class="tl-dropdown">
+		<label class="tl-dropdown__wrapper">
+			<input class="tl-dropdown__input"
+				   type="text"
+				   autocomplete="off"/>
+			<label class="tl-dropdown__label">Bio (optional)</label>
+			<div class="tl-up_svg tl-up_svg-dims tl-dropdown__toggle-icon_blue tl-dropdown__toggle-icon-up"></div>
+			<div class="tl-down_svg tl-down_svg-dims tl-dropdown__toggle-icon_grey tl-dropdown__toggle-icon-down"></div>
+		</label>
+		<div class="tl-dropdown__content"></div>
+	</div>
+	<div style="margin-bottom: 10px"></div>
+	<button type="button" class="tl-button tl-button_primary tl-button_wide">Next</button>
+	<div class="tl-1check_svg tl-1check_svg-dims"></div>
+</template>
 
-    <!------------ Scripts section ---------------->
-    <script src="./vendors.js"></script>
-    <script src="./bootstrap.js"></script>
+<!------------ Scripts section ---------------->
+<script src="./vendors.js"></script>
+<script src="./bootstrap.js"></script>
 </body>
 </html>
