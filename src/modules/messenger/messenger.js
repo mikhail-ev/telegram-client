@@ -18,6 +18,7 @@ class MessengerModule {
 
 	unmount() {
 		this.container.innerHTML = '';
+		this.container = null;
 	}
 }
 

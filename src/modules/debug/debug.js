@@ -52,6 +52,7 @@ class DebugModule {
 
 	unmount() {
 		this.container.innerHTML = '';
+		this.container = null;
 	}
 }
 

@@ -41,11 +41,11 @@ class LoginModule {
 		this.container.removeEventListener(codeConfirmedEvent, this.handleConfirmedCode);
 		this.container.removeEventListener(detailsSetEvent, this.handleDetailsSet, true);
 		this.activeView.unmount();
-		this.container = null;
 		this.innerContainer = null;
 		this.activeView = null;
 		this.signInInfo = null;
 		this.container.innerHTML = '';
+		this.container = null;
 	}
 
 	handleDetailsSet = (event) => {
