@@ -1,0 +1,5 @@
+@import '../mixins/speech-bubble.mixin';
+
+.tl-speech-bubble {
+	@include tl-speech-bubble();
+}
