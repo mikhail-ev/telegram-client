@@ -155,59 +155,43 @@
 	<template id="messengerPage">
 		<div class="messenger">
 			<div class="messenger__aside">
-				<div class="chats">
-					<div class="chats__controls">
-						<div class="chats__menu">
-							<div class="burger">
-								<div></div>
-								<div></div>
-								<div></div>
-							</div>
+			</div>
+			<div class="messenger__content">
+				<div class="messenger-actions">
+					<div class="messenger-actions__content">
+						<div class="messenger-actions__icon tl-chatsplaceholder_svg tl-chatsplaceholder_svg-dims"></div>
+						<div class="messenger-actions__text">
+							Open Chat <br> or create a new one
 						</div>
-						<div class="chats__search-wrapper">
-							<div class="chats__search-icon tl-search_svg tl-search_svg-dims"></div>
-							<input class="chats__search" placeholder="Search">
-						</div>
-					</div>
-					<div class="chats__content">
-						<div class="chat">
-							<div class="chat__image">
-								<img style="height: 100%" src="./assets/img/random-person.jpg" class="">
-							</div>
-							<div class="chat__info">
-								<div class="chat__row">
-									<div class="chat__name">Alicia Torreaux</div>
-									<div class="chat__time">21:48</div>
+						<div class="messenger-actions__items">
+							<div class="messenger-actions-action">
+								<div class="messenger-actions-action__icon">
+									<div class="messenger-actions-action__img tl-user_svg tl-user_svg-dims"></div>
 								</div>
-								<div class="chat__row">
-									<div class="chat__message">Say hello to Alice</div>
-									<div class="chat__notifications">
-										<div class="notification">1</div>
-									</div>
+								<div class="messenger-actions-action__text">
+									Private
 								</div>
 							</div>
-						</div>
-						<div class="chat">
-							<div class="chat__image">
-								<img style="height: 100%" src="./assets/img/random-person.jpg" class="">
-							</div>
-							<div class="chat__info">
-								<div class="chat__row">
-									<div class="chat__name">Alicia Torreaux</div>
-									<div class="chat__time">21:48</div>
+							<div class="messenger-actions-action">
+								<div class="messenger-actions-action__icon">
+									<div class="messenger-actions-action__img tl-group_svg tl-group_svg-dims"></div>
 								</div>
-								<div class="chat__row">
-									<div class="chat__message">Say hello to Alice</div>
-									<div class="chat__icons">
-										<div class="chat-icon">1</div>
-									</div>
+								<div class="messenger-actions-action__text">
+									Group
+								</div>
+							</div>
+							<div class="messenger-actions-action">
+								<div class="messenger-actions-action__icon">
+									<div class="messenger-actions-action__img tl-channel_svg tl-channel_svg-dims"></div>
+								</div>
+								<div class="messenger-actions-action__text">
+									Channel
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="messenger__content"></div>
 		</div>
 	</template>
 
@@ -249,6 +233,65 @@
 		<div style="margin-bottom: 10px"></div>
 		<button type="button" class="tl-button tl-button_primary tl-button_wide">Next</button>
 		<div class="tl-1check_svg tl-1check_svg-dims"></div>
+	</template>
+
+	<template id="chatsComponent">
+		<div class="chats">
+			<div class="chats__controls">
+				<div class="chats__menu">
+					<div class="burger">
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
+				</div>
+				<div class="chats__search-wrapper">
+					<div class="chats__search-icon tl-search_svg tl-search_svg-dims"></div>
+					<input class="chats__search" placeholder="Search">
+				</div>
+			</div>
+			<div class="chats__content">
+				<div class="chat" data-userid="1001">
+					<div class="chat__image">
+						<img src="./assets/img/random-person.jpg" class="">
+					</div>
+					<div class="chat__info">
+						<div class="chat__row">
+							<div class="chat__name">Alicia Torreaux</div>
+							<div class="chat__time">21:48</div>
+						</div>
+						<div class="chat__row">
+							<div class="chat__message">Say hello to Alice</div>
+							<div class="chat__notifications">
+								<div class="notification">1</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="chat" data-userid="1002">
+					<div class="chat__image">
+						<img src="./assets/img/random-person.jpg" class="">
+					</div>
+					<div class="chat__info">
+						<div class="chat__row">
+							<div class="chat__name">Alicia Torreaux</div>
+							<div class="chat__time">21:48</div>
+						</div>
+						<div class="chat__row">
+							<div class="chat__message">Say hello to Alice</div>
+							<div class="chat__icons">
+								<div class="chat-icon">1</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</template>
+
+	<template id="chatWindowComponent">
+		<div>Chat window</div>
+		<span></span>
 	</template>
 
 	<!------------ Scripts section ---------------->

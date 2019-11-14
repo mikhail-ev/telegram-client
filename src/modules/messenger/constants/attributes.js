@@ -1,0 +1,1 @@
+export var userIdAttribute = 'data-userid';

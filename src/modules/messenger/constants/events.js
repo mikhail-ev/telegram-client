@@ -1,0 +1,1 @@
+export var chatSelectEvent = 'chat-select';
