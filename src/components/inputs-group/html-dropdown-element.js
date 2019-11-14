@@ -119,7 +119,7 @@ HtmlDropDownElement.prototype.$$renderData = function (dataArray) {
 	for (var i = 0; i < self.$$availableItems.length; i++) {
 		var li = document.createElement('li');
 		li.classList.add('tl-dropdown__list-item');
-		li.innerHTML += "<div class='tl-dropdown__list-item-content-wrapper' data.id='" + dataArray[i].id + "'><div class='tl-dropdown__list-item-flag-name'><i class='tl-dropdown__list-item-flag tl__flag " + dataArray[i].iconClass + "'></i>" +
+		li.innerHTML += "<div class='tl-dropdown__list-item-content-wrapper' data.id='" + dataArray[i].id + "'><div class='tl-dropdown__list-item-flag-name'><i class='tl-dropdown__list-item-flag'>" + dataArray[i].icon + "</i>" +
 			"<span>" + dataArray[i][self.$$displayName] + "</span></div>" +
 			"<span class='tl-dropdown__list-item-phone-code'>" + dataArray[i].phoneCode + "</span></div>";
 
