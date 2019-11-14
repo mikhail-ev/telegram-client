@@ -48,6 +48,23 @@ class DebugModule {
 				console.warn(result);
 			}, (e) => console.warn(e));
 		});
+
+		var getDialogsButton = document.getElementById('getDialogsButton');
+		getDialogsButton.addEventListener('click', () => {
+			MtpApiManager.invokeApi('messages.getDialogs', {
+				flags: 0,
+				offset_date: 0,
+				offset_id: 0,
+				offset_peer: {"_": "inputPeerEmpty"},
+				limit: 20
+			}, {
+				timeout: 300,
+				dcID: 2,
+				createNetworker: true
+			}).then((result) => {
+				console.warn(result);
+			}, (e) => console.warn(e));
+		});
 	}
 
 	unmount() {

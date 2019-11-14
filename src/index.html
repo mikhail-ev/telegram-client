@@ -327,59 +327,45 @@
 	<div class="tl-1check_svg tl-1check_svg-dims"></div>
 </template>
 
-<template id="chatsComponent">
-	<div class="chats">
-		<div class="chats__controls">
-			<div class="chats__menu">
-				<div class="burger">
-					<div></div>
-					<div></div>
-					<div></div>
+	<template id="chatsComponent">
+		<div class="chats">
+			<div class="chats__controls">
+				<div class="chats__menu">
+					<div class="burger">
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
+				</div>
+				<div class="chats__search-wrapper">
+					<div class="chats__search-icon tl-search_svg tl-search_svg-dims"></div>
+					<input class="chats__search" placeholder="Search">
 				</div>
 			</div>
-			<div class="chats__search-wrapper">
-				<div class="chats__search-icon tl-search_svg tl-search_svg-dims"></div>
-				<input class="chats__search" placeholder="Search">
+			<div class="chats__content">
 			</div>
 		</div>
-		<div class="chats__content">
-			<div class="chat" data-userid="1001">
-				<div class="chat__image">
-					<img src="./assets/img/random-person.jpg" class="">
-				</div>
-				<div class="chat__info">
-					<div class="chat__row">
-						<div class="chat__name">Alicia Torreaux</div>
-						<div class="chat__time">21:48</div>
-					</div>
-					<div class="chat__row">
-						<div class="chat__message">Say hello to Alice</div>
-						<div class="chat__notifications">
-							<div class="notification">1</div>
-						</div>
-					</div>
-				</div>
+	</template>
+
+	<template id="chatComponentPlateTemplate">
+		<div class="chat">
+			<div class="chat__image">
+<!--				<img>-->
 			</div>
-			<div class="chat" data-userid="1002">
-				<div class="chat__image">
-					<img src="./assets/img/random-person.jpg" class="">
+			<div class="chat__info">
+				<div class="chat__row">
+					<div class="chat__name">Alicia Torreaux</div>
+					<div class="chat__time">21:48</div>
 				</div>
-				<div class="chat__info">
-					<div class="chat__row">
-						<div class="chat__name">Alicia Torreaux</div>
-						<div class="chat__time">21:48</div>
-					</div>
-					<div class="chat__row">
-						<div class="chat__message">Say hello to Alice</div>
-						<div class="chat__icons">
-							<div class="chat-icon">1</div>
-						</div>
+				<div class="chat__row">
+					<div class="chat__message">Say hello to Alice</div>
+					<div class="chat__icons">
+						<div class="chat-icon">1</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</template>
+	</template>
 
 <template id="chatWindowComponent">
 	<div>Chat window</div>
