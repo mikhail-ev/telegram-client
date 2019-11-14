@@ -16,30 +16,26 @@
 		</div>
 	</template>
 
-	<!-- Sign-in form -->
-	<template id="signInFormComponent">
-		<div class="sign-in-form login-page-submission">
-			<div class="login-page-submission__image">
-				<img src="./assets/img/logo.png">
-			</div>
-			<h1 class="login-page-submission__heading login-page__heading">
-				Sign in to Telegram
-			</h1>
-			<div class="login-page-submission__info login-page__sub-heading">
-				Please confirm your country and <br>
-				enter your phone number
-			</div>
+    <!-- Sign-in form -->
+    <template id="signInFormComponent">
+        <div class="sign-in-form login-page-submission">
+            <div class="login-page-submission__image">
+                <img src="./assets/img/logo.png">
+            </div>
+            <h1 class="login-page-submission__heading login-page__heading">
+                Sign in to Telegram
+            </h1>
+            <div class="login-page-submission__info login-page__sub-heading">
+                Please confirm your country and <br>
+                enter your phone number
+            </div>
 			<form class="login-page-submission__form">
 				<div id="countryDd" class="tl-dropdown">
 					<label class="tl-dropdown__wrapper">
-						<input class="tl-dropdown__input"
-							   type="text"
-							   autocomplete="off" required/>
-						<label class="tl-dropdown__label">Country</label>
-						<div
-							class="tl-up_svg tl-up_svg-dims tl-dropdown__toggle-icon_blue tl-dropdown__toggle-icon-up"></div>
-						<div
-							class="tl-down_svg tl-down_svg-dims tl-dropdown__toggle-icon_grey tl-dropdown__toggle-icon-down"></div>
+						<input id="ddCountryInput" class="tl-dropdown__input" type="text" autocomplete="off" required/>
+						<label class="tl-dropdown__label" for="ddCountryInput">Country</label>
+						<div class="tl-up_svg tl-up_svg-dims tl-dropdown__toggle-icon_blue tl-dropdown__toggle-icon-up"></div>
+						<div class="tl-down_svg tl-down_svg-dims tl-dropdown__toggle-icon_grey tl-dropdown__toggle-icon-down"></div>
 					</label>
 					<div class="tl-dropdown__content"></div>
 				</div>

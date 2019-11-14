@@ -61,12 +61,16 @@ $c-color-select-item: $tl-c-whitesmoke;
 		line-height: initial;
 		top: 16px;
 	}
-
-	&__input:valid + &__label,
-	&__input:focus + &__label {
+	// &__input:focus + &__label
+	&__input:valid + &__label {
 		top: -7px;
 		left: 15px;
 		color: $tl-c-malibu;
+	}
+
+	&__input:valid,
+	&__input:focus {
+		caret-color: $tl-c-malibu;
 	}
 
 	&__content {

@@ -63,7 +63,7 @@ export const Countries = [
 		"id": "GT",
 		"name": "Guatemala City",
 		"phoneCode": "502"
-	}, {"id": "GS", "name": "Grytviken", "phoneCode": ""}, {"id": "GR", "name": "Athens", "phoneCode": "30"}, {
+	}, {"id": "GS", "name": "Grytviken", "phoneCode": "500"}, {"id": "GR", "name": "Athens", "phoneCode": "30"}, {
 		"id": "GQ",
 		"name": "Malabo",
 		"phoneCode": "240"
@@ -107,7 +107,7 @@ export const Countries = [
 		"id": "HK",
 		"name": "Hong Kong",
 		"phoneCode": "852"
-	}, {"id": "HN", "name": "Tegucigalpa", "phoneCode": "504"}, {"id": "HM", "name": "", "phoneCode": " "}, {
+	}, {"id": "HN", "name": "Tegucigalpa", "phoneCode": "504"}, {"id": "HM", "name": "Heard Island and McDonald Islands", "phoneCode": "672"}, {
 		"id": "VE",
 		"name": "Caracas",
 		"phoneCode": "58"
@@ -249,8 +249,8 @@ export const Countries = [
 		"phoneCode": "674"
 	}, {"id": "NU", "name": "Alofi", "phoneCode": "683"}, {"id": "CK", "name": "Avarua", "phoneCode": "682"}, {
 		"id": "XK",
-		"name": "Pristina",
-		"phoneCode": ""
+		"name": "Kosovo",
+		"phoneCode": "383"
 	}, {"id": "CI", "name": "Yamoussoukro", "phoneCode": "225"}, {
 		"id": "CH",
 		"name": "Berne",
@@ -378,7 +378,7 @@ export const Countries = [
 	}, {"id": "LS", "name": "Maseru", "phoneCode": "266"}, {"id": "TH", "name": "Bangkok", "phoneCode": "66"}, {
 		"id": "TF",
 		"name": "Port-aux-Francais",
-		"phoneCode": ""
+		"phoneCode": "262"
 	}, {"id": "TG", "name": "Lome", "phoneCode": "228"}, {"id": "TD", "name": "N'Djamena", "phoneCode": "235"}, {
 		"id": "TC",
 		"name": "Cockburn Town",
@@ -407,7 +407,7 @@ export const Countries = [
 		"id": "AL",
 		"name": "Tirana",
 		"phoneCode": "355"
-	}, {"id": "AO", "name": "Luanda", "phoneCode": "244"}, {"id": "AQ", "name": "", "phoneCode": ""}, {
+	}, {"id": "AO", "name": "Luanda", "phoneCode": "244"}, {"id": "AQ", "name": "Antarctica", "phoneCode": "672"}, {
 		"id": "AS",
 		"name": "Pago Pago",
 		"phoneCode": "+1-684"

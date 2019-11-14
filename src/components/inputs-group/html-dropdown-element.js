@@ -14,6 +14,8 @@ HtmlDropDownElement.prototype.$$initMenuEvents = function () {
 	self.$$content = self.element.querySelectorAll('.tl-dropdown__content')[0];
 	self.$$iconUp = self.element.querySelectorAll('.tl-dropdown__toggle-icon-up')[0];
 	self.$$iconDown = self.element.querySelectorAll('.tl-dropdown__toggle-icon-down')[0];
+	self.$$label = self.element.querySelector('.tl-dropdown__label');
+	self.$$selected = false;
 
 	self.$$handleDocumentClickFn = function (event) {
 		if (!self.$$isOpened || !event.target /*|| jQuery(event.target).hasClass(dd.toogleIconClass)*/) {
@@ -32,43 +34,57 @@ HtmlDropDownElement.prototype.$$initMenuEvents = function () {
 	};
 
 	self.$$handleSelectFn = function (event) {
-		if (hasClass(event.target, 'tl-dropdown__list-item-content-wrapper')) {
+		console.log(event.target);
+		if (hasClass(event.target, 'tl-dropdown__list-item-content-wrapper') || event.target.closest('.tl-dropdown__list-item-content-wrapper')) {
+			var elem = hasClass(event.target, 'tl-dropdown__list-item-content-wrapper') ? event.target : event.target.closest('.tl-dropdown__list-item-content-wrapper');
 			var value = self.$$data.find(function (item) {
-				return item.id == event.target.getAttribute('data.id');
+				return item.id == elem.getAttribute('data.id');
 			});
-			self.$$input.value = value.phoneCode;
+			self.$$input.value = value[self.$$displayName];
 			if (self.$$options.onSelectFn) {
 				self.$$options.onSelectFn(value);
 			}
 
 			addClass(self.$$wrapper, 'tl-dropdown__wrapper_border-blue');
+			self.$$label.innerText = 'Country';
+			self.$$selected = true;
 			self.hide();
 		}
 	};
-	var oldValue = self.$$input.value;
 	self.$$handleInputChangeFn = function (event) {
-		var value = event.target.value;
-		if (!/^[+]?[0-9]*$/.test(value)) {
-			event.stopPropagation();
-			event.stopImmediatePropagation();
-			event.preventDefault();
-			event.target.value = oldValue;
-		} else {
-			oldValue = value;
-		}
-		self.$$input.setAttribute('value', oldValue);
-		self.$$callAutosuggest(oldValue);
+		self.$$input.setAttribute('value', self.$$input.value);
+		self.$$callAutosuggest(self.$$input.value);
+		self.$$selected = false;
 	};
 
 	self.$$handleInputFocusFn = function (event) {
 		addClass(self.$$wrapper, 'tl-dropdown__wrapper_border-blue');
+		removeClass(self.$$iconDown, 'tl-dropdown__toggle-icon_grey');
+		addClass(self.$$iconDown, 'tl-dropdown__toggle-icon_blue');
+		removeClass(self.$$iconUp, 'tl-dropdown__toggle-icon_grey');
+		addClass(self.$$iconUp, 'tl-dropdown__toggle-icon_blue');
 	};
 
 	self.$$handleInputBlurFn = function (event) {
 		if (!self.$$input.value) {
 			removeClass(self.$$wrapper, 'tl-dropdown__wrapper_border-blue');
+			removeClass(self.$$iconDown, 'tl-dropdown__toggle-icon_blue');
+			addClass(self.$$iconDown, 'tl-dropdown__toggle-icon_grey');
+			removeClass(self.$$iconUp, 'tl-dropdown__toggle-icon_blue');
+			addClass(self.$$iconUp, 'tl-dropdown__toggle-icon_grey');
 		}
 	};
+	self.$$content.addEventListener('mouseover', function (event) {
+		if (hasClass(event.target, 'tl-dropdown__list-item')) {
+			var value = self.$$data.find(function (item) {
+				return item.id == event.target.getAttribute('data.id');
+			});
+			if (!self.$$input.value) {
+				self.$$label.innerText = value[self.$$displayName];
+			}
+		}
+
+	});
 	self.$$input.addEventListener('focus', self.$$handleInputFocusFn);
 	self.$$input.addEventListener('blur', self.$$handleInputBlurFn);
 	self.$$input.addEventListener('input', self.$$handleInputChangeFn);
@@ -82,9 +98,9 @@ HtmlDropDownElement.prototype.$$callAutosuggest = function (substring) {
 	// if (!self.$$isOpened) {
 	// 	return;
 	// }
-	if (substring) {
+	if (substring && !self.$$selected) {
 		var items = self.$$data.filter(function (item) {
-			return item.phoneCode.toLowerCase().includes(substring.toLowerCase().replace('+', ''));
+			return item[self.$$displayName].toLowerCase().includes(substring.toLowerCase().replace('+', ''));
 		});
 
 		self.$$availableItems = items;
@@ -141,6 +157,10 @@ HtmlDropDownElement.prototype.open = function () {
 HtmlDropDownElement.prototype.hide = function () {
 	var self = this;
 	self.$$isOpened = false;
+
+	if (!self.$$selected) {
+		self.$$label.innerText = 'Country';
+	}
 	removeClass(self.element, 'tl-dropdown_open');
 
 	removeClass(self.$$iconDown, 'd-none');
