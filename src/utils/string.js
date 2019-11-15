@@ -36,3 +36,12 @@ export function dateToTime(unixDate) {
 	var date = new Date(unixDate * 1000);
 	return ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2);
 }
+
+export function dateToDay(unixDate) {
+	var date = new Date(unixDate * 1000);
+	var today = new Date();
+	if (today.toDateString() === date.toDateString()) {
+		return 'Today';
+	}
+	return date.toLocaleString('default', { month: 'long' }) + ' ' + date.getDate();
+}

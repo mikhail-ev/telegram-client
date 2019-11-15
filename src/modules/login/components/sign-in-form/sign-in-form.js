@@ -86,20 +86,20 @@ class SignInFormComponent {
 
 		var phone = this.phoneInput.value.toString();
 		var country = this.countryCode.toString();
-		// sendCode(country + phone).then((result) => {
-		// 	var componentEvent = new Event(codeSentEvent);
-		// 	var registered = result.pFlags && !!result.pFlags.phone_registered;
-		// 	componentEvent.data = new SignInInfo(
-		// 		phone, country, result.phone_code_hash, result.type.length, registered, this.countryName);
-		// 	this.container.dispatchEvent(componentEvent);
-		// }, () => {
-		// 	this.isLoading = false;
-		// });
-		var componentEvent = new Event(codeSentEvent);
-		var registered = true;
-		componentEvent.data = new SignInInfo(
-			phone, country, '', 5, registered, this.countryName);
-		this.container.dispatchEvent(componentEvent);
+		sendCode(country + phone).then((result) => {
+			var componentEvent = new Event(codeSentEvent);
+			var registered = result.pFlags && !!result.pFlags.phone_registered;
+			componentEvent.data = new SignInInfo(
+				phone, country, result.phone_code_hash, result.type.length, registered, this.countryName);
+			this.container.dispatchEvent(componentEvent);
+		}, () => {
+			this.isLoading = false;
+		});
+		// var componentEvent = new Event(codeSentEvent);
+		// var registered = true;
+		// componentEvent.data = new SignInInfo(
+		// 	phone, country, '', 5, registered, this.countryName);
+		// this.container.dispatchEvent(componentEvent);
 	};
 
 	setCountryCode(code) {

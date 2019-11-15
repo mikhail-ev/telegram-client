@@ -1,10 +1,12 @@
 import { getPeer } from '../../../../utils/telegram';
-import { dateToTime } from '../../../../utils/string';
+import { dateToDay, dateToTime } from '../../../../utils/string';
 import { scrollToBottom } from '../../../../utils/dom';
 
 class ChatWindowComponent {
 	constructor() {
 		this.container = null;
+		this.messages = null;
+		this.lastMessageDate = null;
 	}
 
 	mount(container) {
@@ -32,11 +34,13 @@ class ChatWindowComponent {
 			noErrorBox: true
 		}).then((response) => {
 			console.log(response);
-			this.renderMessages(response.messages.slice());
+			this.messages = response.messages;
+			this.renderMessages(response.messages);
 		}, e => console.log(e));
 	}
 
 	renderMessages(messages) {
+		this.lastMessageDate = null; // TODO
 		this.messagesContainer.innerHTML = '';
 		var fragment = document.createDocumentFragment();
 		var parts = [];
@@ -67,6 +71,17 @@ class ChatWindowComponent {
 			} else if(lastDirection === -1 || lastDirection === 0) {
 				bubble.classList.add('tl-speech-bubble_droplet');
 				lastDirection = 1;
+			}
+			var messageDate = dateToDay(message.date);
+			if (this.lastMessageDate === null) {
+				this.lastMessageDate = messageDate;
+			}
+			if (this.lastMessageDate !== messageDate) {
+				var dateLabel = document.createElement('div');
+				dateLabel.classList.add('chat-window-date');
+				dateLabel.innerText = this.lastMessageDate;
+				parts.push(dateLabel);
+				this.lastMessageDate = messageDate;
 			}
 			parts.push(node);
 		});

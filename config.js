@@ -25,7 +25,7 @@ Config.App = {
 }
 
 Config.Modes = {
-  test: true,
+  test: false,
   debug: false,
   http: location.search.indexOf('http=1') > 0,
   ssl: location.search.indexOf('ssl=1') > 0 || location.protocol == 'https:' && location.search.indexOf('ssl=0') == -1,
