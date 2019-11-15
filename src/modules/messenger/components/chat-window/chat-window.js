@@ -1,5 +1,6 @@
 import { getPeer } from '../../../../utils/telegram';
 import { dateToTime } from '../../../../utils/string';
+import { scrollToBottom } from '../../../../utils/dom';
 
 class ChatWindowComponent {
 	constructor() {
@@ -25,31 +26,55 @@ class ChatWindowComponent {
 			peer: getPeer(peerType, peerId, accessHash),
 			offset_id: 0,
 			add_offset: 0,
-			limit: 20
+			limit: 60
 		}, {
 			timeout: 300,
 			noErrorBox: true
 		}).then((response) => {
-			this.renderMessages(response.messages.slice().reverse());
+			console.log(response);
+			this.renderMessages(response.messages.slice());
 		}, e => console.log(e));
 	}
 
 	renderMessages(messages) {
 		this.messagesContainer.innerHTML = '';
 		var fragment = document.createDocumentFragment();
+		var parts = [];
 
-		messages.forEach((message) => {
+		var lastDirection = 0; // -1 out, 1 in
+		messages.forEach((message, i) => {
 			var node = this.messageTemplate.cloneNode(true);
-			node.querySelector('.tl-speech-bubble__text-content div').innerText = message.message;
-			node.querySelector('.tl-speech-bubble__time').innerText = dateToTime(message.date);
-			if (message.pFlags.out) {
-				node.querySelector('.tl-speech-bubble').classList
-					.add('tl-speech-bubble_my', 'tl-speech-bubble_my-droplet');
+			var text = null;
+			if (message.media) {
+				text = '[MEDIA]';
+			} else {
+				text = message.message;
 			}
-			fragment.appendChild(node);
+			node.querySelector('.tl-speech-bubble__text-content div').innerText = text;
+			var time = node.querySelector('.tl-speech-bubble__time');
+			time.innerText = dateToTime(message.date);
+			var bubble = node.querySelector('.tl-speech-bubble');
+			if (message.pFlags.out) {
+				time.classList.add('tl-speech-bubble__out-time');
+				var status = document.createElement('div');
+				status.classList.add('tl-2checks_svg', 'tl-2checks_svg-dims');
+				node.querySelector('.tl-speech-bubble__info').appendChild(status);
+				bubble.classList.add('tl-speech-bubble_my');
+				if (lastDirection === 1 || lastDirection === 0) {
+					bubble.classList.add('tl-speech-bubble_droplet', 'tl-speech-bubble_my-droplet');
+				}
+				lastDirection = -1;
+			} else if(lastDirection === -1 || lastDirection === 0) {
+				bubble.classList.add('tl-speech-bubble_droplet');
+				lastDirection = 1;
+			}
+			parts.push(node);
 		});
 
+		parts.reverse().forEach((part) => fragment.appendChild(part));
+
 		this.messagesContainer.appendChild(fragment);
+		scrollToBottom(this.messagesContainer.parentNode);
 	}
 
 	unmount() {

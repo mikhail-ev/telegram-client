@@ -38,4 +38,8 @@ function delegate(event, selector, delegator) {
 	return null;
 }
 
-export { addClass, hasClass, removeClass, mountTemplate, focusFirstInput, delegate };
+function scrollToBottom(element) {
+	element.scrollTo(0, element.scrollHeight);
+}
+
+export { addClass, hasClass, removeClass, mountTemplate, focusFirstInput, delegate, scrollToBottom };

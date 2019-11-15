@@ -34,5 +34,5 @@ export function stringToHex(string){
 
 export function dateToTime(unixDate) {
 	var date = new Date(unixDate * 1000);
-	return date.getHours() + ':' + date.getMinutes();
+	return ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2);
 }

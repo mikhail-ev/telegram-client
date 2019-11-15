@@ -15,7 +15,7 @@ export function mapDialogs(response) {
 		} else if (message.media && message.media.caption) {
 			messageText = tillNewline('[MEDIA] ' + message.media.caption);
 		} else {
-			messageText = 'Media';
+			messageText = '[MEDIA]';
 		}
 
 		var time = dateToTime(message.date);
