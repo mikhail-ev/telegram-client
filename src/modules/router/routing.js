@@ -1,14 +1,21 @@
+export const routeNames = {
+	messenger: 'messenger',
+	debug: 'debug',
+	login: 'login'
+};
+
 export var routing = {
-    'login': {
-        name: 'login',
-        file: 'login.js'
-    },
-	'debug': {
-    	name: 'debug',
+	[routeNames.login]: {
+		name: routeNames.login,
+		file: 'login.js'
+	},
+	[routeNames.debug]: {
+		name: routeNames.debug,
 		file: 'debug.js'
 	},
-    '*': {
-        name: 'messenger',
-        file: 'messenger.js'
-    }
+	'*': {
+		name: routeNames.messenger,
+		file: 'messenger.js'
+	}
 };
+

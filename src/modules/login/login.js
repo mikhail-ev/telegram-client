@@ -79,6 +79,7 @@ class LoginModule {
 	};
 
 	redirectToMessenger() {
+		localStorage.setItem('ui_authorized_flag', '1');
 		location.replace('/#');
 	}
 }
