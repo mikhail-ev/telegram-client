@@ -1,5 +1,5 @@
-import {routing, routeNames} from './routing';
-
+import { routing, routeNames } from './routing';
+import { isAuthValid } from './../common/services/auth-guard/auth-guard';
 var rootId = 'root';
 var root = document.getElementById(rootId);
 
@@ -18,7 +18,7 @@ function handleHashChange() {
 		route = routing['*'];
 	}
 
-	if (route.name === routeNames.messenger && localStorage.getItem('ui_authorized_flag') !== '1') {
+	if (route.name === routeNames.messenger && !isAuthValid()) {
 		location.replace('/#' + routeNames.login);
 	} else {
 		loadScript('./' + route.file, () => {

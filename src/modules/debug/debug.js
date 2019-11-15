@@ -1,3 +1,5 @@
+import { setAuthAsInValid } from './../common/services/auth-guard/auth-guard';
+
 let instance;
 
 class DebugModule {
@@ -64,6 +66,7 @@ class DebugModule {
 				console.warn(result);
 			}, (e) => console.warn(e));
 		});
+		setAuthAsInValid();
 	}
 
 	unmount() {

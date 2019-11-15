@@ -2,6 +2,7 @@ import SignInFormComponent from './components/sign-in-form/sign-in-form';
 import ConfirmationFormComponent from './components/confirmation-form/confirmation-form';
 import { changePhoneEvent, codeConfirmedEvent, codeSentEvent, detailsSetEvent } from './constants/events';
 import DetailsFormComponent from './components/details-form/details-form';
+import { setAuthAsValid } from './../common/services/auth-guard/auth-guard';
 
 let instance;
 
@@ -79,7 +80,7 @@ class LoginModule {
 	};
 
 	redirectToMessenger() {
-		localStorage.setItem('ui_authorized_flag', '1');
+		setAuthAsValid();
 		location.replace('/#');
 	}
 }
