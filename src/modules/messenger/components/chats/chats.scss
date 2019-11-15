@@ -127,6 +127,24 @@ $image-height: $chat-height - 1.2em;
 	}
 }
 
+.chat-icon {
+	position: relative;
+	top: -0.1em;
+	border-radius: 1em;
+	height: 1.7em;
+	background-color: #4DCD5E;
+	padding: 0 0.55em;
+	line-height: 1.9em;
+	text-align: center;
+	color: #ffffff;
+	font-size: 12px;
+	font-family: "Roboto Medium", serif;
+
+	&_muted {
+		background-color: #c4c9cc;
+	}
+}
+
 .burger {
 	height: 12px;
 	width: 18px;

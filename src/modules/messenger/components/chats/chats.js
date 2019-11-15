@@ -62,6 +62,16 @@ class ChatsComponent {
 			node.querySelector('.chat__time').innerText = chat.time;
 			node.querySelector('.chat__message').innerText = chat.message;
 
+			if (chat.unread && chat.unread > 0) {
+				var unreadIcon = document.createElement('div');
+				unreadIcon.classList.add('chat-icon');
+				if (chat.muted) {
+					unreadIcon.classList.add('chat-icon_muted');
+				}
+				unreadIcon.innerText = chat.unread;
+				node.querySelector('.chat__icons').appendChild(unreadIcon);
+			}
+
 			var imageContainer = node.querySelector('.chat__image');
 			if (chat.photo) {
 				loadSmallImage(chat.photo).then(response => {

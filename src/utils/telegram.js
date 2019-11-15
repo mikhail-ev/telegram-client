@@ -19,6 +19,8 @@ export function mapDialogs(response) {
 		var date = new Date(message.date * 1000);
 		var time = date.getHours() + ':' + date.getMinutes();
 
+		console.log(dialog);
+
 		if (peerType === 'peerChannel') {
 			peer = response.chats.find((chat) => chat.id === dialog.peer.channel_id);
 			title = peer.title;
@@ -39,6 +41,7 @@ export function mapDialogs(response) {
 		return {
 			peerType: peerType,
 			peerId: peer && peer.id,
+			muted: dialog.notify_settings.mute_until > 0,
 			title: title,
 			time: time,
 			photo: photo,
