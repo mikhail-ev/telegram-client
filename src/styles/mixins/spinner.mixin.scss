@@ -1,0 +1,24 @@
+@import "../utils/variables/colors";
+
+$spinner-size: 3em;
+
+@mixin tl-spinner {
+	height: $spinner-size;
+	width: $spinner-size;
+	color: $tl-c-malibu;
+	position: relative;
+	display: inline-block;
+	border: 2px solid; // Dmitrii Uskov. I suppose it shouldn't depend on font-size;
+	border-radius: 50%;
+	border-top-color: transparent;
+	animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+	0% {
+		transform: rotate(0);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
