@@ -1,4 +1,5 @@
-import {addClass, removeClass, hasClass} from '../../utils/dom';//
+import { addClass, removeClass, hasClass } from '../../utils/dom';
+
 /*options: {onSelectFn: function(selectedValue){}}*/
 
 function HtmlDropDownElement(element, options) {
@@ -39,15 +40,7 @@ HtmlDropDownElement.prototype.$$initMenuEvents = function () {
 			var value = self.$$data.find(function (item) {
 				return item.id == elem.getAttribute('data.id');
 			});
-			self.$$input.value = value[self.$$displayName];
-			if (self.$$options.onSelectFn) {
-				self.$$options.onSelectFn(value);
-			}
-
-			addClass(self.$$wrapper, 'tl-dropdown__wrapper_border-blue');
-			self.$$label.innerText = 'Country';
-			self.$$selected = true;
-			self.hide();
+			self.$$setValue(value);
 		}
 	};
 	self.$$handleInputChangeFn = function (event) {
@@ -130,21 +123,34 @@ HtmlDropDownElement.prototype.$$renderData = function (dataArray) {
 };
 
 HtmlDropDownElement.prototype.setValue = function (countryCode, countryName) {
+	console.log(countryCode, countryName);
 	var self = this;
 	var value = self.$$data.find(function (item) {
 		return item.phoneCode.slice(1, item.phoneCode.length) == countryCode && item[self.$$displayName].toLowerCase() === countryName.toLowerCase();
 	});
+	this.$$setValue(value);
+};
 
+HtmlDropDownElement.prototype.$$setValue = function (value) {
+	var self = this;
 	self.$$input.value = value[self.$$displayName];
 
 	if (self.$$options.onSelectFn) {
-		// self.$$options.onSelectFn(value);
+		self.$$options.onSelectFn(value);
 	}
 
 	addClass(self.$$wrapper, 'tl-dropdown__wrapper_border-blue');
 	self.$$label.innerText = 'Country';
 	self.$$selected = true;
 	self.hide();
+};
+
+HtmlDropDownElement.prototype.setValueById = function (countryId) {
+	var countryIdLowerCase = countryId.toLowerCase();
+	var value = this.$$data.find((item) => item.id.toLowerCase() === countryIdLowerCase);
+	if (value) {
+		this.$$setValue(value);
+	}
 };
 
 HtmlDropDownElement.prototype.setData = function (dataArray, options) {
@@ -195,4 +201,4 @@ HtmlDropDownElement.prototype.destroy = function () {
 	document.removeEventListener('click', self.$$handleDocumentClickFn);
 };
 
-export {HtmlDropDownElement};
+export { HtmlDropDownElement };

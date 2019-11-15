@@ -1,11 +1,9 @@
-import {focusFirstInput} from '../../../../utils/dom';
-import {applyRipple} from '../../../common/components/ripple/ripple';
-import {codeSentEvent} from '../../constants/events';
-import {applyNumericInput} from '../../../common/components/numeric-input/numeric-input';
-import {Countries} from '../../../common/constants/countries';
-import {HtmlDropDownElement} from '../../../../components/inputs-group/html-dropdown-element'
-	;
-import {getNearestDC, sendCode} from '../../../../utils/telegram';
+import { applyRipple } from '../../../common/components/ripple/ripple';
+import { codeSentEvent } from '../../constants/events';
+import { applyNumericInput } from '../../../common/components/numeric-input/numeric-input';
+import { Countries } from '../../../common/constants/countries';
+import { HtmlDropDownElement } from '../../../../components/inputs-group/html-dropdown-element';
+import { getNearestDC, sendCode } from '../../../../utils/telegram';
 
 class SignInInfo {
 	get fullPhone() {
@@ -59,7 +57,7 @@ class SignInFormComponent {
 
 		this.countryDD = this.container.querySelector('#countryDd');
 		this.countryDDWrapped = new HtmlDropDownElement(this.countryDD,
-			{onSelectFn: this.handleCountrySelect});
+			{ onSelectFn: this.handleCountrySelect });
 		this.countryDDWrapped.setData(countries);
 
 		this.phoneInput = this.container.querySelector('#phoneNumberInput');
@@ -67,7 +65,6 @@ class SignInFormComponent {
 
 		if (this.signInInfo) {
 			this.phoneInput.value = this.signInInfo.phone;
-			this.setCountryCode(this.signInInfo.country);
 			this.countryDDWrapped.setValue(this.signInInfo.country, this.signInInfo.countryName);
 		}
 
@@ -89,16 +86,20 @@ class SignInFormComponent {
 
 		var phone = this.phoneInput.value.toString();
 		var country = this.countryCode.toString();
-		sendCode(country + phone).then((result) => {
-			console.log(result);
-			var componentEvent = new Event(codeSentEvent);
-			var registered = result.pFlags && !!result.pFlags.phone_registered;
-			componentEvent.data = new SignInInfo(
-				phone, country, result.phone_code_hash, result.type.length, registered, this.countryName);
-			this.container.dispatchEvent(componentEvent);
-		}, () => {
-			this.isLoading = false;
-		});
+		// sendCode(country + phone).then((result) => {
+		// 	var componentEvent = new Event(codeSentEvent);
+		// 	var registered = result.pFlags && !!result.pFlags.phone_registered;
+		// 	componentEvent.data = new SignInInfo(
+		// 		phone, country, result.phone_code_hash, result.type.length, registered, this.countryName);
+		// 	this.container.dispatchEvent(componentEvent);
+		// }, () => {
+		// 	this.isLoading = false;
+		// });
+		var componentEvent = new Event(codeSentEvent);
+		var registered = true;
+		componentEvent.data = new SignInInfo(
+			phone, country, '', 5, registered, this.countryName);
+		this.container.dispatchEvent(componentEvent);
 	};
 
 	setCountryCode(code) {
@@ -113,7 +114,9 @@ class SignInFormComponent {
 	}
 
 	getNearestDC() {
-		getNearestDC().then((response) => console.warn(response));
+		getNearestDC().then((response) => {
+			this.countryDDWrapped.setValueById(response.country);
+		});
 	}
 
 	unmount() {
