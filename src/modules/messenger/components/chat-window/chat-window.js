@@ -19,6 +19,8 @@ class ChatWindowComponent {
 	}
 
 	openChat(peerId, peerType, accessHash) {
+		this.messagesContainer.innerHTML = '';
+		this.lastMessageDate = null; // TODO
 		// MtpApiManager.invokeApi('messages.getFullChat', {
 		// 	chat_id: peerId
 		// }, { timeout: 300, dcID: 2, createNetworker: true }).then((response) => {
@@ -40,8 +42,6 @@ class ChatWindowComponent {
 	}
 
 	renderMessages(messages) {
-		this.lastMessageDate = null; // TODO
-		this.messagesContainer.innerHTML = '';
 		var fragment = document.createDocumentFragment();
 		var parts = [];
 
