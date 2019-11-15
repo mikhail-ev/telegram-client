@@ -129,6 +129,24 @@ HtmlDropDownElement.prototype.$$renderData = function (dataArray) {
 	self.$$content.appendChild(ul);
 };
 
+HtmlDropDownElement.prototype.setValue = function (countryCode, countryName) {
+	var self = this;
+	var value = self.$$data.find(function (item) {
+		return item.phoneCode.slice(1, item.phoneCode.length) == countryCode && item[self.$$displayName].toLowerCase() === countryName.toLowerCase();
+	});
+
+	self.$$input.value = value[self.$$displayName];
+
+	if (self.$$options.onSelectFn) {
+		// self.$$options.onSelectFn(value);
+	}
+
+	addClass(self.$$wrapper, 'tl-dropdown__wrapper_border-blue');
+	self.$$label.innerText = 'Country';
+	self.$$selected = true;
+	self.hide();
+};
+
 HtmlDropDownElement.prototype.setData = function (dataArray, options) {
 	var self = this;
 	self.$$id = 'id';
