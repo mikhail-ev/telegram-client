@@ -34,7 +34,6 @@ HtmlDropDownElement.prototype.$$initMenuEvents = function () {
 	};
 
 	self.$$handleSelectFn = function (event) {
-		console.log(event.target);
 		if (hasClass(event.target, 'tl-dropdown__list-item-content-wrapper') || event.target.closest('.tl-dropdown__list-item-content-wrapper')) {
 			var elem = hasClass(event.target, 'tl-dropdown__list-item-content-wrapper') ? event.target : event.target.closest('.tl-dropdown__list-item-content-wrapper');
 			var value = self.$$data.find(function (item) {

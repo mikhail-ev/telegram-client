@@ -1,1 +1,2 @@
-export var userIdAttribute = 'data-userid';
+export var peerIdAttribute = 'data-peer-id';
+export var peerTypeAttribute = 'data-peer-type';

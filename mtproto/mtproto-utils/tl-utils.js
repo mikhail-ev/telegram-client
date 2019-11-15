@@ -12,7 +12,7 @@ function TLSerialization (options) {
 
   this.createBuffer()
 
-  this.debug = true;
+  this.debug = false;
   // this.debug = options.debug !== undefined ? options.debug : Config.Modes.debug
   this.mtproto = options.mtproto || false
   return this

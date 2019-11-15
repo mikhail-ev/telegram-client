@@ -35,9 +35,10 @@ export function mapDialogs(response) {
 		if (peer && peer.photo && peer.photo.photo_small) {
 			photo = peer.photo.photo_small;
 		}
-		console.warn(photo);
 
 		return {
+			peerType: peerType,
+			peerId: peer && peer.id,
 			title: title,
 			time: time,
 			photo: photo,
@@ -54,9 +55,31 @@ export function loadSmallImage(location) {
 		offset: 0,
 		limit: 1024 * 1024
 	}, {
-		dcID: 2,
+		dcID: location.dc_id,
 		fileDownload: true,
-		createNetworker: true,
-		noErrorBox: true
+		createNetworker: true
+	});
+}
+
+export function getNearestDC() {
+	return MtpApiManager.invokeApi('help.getNearestDc', {}, {
+		dcID: +localStorage.getItem('dc'),
+		createNetworker: true
+	}).then(function (nearestDcResult) {
+		MtpApiManager.getNetworker(nearestDcResult.nearest_dc, { createNetworker: true });
+		return nearestDcResult;
+	});
+}
+
+export function sendCode(phoneNumberFull) {
+	return MtpApiManager.invokeApi('auth.sendCode', {
+		flags: 0,
+		phone_number: phoneNumberFull,
+		api_id: Config.App.id,
+		api_hash: Config.App.hash,
+		lang_code: navigator.language || 'en'
+	}, {
+		dcID: 2,
+		createNetworker: true
 	});
 }

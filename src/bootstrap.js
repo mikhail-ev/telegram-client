@@ -1,15 +1,8 @@
 import {init as initRouter} from './modules/router/router';
-import {HtmlInputElement} from './components/inputs-group/html-input-element';
-import {HtmlDropDownElement} from './components/inputs-group/html-dropdown-element';
+
+// setting base dc
+localStorage.setItem('dc', 2);
 
 initRouter();
 
-// var input = document.querySelectorAll("#test")[0];
-// var tlinput = new HtmlInputElement(input);
-// var ddel = document.querySelectorAll("#ddtest")[0];
-// var dd = new HtmlDropDownElement(ddel, {onSelectFn: function (selectedvalue) {
-// 		console.log('sv', selectedvalue);
-// 	}});
-// dd.setData([{id: 1, name: 'Text'}, {id: 2, name: 'test'}]);
-
-console.log('bootstrap033333!');
+console.log('bootstrap!');

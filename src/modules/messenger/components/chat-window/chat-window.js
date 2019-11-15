@@ -10,8 +10,8 @@ class ChatWindowComponent {
 		this.container.innerHTML = template.innerHTML;
 	}
 
-	openChat(userId) {
-		this.container.querySelector('span').innerText = userId;
+	openChat(peerId, peerType) {
+		this.container.querySelector('span').innerText = peerId + '/' + peerType;
 	}
 
 	unmount() {

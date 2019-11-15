@@ -1,12 +1,13 @@
 import { delegate } from '../../../../utils/dom';
-import { userIdAttribute } from '../../constants/attributes';
+import { peerIdAttribute, peerTypeAttribute } from '../../constants/attributes';
 import { chatSelectEvent } from '../../constants/events';
 import { loadSmallImage, mapDialogs } from '../../../../utils/telegram';
 import { bytesToImageBase64, getImageMime } from '../../../../utils/string';
 
 class ChatInfo {
-	constructor(userId) {
-		this.userId = userId;
+	constructor(peerId, peerType) {
+		this.peerId = peerId;
+		this.peerType = peerType
 	}
 }
 
@@ -32,9 +33,10 @@ class ChatsComponent {
 		var delegated = delegate(event, '.chat', this.container);
 		if (delegated) {
 			var selectEvent = new Event(chatSelectEvent);
-			selectEvent.data = new ChatInfo(delegated.getAttribute(userIdAttribute));
+			selectEvent.data = new ChatInfo(
+				delegated.getAttribute(peerIdAttribute),
+				delegated.getAttribute(peerTypeAttribute));
 			this.container.dispatchEvent(selectEvent);
-			console.log('dispatch');
 		}
 	};
 
@@ -44,18 +46,18 @@ class ChatsComponent {
 			offset_date: 0,
 			offset_id: 0,
 			offset_peer: { '_': 'inputPeerEmpty' },
-			limit: 1
+			limit: 20
 		}, { timeout: 300, dcID: 2, createNetworker: true }).then((response) => {
-			console.warn(response);
 			this.renderChats(mapDialogs(response));
 		}, (e) => console.warn(e));
 	}
 
 	renderChats(chats) {
-		console.warn(chats);
 		var fragment = document.createDocumentFragment();
 		chats.forEach((chat) => {
 			var node = this.chatTemplate.cloneNode(true);
+			node.querySelector('.chat').setAttribute(peerIdAttribute, chat.peerId);
+			node.querySelector('.chat').setAttribute(peerTypeAttribute, chat.peerType);
 			node.querySelector('.chat__name').innerText = chat.title;
 			node.querySelector('.chat__time').innerText = chat.time;
 			node.querySelector('.chat__message').innerText = chat.message;
@@ -68,6 +70,8 @@ class ChatsComponent {
 					var image = document.createElement('img');
 					image.setAttribute('src', base64);
 					imageContainer.appendChild(image);
+				}, (error) => {
+					console.error(error, chat.photo);
 				});
 			}
 

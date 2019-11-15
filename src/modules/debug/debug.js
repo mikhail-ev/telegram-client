@@ -23,7 +23,6 @@ class DebugModule {
 				dcID: 2,
 				createNetworker: true
 			}).then((result) => {
-				console.warn(result);
 			}, (e) => console.warn(e));
 		});
 

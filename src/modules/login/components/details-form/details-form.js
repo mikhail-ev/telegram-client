@@ -61,12 +61,10 @@ class DetailsFormComponent {
 			dcID: 2,
 			createNetworker: true
 		}).then((result) => {
-			console.log(result);
 			var componentEvent = new Event(detailsSetEvent);
 			componentEvent.data = new DetailsInfo(result.user.id);
 			this.container.dispatchEvent(componentEvent);
 		}, (e) => {
-			console.log(e);
 			this.isLoading = false;
 		});
 	};

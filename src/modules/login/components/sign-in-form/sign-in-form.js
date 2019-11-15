@@ -5,6 +5,7 @@ import {applyNumericInput} from '../../../common/components/numeric-input/numeri
 import {Countries} from '../../../common/constants/countries';
 import {HtmlDropDownElement} from '../../../../components/inputs-group/html-dropdown-element'
 	;
+import { getNearestDC, sendCode } from '../../../../utils/telegram';
 
 class SignInInfo {
 	get fullPhone() {
@@ -65,6 +66,7 @@ class SignInFormComponent {
 		}
 
 		focusFirstInput(this.container);
+		this.getNearestDC();
 	}
 
 	handleCountrySelect = (country) => {
@@ -82,27 +84,20 @@ class SignInFormComponent {
 
 		var phone = this.phoneInput.value.toString();
 		var country = this.countryCode.toString();
-		MtpApiManager.invokeApi('auth.sendCode', {
-			flags: 0,
-			phone_number: country + phone,
-			api_id: Config.App.id,
-			api_hash: Config.App.hash,
-			lang_code: navigator.language || 'en'
-		}, {
-			dcID: 2,
-			createNetworker: true
-		}).then((result) => { // {phone_code_hash, type: { length }, pFlags: { phone_registered }}
-			console.log(result);
+		sendCode(country + phone).then((result) => {
 			var componentEvent = new Event(codeSentEvent);
 			var registered = result.pFlags && !!result.pFlags.phone_registered;
 			componentEvent.data = new SignInInfo(
 				phone, country, result.phone_code_hash, result.type.length, registered);
-			console.log(componentEvent.data);
 			this.container.dispatchEvent(componentEvent);
 		}, () => {
 			this.isLoading = false;
 		});
 	};
+
+	getNearestDC() {
+		getNearestDC().then((response) => console.warn(response));
+	}
 
 	unmount() {
 		this.button = null;
