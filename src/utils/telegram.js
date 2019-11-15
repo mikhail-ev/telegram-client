@@ -1,4 +1,4 @@
-import { tillNewline } from './string';
+import { dateToTime, tillNewline } from './string';
 
 export function mapDialogs(response) {
 	return response.dialogs.map((dialog) => {
@@ -6,24 +6,23 @@ export function mapDialogs(response) {
 		var peer = null;
 		var title = null;
 		var abbreviation = null;
+		var accessHash = null;
 
 		var messageText = null;
 		var message = response.messages.find((message) => message.id === dialog.top_message);
 		if (message.message) {
 			messageText = tillNewline(message.message);
 		} else if (message.media && message.media.caption) {
-			messageText = tillNewline(message.media.caption);
+			messageText = tillNewline('[MEDIA] ' + message.media.caption);
 		} else {
 			messageText = 'Media';
 		}
 
-		var date = new Date(message.date * 1000);
-		var time = date.getHours() + ':' + date.getMinutes();
-
-		console.log(dialog);
+		var time = dateToTime(message.date);
 
 		if (peerType === 'peerChannel') {
 			peer = response.chats.find((chat) => chat.id === dialog.peer.channel_id);
+			accessHash = peer.access_hash;
 			title = peer.title;
 			abbreviation = peer.title.slice(0, 2);
 		} else if (peerType === 'peerChat') {
@@ -32,6 +31,7 @@ export function mapDialogs(response) {
 			abbreviation = peer.title.slice(0, 2);
 		} else if (peerType === 'peerUser') {
 			peer = response.users.find((user) => user.id === dialog.peer.user_id);
+			accessHash = peer.access_hash;
 			if (peer.last_name) {
 				title = peer.first_name + ' ' + peer.last_name;
 				abbreviation = peer.first_name[0] + peer.last_name[0];
@@ -50,6 +50,7 @@ export function mapDialogs(response) {
 		return {
 			peerType: peerType,
 			peerId: peer && peer.id,
+			accessHash: accessHash,
 			muted: dialog.notify_settings.mute_until > 0,
 			title: title,
 			abbreviation: abbreviation,
@@ -95,4 +96,15 @@ export function sendCode(phoneNumberFull) {
 		dcID: 2,
 		createNetworker: true
 	});
+}
+
+export function getPeer(peerType, peerId, accessHash) {
+	switch (peerType) {
+		case 'peerUser':
+			return { _: 'inputPeerUser', user_id: peerId, access_hash: accessHash };
+		case 'peerChannel':
+			return { _: 'inputPeerChannel', channel_id: peerId, access_hash: accessHash };
+		case 'peerChat':
+			return { _: 'inputPeerChat', chat_id: peerId };
+	}
 }

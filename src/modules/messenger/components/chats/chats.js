@@ -4,16 +4,10 @@ import { chatSelectEvent } from '../../constants/events';
 import { loadSmallImage, mapDialogs } from '../../../../utils/telegram';
 import { bytesToImageBase64, getImageMime, stringToHex } from '../../../../utils/string';
 
-class ChatInfo {
-	constructor(peerId, peerType) {
-		this.peerId = peerId;
-		this.peerType = peerType
-	}
-}
-
 class ChatsComponent {
 	constructor() {
 		this.container = null;
+		this.chats = null;
 	}
 
 	mount(container) {
@@ -32,10 +26,10 @@ class ChatsComponent {
 	handleClick = (event) => {
 		var delegated = delegate(event, '.chat', this.container);
 		if (delegated) {
+			var peerId = delegated.getAttribute(peerIdAttribute);
+			var peer = this.chats.find((peer) => peer.peerId.toString() === peerId);
 			var selectEvent = new Event(chatSelectEvent);
-			selectEvent.data = new ChatInfo(
-				delegated.getAttribute(peerIdAttribute),
-				delegated.getAttribute(peerTypeAttribute));
+			selectEvent.data = peer;
 			this.container.dispatchEvent(selectEvent);
 		}
 	};
@@ -48,12 +42,14 @@ class ChatsComponent {
 			offset_peer: { '_': 'inputPeerEmpty' },
 			limit: 20
 		}, { timeout: 300, dcID: 2, createNetworker: true }).then((response) => {
+			console.log(response);
 			this.renderChats(mapDialogs(response));
 		}, (e) => console.warn(e));
 	}
 
 	renderChats(chats) {
 		var fragment = document.createDocumentFragment();
+		this.chats = chats;
 		chats.forEach((chat) => {
 			var node = this.chatTemplate.cloneNode(true);
 			node.querySelector('.chat').setAttribute(peerIdAttribute, chat.peerId);

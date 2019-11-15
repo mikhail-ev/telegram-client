@@ -31,3 +31,8 @@ export function stringToHex(string){
 
 	return "00000".substring(0, 6 - c.length) + c;
 }
+
+export function dateToTime(unixDate) {
+	var date = new Date(unixDate * 1000);
+	return date.getHours() + ':' + date.getMinutes();
+}

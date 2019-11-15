@@ -6,327 +6,341 @@
 </head>
 <body>
 
-<div id="root"></div>
+	<div id="root"></div>
 
-<!------------ Templates section ---------------->
+	<!------------ Templates section ---------------->
 
-<!-- Login page -->
-<template id="loginPage">
-	<div class="login-page">
-	</div>
-</template>
-
-<!-- Sign-in form -->
-<template id="signInFormComponent">
-	<div class="sign-in-form login-page-submission">
-		<div class="login-page-submission__image">
-			<img src="./assets/img/logo.png">
+	<!-- Login page -->
+	<template id="loginPage">
+		<div class="login-page">
 		</div>
-		<h1 class="login-page-submission__heading login-page__heading">
-			Sign in to Telegram
-		</h1>
-		<div class="login-page-submission__info login-page__sub-heading">
-			Please confirm your country and <br>
-			enter your phone number
-		</div>
-		<form class="login-page-submission__form">
-			<div id="countryDd" class="tl-dropdown">
-				<label class="tl-dropdown__wrapper">
-					<input id="ddCountryInput" class="tl-dropdown__input" type="text" autocomplete="off" required/>
-					<label class="tl-dropdown__label" for="ddCountryInput">Country</label>
-					<div
-						class="tl-up_svg tl-up_svg-dims tl-dropdown__toggle-icon_blue tl-dropdown__toggle-icon-up"></div>
-					<div
-						class="tl-down_svg tl-down_svg-dims tl-dropdown__toggle-icon_grey tl-dropdown__toggle-icon-down"></div>
-				</label>
-				<div class="tl-dropdown__content"></div>
+	</template>
+
+	<!-- Sign-in form -->
+	<template id="signInFormComponent">
+		<div class="sign-in-form login-page-submission">
+			<div class="login-page-submission__image">
+				<img src="./assets/img/logo.png">
 			</div>
-			<div class="tl-control-group login-page-submission__control">
-				<div class="sign-in-form__country-code"></div>
-				<input id="phoneNumberInput" type="text" class="tl-input" required
-					   autocomplete="off"/>
-				<label class="tl-label" for="phoneNumberInput">Phone Number</label>
+			<h1 class="login-page-submission__heading login-page__heading">
+				Sign in to Telegram
+			</h1>
+			<div class="login-page-submission__info login-page__sub-heading">
+				Please confirm your country and <br>
+				enter your phone number
 			</div>
-			<div class="sign-in-form__checkbox">
-				<label class="tl-checkbox"> Keep me signed in
-					<input class="tl-checkbox__input" type="checkbox" checked="checked">
-					<span class="tl-checkbox__checkmark"></span>
-				</label>
-			</div>
-			<button type="submit" class="tl-button tl-button_wide tl-button_primary sign-in-form__button">
-				Next
-			</button>
-		</form>
-	</div>
-</template>
+			<form class="login-page-submission__form">
+				<div id="countryDd" class="tl-dropdown">
+					<label class="tl-dropdown__wrapper">
+						<input id="ddCountryInput" class="tl-dropdown__input" type="text" autocomplete="off" required/>
+						<label class="tl-dropdown__label" for="ddCountryInput">Country</label>
+						<div
+							class="tl-up_svg tl-up_svg-dims tl-dropdown__toggle-icon_blue tl-dropdown__toggle-icon-up"></div>
+						<div
+							class="tl-down_svg tl-down_svg-dims tl-dropdown__toggle-icon_grey tl-dropdown__toggle-icon-down"></div>
+					</label>
+					<div class="tl-dropdown__content"></div>
+				</div>
+				<div class="tl-control-group login-page-submission__control">
+					<div class="sign-in-form__country-code"></div>
+					<input id="phoneNumberInput" type="text" class="tl-input" required
+						   autocomplete="off"/>
+					<label class="tl-label" for="phoneNumberInput">Phone Number</label>
+				</div>
+				<div class="sign-in-form__checkbox">
+					<label class="tl-checkbox"> Keep me signed in
+						<input class="tl-checkbox__input" type="checkbox" checked="checked">
+						<span class="tl-checkbox__checkmark"></span>
+					</label>
+				</div>
+				<button type="submit" class="tl-button tl-button_wide tl-button_primary sign-in-form__button">
+					Next
+				</button>
+			</form>
+		</div>
+	</template>
 
-<!-- Password form -->
-<template id="passwordFormComponent">
-	<div class="login-page-submission">
-		<div
-			class="login-page-submission__image login-page-submission__image_small login-page-submission__image_pulled">
-			<img src="./assets/img/monkey2.png">
-		</div>
-		<div class="login-page-submission__heading login-page__heading">
-			Enter a password
-		</div>
-		<div class="login-page-submission__info login-page__sub-heading">
-			Your account is protected with <br>
-			an additional password
-		</div>
-		<form class="login-page-submission__form">
-			<div class="tl-control-group login-page-submission__control">
-				<input id="code" type="password" class="tl-input" required/>
-				<label class="tl-label" for="code">Password</label>
-				<div class="tl-eye1_svg tl-eye1_svg-dims password-preview-icon"></div>
+	<!-- Password form -->
+	<template id="passwordFormComponent">
+		<div class="login-page-submission">
+			<div
+				class="login-page-submission__image login-page-submission__image_small login-page-submission__image_pulled">
+				<img src="./assets/img/monkey2.png">
 			</div>
-			<button class="tl-button tl-button_wide tl-button_primary login-page-submission__button">Next</button>
-		</form>
-	</div>
-</template>
-
-<!-- Details form component -->
-<template id="detailsFormComponent">
-	<div class="login-page-submission">
-		<div
-			class="login-page-submission__image login-page-submission__image_medium login-page-submission__image_pulled">
-			<img class="details-form-photo-placeholder" src="./assets/img/profile-picture-placeholder.png">
-		</div>
-		<div class="login-page-submission__heading login-page__heading">
-			Your Name
-		</div>
-		<div class="login-page-submission__info login-page__sub-heading">
-			Enter your name and add <br>
-			a profile picture
-		</div>
-		<form class="login-page-submission__form">
-			<div class="tl-control-group login-page-submission__control">
-				<input id="detailsNameInput" type="text" class="tl-input" required
-					   autocomplete="off"/>
-				<label class="tl-label" for="phoneNumberInput">Name</label>
+			<div class="login-page-submission__heading login-page__heading">
+				Enter a password
 			</div>
-			<div class="tl-control-group login-page-submission__control">
-				<input id="detailsLastNameInput" type="text" class="tl-input" required
-					   autocomplete="off"/>
-				<label class="tl-label" for="phoneNumberInput">Last Name (optional)</label>
+			<div class="login-page-submission__info login-page__sub-heading">
+				Your account is protected with <br>
+				an additional password
 			</div>
-			<button class="tl-button tl-button_wide tl-button_primary login-page-submission__button">
-				Start Messaging
-			</button>
-		</form>
-	</div>
-</template>
-
-<template id="detailsFormComponentModal">
-	<div>Modal content</div>
-	<div class="close-modal">close modal</div>
-</template>
-
-<!-- Confirmation form component -->
-<template id="confirmationFormComponent">
-	<div class="login-page-submission">
-		<div
-			class="login-page-submission__image login-page-submission__image_small login-page-submission__image_pulled">
-			<img src="./assets/img/monkey1.png">
+			<form class="login-page-submission__form">
+				<div class="tl-control-group login-page-submission__control">
+					<input id="code" type="password" class="tl-input" required/>
+					<label class="tl-label" for="code">Password</label>
+					<div class="tl-eye1_svg tl-eye1_svg-dims password-preview-icon"></div>
+				</div>
+				<button class="tl-button tl-button_wide tl-button_primary login-page-submission__button">Next</button>
+			</form>
 		</div>
-		<div class="login-page-submission__heading login-page__heading">
+	</template>
+
+	<!-- Details form component -->
+	<template id="detailsFormComponent">
+		<div class="login-page-submission">
+			<div
+				class="login-page-submission__image login-page-submission__image_medium login-page-submission__image_pulled">
+				<img class="details-form-photo-placeholder" src="./assets/img/profile-picture-placeholder.png">
+			</div>
+			<div class="login-page-submission__heading login-page__heading">
+				Your Name
+			</div>
+			<div class="login-page-submission__info login-page__sub-heading">
+				Enter your name and add <br>
+				a profile picture
+			</div>
+			<form class="login-page-submission__form">
+				<div class="tl-control-group login-page-submission__control">
+					<input id="detailsNameInput" type="text" class="tl-input" required
+						   autocomplete="off"/>
+					<label class="tl-label" for="phoneNumberInput">Name</label>
+				</div>
+				<div class="tl-control-group login-page-submission__control">
+					<input id="detailsLastNameInput" type="text" class="tl-input" required
+						   autocomplete="off"/>
+					<label class="tl-label" for="phoneNumberInput">Last Name (optional)</label>
+				</div>
+				<button class="tl-button tl-button_wide tl-button_primary login-page-submission__button">
+					Start Messaging
+				</button>
+			</form>
+		</div>
+	</template>
+
+	<template id="detailsFormComponentModal">
+		<div>Modal content</div>
+		<div class="close-modal">close modal</div>
+	</template>
+
+	<!-- Confirmation form component -->
+	<template id="confirmationFormComponent">
+		<div class="login-page-submission">
+			<div
+				class="login-page-submission__image login-page-submission__image_small login-page-submission__image_pulled">
+				<img src="./assets/img/monkey1.png">
+			</div>
+			<div class="login-page-submission__heading login-page__heading">
 				<span id="confirmationFormHeadingText">
 				</span>
-			<button>
-				<div class="tl-down_svg tl-down_svg-dims tl-edit_svg confirmation-form-edit-button"></div>
-			</button>
-		</div>
-		<div class="login-page-submission__info login-page__sub-heading">
-			We have sent you an SMS <br>
-			with the code.
-		</div>
-		<form class="login-page-submission__form">
-			<div class="tl-control-group login-page-submission__control">
-				<input id="confirmationCodeInput"
-					   type="text" class="tl-input" required/>
-				<label class="tl-label" for="confirmationCodeInput">Code</label>
+				<button>
+					<div class="tl-down_svg tl-down_svg-dims tl-edit_svg confirmation-form-edit-button"></div>
+				</button>
 			</div>
-		</form>
-	</div>
-</template>
-
-<!-- Messenger page -->
-<template id="messengerPage">
-	<div class="messenger">
-		<div class="messenger__aside">
+			<div class="login-page-submission__info login-page__sub-heading">
+				We have sent you an SMS <br>
+				with the code.
+			</div>
+			<form class="login-page-submission__form">
+				<div class="tl-control-group login-page-submission__control">
+					<input id="confirmationCodeInput"
+						   type="text" class="tl-input" required/>
+					<label class="tl-label" for="confirmationCodeInput">Code</label>
+				</div>
+			</form>
 		</div>
-		<div class="messenger__content">
-			<div class="messenger-chat__header">
-				<div class="messenger-chat__person" data-userid="1001">
-					<div class="messenger-chat__person-image">
-						<img src="./assets/img/random-person.jpg" class="">
-					</div>
-					<div class="messenger-chat__person-info">
-						<div class="messenger-chat__row">
-							<div class="messenger-chat__person-name">Alicia Torreaux</div>
-						</div>
-						<div class="messenger-chat___row">
-							<div
-								class="messenger-chat__person-additional-info messenger-chat__person-additional-info_status">
-								Online
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="messenger-chat__messages">
-				<div class="tl-speech-bubble tl-speech-bubble_my tl-speech-bubble_droplet tl-speech-bubble_my-droplet">
-					<div class="tl-speech-bubble__text">
-						<div class="tl-speech-bubble__text-content">Lorem ipsum dolor sit amet, consectetur adipiscing
-							elit.
-							<div class="tl-speech-bubble__time">18:12</div>
-						</div>
-					</div>
-				</div>
-				<div class="tl-speech-bubble tl-speech-bubble_my tl-speech-bubble_droplet tl-speech-bubble_my-droplet">
-					<div class="tl-speech-bubble__text">
-						<div class="tl-speech-bubble__text-content">Sed facilisis non nulla et eleifend. Nulla justo
-							risus, facilisis sit amet elit quis, pretium iaculis leo. Nulla nec placerat magna, euismod
-							bibendum dui.
-							<div class="tl-speech-bubble__time">18:12</div>
-						</div>
-					</div>
-				</div>
-				<div class="tl-speech-bubble tl-speech-bubble_droplet">
-					<div class="tl-speech-bubble__text">
-						<div class="tl-speech-bubble__text-content">Quisque iaculis sapien eros, accumsan rutrum felis
-							ullamcorper id.
-							<div class="tl-speech-bubble__time">18:12</div>
-						</div>
-					</div>
-				</div>
-				<div class="tl-speech-bubble tl-speech-bubble_my tl-speech-bubble_droplet tl-speech-bubble_my-droplet">
-					<div class="tl-speech-bubble__text">
-						<div class="tl-speech-bubble__text-content">Nullam porta et nisi vitae luctus.
-							<div class="tl-speech-bubble__time">18:12</div>
-						</div>
-					</div>
-				</div>
-				<div class="tl-speech-bubble tl-speech-bubble_droplet">
-					<div class="tl-speech-bubble__text">
-						<div class="tl-speech-bubble__text-content">Nam felis risus, laoreet nec ipsum at, euismod
-							bibendum neque.
-							<div class="tl-speech-bubble__time">18:12</div>
-						</div>
-					</div>
-				</div>
-				<div class="tl-speech-bubble tl-speech-bubble_my tl-speech-bubble_droplet tl-speech-bubble_my-droplet">
-					<div class="tl-speech-bubble__text">
-						<div class="tl-speech-bubble__text-content">Lorem ipsum dolor sit amet, consectetur adipiscing
-							elit. Nam leo diam, gravida in massa at, interdum dignissim ante. Ut sit amet tristique sem,
-							vel suscipit augue. Aliquam erat volutpat. Orci varius natoque penatibus et magnis dis
-							parturient montes, nascetur ridiculus mus. Etiam faucibus magna ac aliquet tempus. Praesent
-							quis ullamcorper est, ut mollis odio. Nulla semper nec ex vitae egestas. Suspendisse tortor
-							eros, pretium eget mollis et, fringilla a diam. Quisque et ante quam.
+	</template>
 
-							Sed facilisis non nulla et eleifend. Nulla justo risus, facilisis sit amet elit quis,
-							pretium iaculis leo. Nulla nec placerat magna, euismod bibendum dui. Quisque iaculis sapien
-							eros, accumsan rutrum felis ullamcorper id. Phasellus non dignissim neque, eu pharetra
-							turpis. Aenean cursus et neque nec vehicula. Maecenas porta ultricies purus, at aliquet
-							lacus. Sed eu lacus tellus. Praesent pretium pharetra enim a feugiat. Sed congue ipsum in
-							orci interdum, eu posuere lectus vehicula. Fusce vitae porttitor justo.
-							<div class="tl-speech-bubble__time">18:12</div>
-						</div>
-					</div>
-				</div>
-				<div class="tl-speech-bubble">
-					<div class="tl-speech-bubble__image">
-						<img class="tl-speech-bubble__image-content"
-													 src="https://sun9-5.userapi.com/c4171/u33907302/88971994/x_5ca9f61b.jpg">
-						<div class="tl-speech-bubble__time">18:13</div>
-					</div>
-				</div>
-				<div class="tl-speech-bubble tl-speech-bubble_my tl-speech-bubble_my-droplet">
-					<div class="tl-speech-bubble__image-text">
-						<img class="tl-speech-bubble__image-content" src="https://sun9-2.userapi.com/c625227/v625227997/58c54/ki7mt7j9Ul8.jpg">
-						<div class="tl-speech-bubble__text-content">Mishan9?
-							<div class="tl-speech-bubble__time">18:16</div>
-						</div>
-					</div>
-				</div>
+	<!-- Messenger page -->
+	<template id="messengerPage">
+		<div class="messenger">
+			<div class="messenger__aside">
 			</div>
-			<div class="messenger-actions" style="display: none">
-				<div class="messenger-actions__content">
-					<div class="messenger-actions__icon tl-chatsplaceholder_svg tl-chatsplaceholder_svg-dims"></div>
-					<div class="messenger-actions__text">
-						Open Chat <br> or create a new one
-					</div>
-					<div class="messenger-actions__items">
-						<div class="messenger-actions-action">
-							<div class="messenger-actions-action__icon">
-								<div class="messenger-actions-action__img tl-user_svg tl-user_svg-dims"></div>
-							</div>
-							<div class="messenger-actions-action__text">
-								Private
-							</div>
+			<div class="messenger__content">
+				<!--				<div class="messenger-chat__header">-->
+				<!--					<div class="messenger-chat__person" data-userid="1001">-->
+				<!--						<div class="messenger-chat__person-image">-->
+				<!--							<img src="./assets/img/random-person.jpg" class="">-->
+				<!--						</div>-->
+				<!--						<div class="messenger-chat__person-info">-->
+				<!--							<div class="messenger-chat__row">-->
+				<!--								<div class="messenger-chat__person-name">Alicia Torreaux</div>-->
+				<!--							</div>-->
+				<!--							<div class="messenger-chat___row">-->
+				<!--								<div-->
+				<!--									class="messenger-chat__person-additional-info messenger-chat__person-additional-info_status">-->
+				<!--									Online-->
+				<!--								</div>-->
+				<!--							</div>-->
+				<!--						</div>-->
+				<!--					</div>-->
+				<!--				</div>-->
+				<!--				<div class="messenger-chat__messages">-->
+				<!--					<div-->
+				<!--						class="tl-speech-bubble tl-speech-bubble_my tl-speech-bubble_droplet tl-speech-bubble_my-droplet">-->
+				<!--						<div class="tl-speech-bubble__text">-->
+				<!--							<div class="tl-speech-bubble__text-content">Lorem ipsum dolor sit amet, consectetur-->
+				<!--								adipiscing-->
+				<!--								elit.-->
+				<!--								<div class="tl-speech-bubble__time">18:12</div>-->
+				<!--							</div>-->
+				<!--						</div>-->
+				<!--					</div>-->
+				<!--					<div-->
+				<!--						class="tl-speech-bubble tl-speech-bubble_my tl-speech-bubble_droplet tl-speech-bubble_my-droplet">-->
+				<!--						<div class="tl-speech-bubble__text">-->
+				<!--							<div class="tl-speech-bubble__text-content">Sed facilisis non nulla et eleifend. Nulla justo-->
+				<!--								risus, facilisis sit amet elit quis, pretium iaculis leo. Nulla nec placerat magna,-->
+				<!--								euismod-->
+				<!--								bibendum dui.-->
+				<!--								<div class="tl-speech-bubble__time">18:12</div>-->
+				<!--							</div>-->
+				<!--						</div>-->
+				<!--					</div>-->
+				<!--					<div class="tl-speech-bubble tl-speech-bubble_droplet">-->
+				<!--						<div class="tl-speech-bubble__text">-->
+				<!--							<div class="tl-speech-bubble__text-content">Quisque iaculis sapien eros, accumsan rutrum-->
+				<!--								felis-->
+				<!--								ullamcorper id.-->
+				<!--								<div class="tl-speech-bubble__time">18:12</div>-->
+				<!--							</div>-->
+				<!--						</div>-->
+				<!--					</div>-->
+				<!--					<div-->
+				<!--						class="tl-speech-bubble tl-speech-bubble_my tl-speech-bubble_droplet tl-speech-bubble_my-droplet">-->
+				<!--						<div class="tl-speech-bubble__text">-->
+				<!--							<div class="tl-speech-bubble__text-content">Nullam porta et nisi vitae luctus.-->
+				<!--								<div class="tl-speech-bubble__time">18:12</div>-->
+				<!--							</div>-->
+				<!--						</div>-->
+				<!--					</div>-->
+				<!--					<div class="tl-speech-bubble tl-speech-bubble_droplet">-->
+				<!--						<div class="tl-speech-bubble__text">-->
+				<!--							<div class="tl-speech-bubble__text-content">Nam felis risus, laoreet nec ipsum at, euismod-->
+				<!--								bibendum neque.-->
+				<!--								<div class="tl-speech-bubble__time">18:12</div>-->
+				<!--							</div>-->
+				<!--						</div>-->
+				<!--					</div>-->
+				<!--					<div-->
+				<!--						class="tl-speech-bubble tl-speech-bubble_my tl-speech-bubble_droplet tl-speech-bubble_my-droplet">-->
+				<!--						<div class="tl-speech-bubble__text">-->
+				<!--							<div class="tl-speech-bubble__text-content">Lorem ipsum dolor sit amet, consectetur-->
+				<!--								adipiscing-->
+				<!--								elit. Nam leo diam, gravida in massa at, interdum dignissim ante. Ut sit amet tristique-->
+				<!--								sem,-->
+				<!--								vel suscipit augue. Aliquam erat volutpat. Orci varius natoque penatibus et magnis dis-->
+				<!--								parturient montes, nascetur ridiculus mus. Etiam faucibus magna ac aliquet tempus.-->
+				<!--								Praesent-->
+				<!--								quis ullamcorper est, ut mollis odio. Nulla semper nec ex vitae egestas. Suspendisse-->
+				<!--								tortor-->
+				<!--								eros, pretium eget mollis et, fringilla a diam. Quisque et ante quam.-->
+
+				<!--								Sed facilisis non nulla et eleifend. Nulla justo risus, facilisis sit amet elit quis,-->
+				<!--								pretium iaculis leo. Nulla nec placerat magna, euismod bibendum dui. Quisque iaculis-->
+				<!--								sapien-->
+				<!--								eros, accumsan rutrum felis ullamcorper id. Phasellus non dignissim neque, eu pharetra-->
+				<!--								turpis. Aenean cursus et neque nec vehicula. Maecenas porta ultricies purus, at aliquet-->
+				<!--								lacus. Sed eu lacus tellus. Praesent pretium pharetra enim a feugiat. Sed congue ipsum-->
+				<!--								in-->
+				<!--								orci interdum, eu posuere lectus vehicula. Fusce vitae porttitor justo.-->
+				<!--								<div class="tl-speech-bubble__time">18:12</div>-->
+				<!--							</div>-->
+				<!--						</div>-->
+				<!--					</div>-->
+				<!--					<div class="tl-speech-bubble">-->
+				<!--						<div class="tl-speech-bubble__image">-->
+				<!--							<img class="tl-speech-bubble__image-content"-->
+				<!--								 src="https://sun9-5.userapi.com/c4171/u33907302/88971994/x_5ca9f61b.jpg">-->
+				<!--							<div class="tl-speech-bubble__time">18:13</div>-->
+				<!--						</div>-->
+				<!--					</div>-->
+				<!--					<div class="tl-speech-bubble tl-speech-bubble_my tl-speech-bubble_my-droplet">-->
+				<!--						<div class="tl-speech-bubble__image-text">-->
+				<!--							<img class="tl-speech-bubble__image-content"-->
+				<!--								 src="https://sun9-2.userapi.com/c625227/v625227997/58c54/ki7mt7j9Ul8.jpg">-->
+				<!--							<div class="tl-speech-bubble__text-content">Mishan9?-->
+				<!--								<div class="tl-speech-bubble__time">18:16</div>-->
+				<!--							</div>-->
+				<!--						</div>-->
+				<!--					</div>-->
+				<!--				</div>-->
+				<div class="messenger-actions">
+					<div class="messenger-actions__content">
+						<div class="messenger-actions__icon tl-chatsplaceholder_svg tl-chatsplaceholder_svg-dims"></div>
+						<div class="messenger-actions__text">
+							Open Chat <br> or create a new one
 						</div>
-						<div class="messenger-actions-action">
-							<div class="messenger-actions-action__icon">
-								<div class="messenger-actions-action__img tl-group_svg tl-group_svg-dims"></div>
+						<div class="messenger-actions__items">
+							<div class="messenger-actions-action">
+								<div class="messenger-actions-action__icon">
+									<div class="messenger-actions-action__img tl-user_svg tl-user_svg-dims"></div>
+								</div>
+								<div class="messenger-actions-action__text">
+									Private
+								</div>
 							</div>
-							<div class="messenger-actions-action__text">
-								Group
+							<div class="messenger-actions-action">
+								<div class="messenger-actions-action__icon">
+									<div class="messenger-actions-action__img tl-group_svg tl-group_svg-dims"></div>
+								</div>
+								<div class="messenger-actions-action__text">
+									Group
+								</div>
 							</div>
-						</div>
-						<div class="messenger-actions-action">
-							<div class="messenger-actions-action__icon">
-								<div class="messenger-actions-action__img tl-channel_svg tl-channel_svg-dims"></div>
-							</div>
-							<div class="messenger-actions-action__text">
-								Channel
+							<div class="messenger-actions-action">
+								<div class="messenger-actions-action__icon">
+									<div class="messenger-actions-action__img tl-channel_svg tl-channel_svg-dims"></div>
+								</div>
+								<div class="messenger-actions-action__text">
+									Channel
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</template>
+	</template>
 
-<template id="debugPage">
-	<button class="tl-button tl-button_primary" id="deleteAccountButton">Delete Account</button>
-	<button class="tl-button tl-button_primary" id="logOutButton">Log out</button>
-	<button class="tl-button tl-button_primary" id="getChatsButton">Get Chats</button>
-	<div style="font-family: 'Roboto'">Messenger</div>
-	<div style="margin-bottom: 10px"></div>
-	<label class="tl-checkbox"> asd
-		<input class="tl-checkbox__input" type="checkbox" checked="checked">
-		<span class="tl-1check_svg tl-1check_svg-dims tl-checkbox__checkmark"></span>
-	</label>
-	<div style="margin-bottom: 10px"></div>
-	<label class="tl-checkbox"> asd
-		<input class="tl-checkbox__input" type="checkbox">
-		<span class="tl-1check_svg tl-1check_svg-dims tl-checkbox__checkmark"></span>
-	</label>
-	<div style="margin-bottom: 10px"></div>
-
-	<div style="margin-bottom: 10px"></div>
-	<div class="tl-control-group">
-		<input id="test" type="text" class="tl-input"/>
-		<label class="tl-label" for="test">Bio (optional)</label>
-	</div>
-	<div style="margin-bottom: 10px"></div>
-	<div id="ddtest" class="tl-dropdown">
-		<label class="tl-dropdown__wrapper">
-			<input class="tl-dropdown__input"
-				   type="text"
-				   autocomplete="off"/>
-			<label class="tl-dropdown__label">Bio (optional)</label>
-			<div class="tl-up_svg tl-up_svg-dims tl-dropdown__toggle-icon_blue tl-dropdown__toggle-icon-up"></div>
-			<div
-				class="tl-down_svg tl-down_svg-dims tl-dropdown__toggle-icon_grey tl-dropdown__toggle-icon-down"></div>
+	<template id="debugPage">
+		<button class="tl-button tl-button_primary" id="deleteAccountButton">Delete Account</button>
+		<button class="tl-button tl-button_primary" id="logOutButton">Log out</button>
+		<button class="tl-button tl-button_primary" id="getChatsButton">Get Chats</button>
+		<div style="font-family: 'Roboto'">Messenger</div>
+		<div style="margin-bottom: 10px"></div>
+		<label class="tl-checkbox"> asd
+			<input class="tl-checkbox__input" type="checkbox" checked="checked">
+			<span class="tl-1check_svg tl-1check_svg-dims tl-checkbox__checkmark"></span>
 		</label>
-		<div class="tl-dropdown__content"></div>
-	</div>
-	<div style="margin-bottom: 10px"></div>
-	<button type="button" class="tl-button tl-button_primary tl-button_wide">Next</button>
-	<div class="tl-1check_svg tl-1check_svg-dims"></div>
-</template>
+		<div style="margin-bottom: 10px"></div>
+		<label class="tl-checkbox"> asd
+			<input class="tl-checkbox__input" type="checkbox">
+			<span class="tl-1check_svg tl-1check_svg-dims tl-checkbox__checkmark"></span>
+		</label>
+		<div style="margin-bottom: 10px"></div>
+
+		<div style="margin-bottom: 10px"></div>
+		<div class="tl-control-group">
+			<input id="test" type="text" class="tl-input"/>
+			<label class="tl-label" for="test">Bio (optional)</label>
+		</div>
+		<div style="margin-bottom: 10px"></div>
+		<div id="ddtest" class="tl-dropdown">
+			<label class="tl-dropdown__wrapper">
+				<input class="tl-dropdown__input"
+					   type="text"
+					   autocomplete="off"/>
+				<label class="tl-dropdown__label">Bio (optional)</label>
+				<div class="tl-up_svg tl-up_svg-dims tl-dropdown__toggle-icon_blue tl-dropdown__toggle-icon-up"></div>
+				<div
+					class="tl-down_svg tl-down_svg-dims tl-dropdown__toggle-icon_grey tl-dropdown__toggle-icon-down"></div>
+			</label>
+			<div class="tl-dropdown__content"></div>
+		</div>
+		<div style="margin-bottom: 10px"></div>
+		<button type="button" class="tl-button tl-button_primary tl-button_wide">Next</button>
+		<div class="tl-1check_svg tl-1check_svg-dims"></div>
+	</template>
 
 	<template id="chatsComponent">
 		<div class="chats">
@@ -366,24 +380,37 @@
 		</div>
 	</template>
 
-<template id="chatWindowComponent">
-	<div>Chat window</div>
-	<span></span>
-</template>
+	<template id="chatWindowMessageTemplate">
+		<!-- tl-speech-bubble tl-speech-bubble_my tl-speech-bubble_droplet tl-speech-bubble_my-droplet -->
+		<div class="tl-speech-bubble tl-speech-bubble_droplet">
+			<div class="tl-speech-bubble__text">
+				<div class="tl-speech-bubble__text-content">
+					<div></div>
+					<div class="tl-speech-bubble__time">18:12</div>
+				</div>
+			</div>
+		</div>
+	</template>
 
-<svg height="0" width="0">
-	<defs>
-		<clipPath id="left-droplet">
-			<path d="M 10,0 A 10,10 0 0 1 0,10 H 16 V 0 Z"></path>
-		</clipPath>
-		<clipPath id="right-droplet">
-			<path d="M 6,0 A 10,10 0 0 0 16,10 H 0 V 0 Z"></path>
-		</clipPath>
-	</defs>
-</svg>
+	<template id="chatWindowComponent">
+		<div class="messenger-chat__messages">
 
-<!------------ Scripts section ---------------->
-<script src="./vendors.js"></script>
-<script src="./bootstrap.js"></script>
+		</div>
+	</template>
+
+	<svg height="0" width="0">
+		<defs>
+			<clipPath id="left-droplet">
+				<path d="M 10,0 A 10,10 0 0 1 0,10 H 16 V 0 Z"></path>
+			</clipPath>
+			<clipPath id="right-droplet">
+				<path d="M 6,0 A 10,10 0 0 0 16,10 H 0 V 0 Z"></path>
+			</clipPath>
+		</defs>
+	</svg>
+
+	<!------------ Scripts section ---------------->
+	<script src="./vendors.js"></script>
+	<script src="./bootstrap.js"></script>
 </body>
 </html>
