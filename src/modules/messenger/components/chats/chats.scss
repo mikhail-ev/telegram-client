@@ -82,6 +82,17 @@ $image-height: $chat-height - 1.2em;
 		& img {
 			height: 100%;
 		}
+
+		& div {
+			height: 100%;
+			transform: scale(1.4);
+			letter-spacing: 0.05em;
+			color: #ffffff;
+			line-height: $image-height;
+			text-align: center;
+			font-family: "Roboto Bold", serif;
+			opacity: 0.9;
+		}
 	}
 
 	&__info {

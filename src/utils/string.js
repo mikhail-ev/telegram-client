@@ -14,3 +14,20 @@ export function bytesToImageBase64(bytes, mime) {
 export function getImageMime(constructorType) {
 	return 'image/' + constructorType.replace('storage.file', '').toLowerCase();
 }
+
+export function hashCode(str) {
+	var hash = 0;
+	for (var i = 0; i < str.length; i++) {
+		hash = str.charCodeAt(i) + ((hash << 5) - hash);
+	}
+	return hash;
+}
+
+export function stringToHex(string){
+	var hash = hashCode(string);
+	var c = (hash & 0x00FFFFFF)
+		.toString(16)
+		.toUpperCase();
+
+	return "00000".substring(0, 6 - c.length) + c;
+}

@@ -2,7 +2,7 @@ import { delegate } from '../../../../utils/dom';
 import { peerIdAttribute, peerTypeAttribute } from '../../constants/attributes';
 import { chatSelectEvent } from '../../constants/events';
 import { loadSmallImage, mapDialogs } from '../../../../utils/telegram';
-import { bytesToImageBase64, getImageMime } from '../../../../utils/string';
+import { bytesToImageBase64, getImageMime, stringToHex } from '../../../../utils/string';
 
 class ChatInfo {
 	constructor(peerId, peerType) {
@@ -83,6 +83,11 @@ class ChatsComponent {
 				}, (error) => {
 					console.error(error, chat.photo);
 				});
+			} else {
+				var logo = document.createElement('div');
+				logo.style.backgroundColor = '#' + stringToHex(chat.title);
+				logo.innerText = chat.abbreviation;
+				imageContainer.appendChild(logo);
 			}
 
 			fragment.appendChild(node);

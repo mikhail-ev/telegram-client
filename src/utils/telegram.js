@@ -5,6 +5,7 @@ export function mapDialogs(response) {
 		var peerType = dialog.peer._;
 		var peer = null;
 		var title = null;
+		var abbreviation = null;
 
 		var messageText = null;
 		var message = response.messages.find((message) => message.id === dialog.top_message);
@@ -24,12 +25,20 @@ export function mapDialogs(response) {
 		if (peerType === 'peerChannel') {
 			peer = response.chats.find((chat) => chat.id === dialog.peer.channel_id);
 			title = peer.title;
+			abbreviation = peer.title.slice(0, 2);
 		} else if (peerType === 'peerChat') {
 			peer = response.chats.find((chat) => chat.id === dialog.peer.chat_id);
 			title = peer.title;
+			abbreviation = peer.title.slice(0, 2);
 		} else if (peerType === 'peerUser') {
 			peer = response.users.find((user) => user.id === dialog.peer.user_id);
-			title = peer.first_name + (peer.last_name || '');
+			if (peer.last_name) {
+				title = peer.first_name + ' ' + peer.last_name;
+				abbreviation = peer.first_name[0] + peer.last_name[0];
+			} else {
+				title = peer.first_name;
+				abbreviation = peer.first_name.slice(0, 2);
+			}
 		}
 
 		var photo = null;
@@ -43,6 +52,7 @@ export function mapDialogs(response) {
 			peerId: peer && peer.id,
 			muted: dialog.notify_settings.mute_until > 0,
 			title: title,
+			abbreviation: abbreviation,
 			time: time,
 			photo: photo,
 			message: messageText,
