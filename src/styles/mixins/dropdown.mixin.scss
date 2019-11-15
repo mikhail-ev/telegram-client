@@ -8,6 +8,7 @@ $c-color-select-item: $tl-c-whitesmoke;
 @mixin tl-dropdown {
 	max-width: 100%;
 	position: relative;
+
 	////// when ct is open
 	&_open {
 		.tl-dropdown__content {
@@ -43,7 +44,7 @@ $c-color-select-item: $tl-c-whitesmoke;
 	}
 
 	&__input {
-		line-height: $tl-input-height - $tl-input-vertical-padding * 2 - $tl-default-border-size * 2;
+		line-height: 45 - $tl-input-vertical-padding * 2 - $tl-default-border-size * 2;
 		width: 100%;
 		outline: none;
 		border: 0;
@@ -63,9 +64,10 @@ $c-color-select-item: $tl-c-whitesmoke;
 	}
 	// &__input:focus + &__label
 	&__input:valid + &__label {
-		top: -7px;
-		left: 15px;
-		color: $tl-c-malibu;
+		top: -5px;
+		left: 9px;
+		color: #61AEF6;
+		font-size: 11px;
 	}
 
 	&__input:valid,

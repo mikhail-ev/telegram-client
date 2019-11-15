@@ -1,10 +1,17 @@
 .sign-in-form {
-  &__checkbox {
-    margin-top: 1.3em;
-    margin-left: 0.7em;
-  }
+	&__checkbox {
+		margin-top: 1.3em;
+		margin-left: 0.7em;
+	}
 
-  &__button {
-    margin-top: 2em;
-  }
+	&__button {
+		margin-top: 2em;
+	}
+
+	&__country-code {
+		position: absolute;
+		line-height: 40px;
+		padding-top: 4px;
+		left: 1.1em;
+	}
 }

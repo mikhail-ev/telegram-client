@@ -1,9 +1,9 @@
-import {focusFirstInput} from '../../../../utils/dom';
-import {applyRipple} from '../../../common/components/ripple/ripple';
-import {codeSentEvent} from '../../constants/events';
-import {applyNumericInput} from '../../../common/components/numeric-input/numeric-input';
-import {Countries} from '../../../common/constants/countries';
-import {HtmlDropDownElement} from '../../../../components/inputs-group/html-dropdown-element'
+import { focusFirstInput } from '../../../../utils/dom';
+import { applyRipple } from '../../../common/components/ripple/ripple';
+import { codeSentEvent } from '../../constants/events';
+import { applyNumericInput } from '../../../common/components/numeric-input/numeric-input';
+import { Countries } from '../../../common/constants/countries';
+import { HtmlDropDownElement } from '../../../../components/inputs-group/html-dropdown-element'
 	;
 import { getNearestDC, sendCode } from '../../../../utils/telegram';
 
@@ -32,6 +32,7 @@ class SignInFormComponent {
 		this.countryDD = null;
 		this.countryDDWrapped = null;
 		this.countryCode = null;
+		this.countryCodeOutput = null;
 	}
 
 	mount(mountContainer) {
@@ -52,27 +53,27 @@ class SignInFormComponent {
 		this.form = this.container.querySelector('form');
 		this.form.addEventListener('submit', this.handleSubmit);
 
+		this.countryCodeOutput = this.container.querySelector('.sign-in-form__country-code');
+
 		this.countryDD = this.container.querySelector('#countryDd');
 		this.countryDDWrapped = new HtmlDropDownElement(this.countryDD,
-			{onSelectFn: this.handleCountrySelect});
+			{ onSelectFn: this.handleCountrySelect });
 		this.countryDDWrapped.setData(countries);
 
 		this.phoneInput = this.container.querySelector('#phoneNumberInput');
 		applyNumericInput(this.phoneInput);
 
 		if (this.signInInfo) {
-			this.phoneInput.value = this.signInInfo.phone || '';
-			// this.countryInput.value = this.signInInfo.country || '';
+			this.phoneInput.value = this.signInInfo.phone;
+			this.setCountryCode(this.signInInfo.country);
 		}
 
-		focusFirstInput(this.container);
 		this.getNearestDC();
 	}
 
 	handleCountrySelect = (country) => {
 		let countryCode = country.phoneCode.slice(1, country.phoneCode.length);
-		this.countryCode = countryCode;
-		this.phoneInput.value = countryCode;
+		this.setCountryCode(countryCode);
 	};
 
 	handleSubmit = (event) => {
@@ -85,6 +86,7 @@ class SignInFormComponent {
 		var phone = this.phoneInput.value.toString();
 		var country = this.countryCode.toString();
 		sendCode(country + phone).then((result) => {
+			console.log(result);
 			var componentEvent = new Event(codeSentEvent);
 			var registered = result.pFlags && !!result.pFlags.phone_registered;
 			componentEvent.data = new SignInInfo(
@@ -94,6 +96,17 @@ class SignInFormComponent {
 			this.isLoading = false;
 		});
 	};
+
+	setCountryCode(code) {
+		this.countryCode = code;
+		this.countryCodeOutput.innerText = '+' + code;
+		var rect = this.countryCodeOutput.getBoundingClientRect();
+		this.phoneInput.style.paddingLeft = (rect.width + 15) + 'px';
+		if (!this.phoneInput.classList.contains('active')) {
+			this.phoneInput.classList.add('active');
+			this.phoneInput.focus();
+		}
+	}
 
 	getNearestDC() {
 		getNearestDC().then((response) => console.warn(response));

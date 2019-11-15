@@ -75,6 +75,18 @@ class ChatsComponent {
 			var imageContainer = node.querySelector('.chat__image');
 			if (chat.photo) {
 				loadSmallImage(chat.photo).then(response => {
+					// {
+					// 	"code": 401,
+					// 	"type": "AUTH_KEY_UNREGISTERED",
+					// 	"description": "CODE#401 AUTH_KEY_UNREGISTERED",
+					// 	"originalError": {
+					// 	"_": "rpc_error",
+					// 		"error_code": 401,
+					// 		"error_message": "AUTH_KEY_UNREGISTERED"
+					// },
+					// 	"input": "upload.getFile",
+					// 	"stack": "Error\n    at Object.mtpInvokeApi [as invokeApi] (http://localhost:4000/vendors.js:10738:22)\n    at loadSmallImage (http://localhost:4000/messenger.js:115:25)\n    at http://localhost:4000/messenger.js:205:10\n    at Array.forEach (<anonymous>)\n    at ChatsComponent.renderChats (http://localhost:4000/messenger.js:182:12)\n    at http://localhost:4000/messenger.js:176:13"
+					// }
 					var mime = getImageMime(response.type._);
 					var base64 = bytesToImageBase64(response.bytes, mime);
 					var image = document.createElement('img');

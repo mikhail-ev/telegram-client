@@ -1,18 +1,21 @@
 @import "../utils/variables/colors";
+@import "../utils/variables/values";
 
 .tl-control-group {
 	position: relative;
 
-	input:valid + label {
+	input:valid + label, input.active + label {
 		top: -7px;
-		left: 15px;
+		left: 9px;
 		color: $tl-c-malibu;
+		font-size: 11px;
 	}
 
 	input:focus + label {
 		top: -7px;
-		left: 15px;
+		left: 9px;
 		color: $tl-c-malibu;
+		font-size: 11px;
 	}
 }
 

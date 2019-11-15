@@ -27,7 +27,7 @@
 		caret-color: $tl-c-malibu;
 	}
 
-	&:focus {
+	&:focus, &.active {
 		border-color: $tl-c-malibu;
 		caret-color: $tl-c-malibu;
 	}
