@@ -10,11 +10,11 @@ class ChatWindowComponent {
 	}
 
 	reset() {
-		this.messages = null;
+		this.messages = [];
+		this.count = 0;
+		this.loader = null;
 		this.lastMessageDate = null;
 		this.viewOffset = 0;
-		this.messagesOffset = 0;
-		this.chatEnd = false;
 		this.isLoading = false;
 		this.peerType = null;
 		this.peerId = null;
@@ -40,13 +40,27 @@ class ChatWindowComponent {
 
 		this.messagesContainer.innerHTML = '';
 		this.messagesContainer.removeEventListener('scroll', this.handleScroll);
+		var spinner = document.createElement('div');
+		spinner.classList.add('tl-spinner');
+		this.loader = document.createElement('div');
+		this.loader.classList.add('tl-spinner-container', 'tl-spinner-container_force-centered');
+		this.loader.appendChild(spinner);
+		this.messagesContainer.appendChild(this.loader);
 		this.messagesContainerSpacer = document.createElement('div');
 		this.messagesContainerSpacer.style.position = 'relative';
 		this.messagesContainer.appendChild(this.messagesContainerSpacer);
 
+		this.initData();
+	}
+
+	initData() {
 		this.isLoading = true;
 		this.loadMessages().then((response) => {
+			var loaderDisplay = this.loader.style.display;
+			this.loader.style.display = 'none';
+			this.loader.classList.add('tl-spinner-container_runtime');
 			this.appendMessages(response.messages);
+			this.loader.style.display = loaderDisplay;
 			this.messages = response.messages;
 			scrollToBottom(this.messagesContainer);
 			setTimeout(() => {
@@ -60,27 +74,31 @@ class ChatWindowComponent {
 		return MtpApiManager.invokeApi('messages.getHistory', {
 			peer: getPeer(this.peerType, this.peerId, this.peerAccessHash),
 			offset_id: 0,
-			add_offset: this.messagesOffset,
+			add_offset: this.messages.length,
 			limit: this.loadLimit
 		}, {
 			timeout: 300,
 			noErrorBox: true
 		}).then((response) => {
-			this.messagesOffset += response.messages.length;
-			if (response.messages.length === 0) {
-				this.chatEnd = true;
+			console.log(response);
+			this.messages = this.messages.concat(response.messages);
+			if (this.messages.length === response.count) {
+				this.loader.style.display = 'none';
 			}
 			return response;
 		});
 	}
 
+	isLoaded() {
+		return this.count === this.messages.length;
+	}
+
 	handleScroll = (event) => {
-		if (!this.chatEnd && !this.isLoading && event.target.scrollTop < 50) {
+		if (!this.isLoaded() && !this.isLoading && event.target.scrollTop < 50) {
 			this.isLoading = true;
 			this.loadMessages().then((response) => {
 				this.appendMessages(response.messages);
 				this.messagesContainer.scrollTop = this.lastBlockHeight;
-				this.messages = this.messages.concat(response.messages);
 				this.isLoading = false;
 			}, (e) => console.error(e));
 		}

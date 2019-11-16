@@ -7,6 +7,7 @@ import { bytesToImageBase64, getImageMime, stringToHex } from '../../../../utils
 class ChatsComponent {
 	constructor() {
 		this.container = null;
+		this.loader = null;
 		this.loadLimit = 20;
 		this.reset();
 	}
@@ -30,7 +31,7 @@ class ChatsComponent {
 		this.contentSpacer = document.createElement('div');
 		this.content.appendChild(this.contentSpacer);
 		this.loader = document.createElement('div');
-		this.loader.classList.add('chats__loader');
+		this.loader.classList.add('tl-spinner-container');
 		var spinner = document.createElement('div');
 		spinner.classList.add('tl-spinner');
 		this.loader.appendChild(spinner);
@@ -54,7 +55,7 @@ class ChatsComponent {
 
 	handleScroll = (event) => {
 		var scrollRemains = event.target.scrollHeight - (event.target.offsetHeight + event.target.scrollTop);
-		if (!this.listEnd && !this.isLoading && scrollRemains < 70) {
+		if (!this.isLoaded() && !this.isLoading && scrollRemains < 70) {
 			this.isLoading = true;
 			var scrollPosition = this.content.scrollTop;
 			this.load().then((dialogs) => {
@@ -64,6 +65,10 @@ class ChatsComponent {
 			})
 		}
 	};
+
+	isLoaded() {
+		return this.count === this.dialogs.length;
+	}
 
 	load() {
 		return MtpApiManager.invokeApi('messages.getDialogs', {
@@ -94,7 +99,7 @@ class ChatsComponent {
 			var loaderDisplay = this.loader.style.display;
 			this.loader.style.display = 'none';
 			this.appendDialogs(dialogs);
-			this.loader.classList.add('chats__loader_progress');
+			this.loader.classList.add('tl-spinner-container_runtime');
 			this.loader.style.display = loaderDisplay;
 			this.isLoading = false;
 		});

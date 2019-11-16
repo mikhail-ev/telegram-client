@@ -31,22 +31,6 @@
 		position: relative;
 	}
 
-	&__loader {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 100px;
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		width: 100%;
-
-		&_progress {
-			position: static;
-			transform: none;
-		}
-	}
-
 	&__search {
 		background-color: #f4f4f5;
 		font-size: 1em;

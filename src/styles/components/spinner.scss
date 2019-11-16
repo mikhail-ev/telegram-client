@@ -3,3 +3,24 @@
 .tl-spinner {
 	@include tl-spinner();
 }
+
+.tl-spinner-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100px;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 100%;
+
+	&_force-centered {
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	&_runtime {
+		position: static;
+		transform: none;
+	}
+}
