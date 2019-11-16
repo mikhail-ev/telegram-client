@@ -36,7 +36,7 @@ class MessengerModule {
 			this.chatWindow = new ChatWindowComponent();
 			this.chatWindow.mount(this.content);
 		}
-		this.chatWindow.openChat(event.data.peerId, event.data.peerType, event.data.accessHash);
+		this.chatWindow.openChat(event.data.peerId, event.data.peerType, event.data.peerAccessHash);
 	};
 
 	unmount() {

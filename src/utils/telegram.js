@@ -7,6 +7,7 @@ export function mapDialogs(response) {
 		var title = null;
 		var abbreviation = null;
 		var accessHash = null;
+		var deleted = false;
 
 		var messageText = null;
 		var message = response.messages.find((message) => message.id === dialog.top_message);
@@ -23,12 +24,12 @@ export function mapDialogs(response) {
 		if (peerType === 'peerChannel') {
 			peer = response.chats.find((chat) => chat.id === dialog.peer.channel_id);
 			accessHash = peer.access_hash;
-			title = peer.title;
-			abbreviation = peer.title.slice(0, 2);
+			title = peer.title || '';
+			abbreviation = peer.title.slice(0, 2).toUpperCase();
 		} else if (peerType === 'peerChat') {
 			peer = response.chats.find((chat) => chat.id === dialog.peer.chat_id);
-			title = peer.title;
-			abbreviation = peer.title.slice(0, 2);
+			title = peer.title || '';
+			abbreviation = peer.title.slice(0, 2).toUpperCase();
 		} else if (peerType === 'peerUser') {
 			peer = response.users.find((user) => user.id === dialog.peer.user_id);
 			accessHash = peer.access_hash;
@@ -36,8 +37,8 @@ export function mapDialogs(response) {
 				title = peer.first_name + ' ' + peer.last_name;
 				abbreviation = peer.first_name[0] + peer.last_name[0];
 			} else {
-				title = peer.first_name;
-				abbreviation = peer.first_name.slice(0, 2);
+				title = peer.first_name || '';
+				abbreviation = title.slice(0, 2).toUpperCase();
 			}
 		}
 
@@ -50,7 +51,7 @@ export function mapDialogs(response) {
 		return {
 			peerType: peerType,
 			peerId: peer && peer.id,
-			accessHash: accessHash,
+			peerAccessHash: accessHash,
 			muted: dialog.notify_settings.mute_until > 0,
 			title: title,
 			abbreviation: abbreviation,
@@ -59,6 +60,8 @@ export function mapDialogs(response) {
 			message: messageText,
 			unread: dialog.unread_count,
 			mentions: dialog.unread_mentions_count,
+			originalMessage: message,
+			deleted: peer.pFlags.deleted
 		};
 	});
 }
@@ -98,12 +101,12 @@ export function sendCode(phoneNumberFull) {
 	});
 }
 
-export function getPeer(peerType, peerId, accessHash) {
+export function getPeer(peerType, peerId, peerAccessHash) {
 	switch (peerType) {
 		case 'peerUser':
-			return { _: 'inputPeerUser', user_id: peerId, access_hash: accessHash };
+			return { _: 'inputPeerUser', user_id: peerId, access_hash: peerAccessHash };
 		case 'peerChannel':
-			return { _: 'inputPeerChannel', channel_id: peerId, access_hash: accessHash };
+			return { _: 'inputPeerChannel', channel_id: peerId, access_hash: peerAccessHash };
 		case 'peerChat':
 			return { _: 'inputPeerChat', chat_id: peerId };
 	}

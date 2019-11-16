@@ -1,13 +1,22 @@
 import { delegate } from '../../../../utils/dom';
 import { peerIdAttribute, peerTypeAttribute } from '../../constants/attributes';
 import { chatSelectEvent } from '../../constants/events';
-import { loadSmallImage, mapDialogs } from '../../../../utils/telegram';
+import { getPeer, loadSmallImage, mapDialogs } from '../../../../utils/telegram';
 import { bytesToImageBase64, getImageMime, stringToHex } from '../../../../utils/string';
 
 class ChatsComponent {
 	constructor() {
 		this.container = null;
-		this.chats = null;
+		this.loadLimit = 20;
+		this.reset();
+	}
+
+	reset() {
+		this.listEnd = false;
+		this.lastDialog = null;
+		this.viewOffset = 0;
+		this.dialogs = [];
+		this.count = 0;
 	}
 
 	mount(container) {
@@ -18,38 +27,90 @@ class ChatsComponent {
 		this.container.addEventListener('click', this.handleClick, true);
 
 		this.content = this.container.querySelector('.chats__content');
+		this.contentSpacer = document.createElement('div');
+		this.content.appendChild(this.contentSpacer);
+		this.loader = document.createElement('div');
+		this.loader.classList.add('chats__loader');
+		var spinner = document.createElement('div');
+		spinner.classList.add('tl-spinner');
+		this.loader.appendChild(spinner);
+		this.content.appendChild(this.loader);
+		this.content.addEventListener('scroll', this.handleScroll);
 		this.chatTemplate = document.getElementById('chatComponentPlateTemplate').content;
 
-		this.load();
+		this.initData();
 	}
 
 	handleClick = (event) => {
 		var delegated = delegate(event, '.chat', this.container);
 		if (delegated) {
 			var peerId = delegated.getAttribute(peerIdAttribute);
-			var peer = this.chats.find((peer) => peer.peerId.toString() === peerId);
+			var peer = this.dialogs.find((peer) => peer.peerId.toString() === peerId);
 			var selectEvent = new Event(chatSelectEvent);
 			selectEvent.data = peer;
 			this.container.dispatchEvent(selectEvent);
 		}
 	};
 
+	handleScroll = (event) => {
+		var scrollRemains = event.target.scrollHeight - (event.target.offsetHeight + event.target.scrollTop);
+		if (!this.listEnd && !this.isLoading && scrollRemains < 70) {
+			this.isLoading = true;
+			var scrollPosition = this.content.scrollTop;
+			this.load().then((dialogs) => {
+				this.appendDialogs(dialogs);
+				this.content.scrollTop = scrollPosition;
+				this.isLoading = false;
+			})
+		}
+	};
+
 	load() {
-		MtpApiManager.invokeApi('messages.getDialogs', {
-			flags: 0,
-			offset_date: 0,
-			offset_id: 0,
-			offset_peer: { '_': 'inputPeerEmpty' },
-			limit: 20
+		return MtpApiManager.invokeApi('messages.getDialogs', {
+			flags: 1,
+			offset_date: this.lastDialog ? this.lastDialog.originalMessage.date : 0,
+			offset_id: this.lastDialog ? this.lastDialog.originalMessage.id : 0,
+			offset_peer: this.lastDialog ?
+				getPeer(this.lastDialog.peerType, this.lastDialog.peerId, this.lastDialog.peerAccessHash) :
+				{ '_': 'inputPeerEmpty' },
+			limit: this.loadLimit
 		}, { timeout: 300, dcID: 2, createNetworker: true }).then((response) => {
-			console.log(response);
-			this.renderChats(mapDialogs(response));
-		}, (e) => console.warn(e));
+			var dialogs = mapDialogs(response);
+			this.count = response.count;
+			if (dialogs.length !== 0) {
+				this.lastDialog = dialogs[dialogs.length - 1];
+				this.dialogs = this.dialogs.concat(dialogs);
+			}
+			if (this.count === this.dialogs.length) {
+				this.loader.style.display = 'none';
+			}
+			return dialogs;
+		})
+	}
+
+	initData() {
+		this.isLoading = true;
+		this.load().then((dialogs) => {
+			var loaderDisplay = this.loader.style.display;
+			this.loader.style.display = 'none';
+			this.appendDialogs(dialogs);
+			this.loader.classList.add('chats__loader_progress');
+			this.loader.style.display = loaderDisplay;
+			this.isLoading = false;
+		});
+	}
+
+	appendDialogs(dialogs) {
+		var block = this.renderChats(dialogs);
+		this.content.appendChild(block);
+		var rect = block.getBoundingClientRect();
+		block.style.top = this.viewOffset + 'px';
+		this.viewOffset += rect.height;
+		this.contentSpacer.style.height = this.viewOffset + 'px';
 	}
 
 	renderChats(chats) {
 		var fragment = document.createDocumentFragment();
-		this.chats = chats;
 		chats.forEach((chat) => {
 			var node = this.chatTemplate.cloneNode(true);
 			node.querySelector('.chat').setAttribute(peerIdAttribute, chat.peerId);
@@ -71,6 +132,7 @@ class ChatsComponent {
 			var imageContainer = node.querySelector('.chat__image');
 			if (chat.photo) {
 				loadSmallImage(chat.photo).then(response => {
+					// TODO
 					// {
 					// 	"code": 401,
 					// 	"type": "AUTH_KEY_UNREGISTERED",
@@ -100,7 +162,12 @@ class ChatsComponent {
 
 			fragment.appendChild(node);
 		});
-		this.content.appendChild(fragment);
+
+		var block = document.createElement('div');
+		block.classList.add('chats__block');
+		block.appendChild(fragment);
+
+		return block;
 	}
 
 	unmount() {

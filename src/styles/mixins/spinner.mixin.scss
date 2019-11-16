@@ -8,7 +8,7 @@ $spinner-size: 3em;
 	color: $tl-c-malibu;
 	position: relative;
 	display: inline-block;
-	border: 2px solid; // Dmitrii Uskov. I suppose it shouldn't depend on font-size;
+	border: 2px solid;
 	border-radius: 50%;
 	border-top-color: transparent;
 	animation: rotate 1s linear infinite;

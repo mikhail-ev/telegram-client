@@ -14,6 +14,13 @@
 		flex: 1 1 auto;
 		padding: 0 0.5em;
 		overflow-y: auto;
+		position: relative;
+	}
+
+	&__block {
+		position: absolute;
+		left: 7px;
+		right: 7px;
 	}
 
 	&__search-wrapper {
@@ -22,6 +29,22 @@
 		border-radius: 2em;
 		overflow: hidden;
 		position: relative;
+	}
+
+	&__loader {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100px;
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 100%;
+
+		&_progress {
+			position: static;
+			transform: none;
+		}
 	}
 
 	&__search {
@@ -88,10 +111,11 @@ $image-height: $chat-height - 1.2em;
 			transform: scale(1.4);
 			letter-spacing: 0.05em;
 			color: #ffffff;
-			line-height: $image-height;
 			text-align: center;
 			font-family: "Roboto Bold", serif;
 			opacity: 0.9;
+			line-height: 3.8em;
+			padding-left: 0.2em;
 		}
 	}
 

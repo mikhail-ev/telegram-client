@@ -41,7 +41,7 @@ class ChatWindowComponent {
 		this.messagesContainer.innerHTML = '';
 		this.messagesContainer.removeEventListener('scroll', this.handleScroll);
 		this.messagesContainerSpacer = document.createElement('div');
-		this.messagesContainerSpacer.classList.add('messenger-chat__spacer');
+		this.messagesContainerSpacer.style.position = 'relative';
 		this.messagesContainer.appendChild(this.messagesContainerSpacer);
 
 		this.isLoading = true;
@@ -71,9 +71,6 @@ class ChatWindowComponent {
 				this.chatEnd = true;
 			}
 			return response;
-		}, (error) => {
-			this.isLoading = false;
-			return error;
 		});
 	}
 
