@@ -45,10 +45,10 @@ class PasswordFormComponent {
 			return MtpApiManager.invokeApi('auth.checkPassword', {
 				password_hash: passwordHash
 			}, { dcID: 2, createNetworker: true })
-		}).then((result) => {
-			MtpApiManager.setUserAuth(2, {
-				id: result.user.id
-			});
+		}).then(() => {
+			// MtpApiManager.setUserAuth(2, {
+			// 	id: result.user.id
+			// });
 			this.container.dispatchEvent(new Event(passwordConfirmedEvent));
 		}).catch((error) => {
 			console.error(error);
