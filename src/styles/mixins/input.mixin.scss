@@ -31,4 +31,12 @@
 		border-color: $tl-c-malibu;
 		caret-color: $tl-c-malibu;
 	}
+
+	&_border-red,
+	&_border-red:valid,
+	&_border-red:focus,
+	&_border-red.active {
+		border-color: $tl-c-apple-candy-red;
+		caret-color: $tl-c-apple-candy-red;
+	}
 }

@@ -4,17 +4,26 @@
 .tl-control-group {
 	position: relative;
 
-	input:valid + label, input.active + label {
+	input:valid + label,
+	input.active + label {
 		top: -7px;
 		left: 9px;
 		color: $tl-c-malibu;
 		font-size: 11px;
 	}
 
-	input:focus + label {
+	input.tl-input_border-red:valid + label,
+	input.tl-input_border-red.active + label.tl-label_text-red {
 		top: -7px;
 		left: 9px;
-		color: $tl-c-malibu;
+		color: $tl-c-apple-candy-red;
+		font-size: 11px;
+	}
+
+	input.tl-input_border-red:focus + label.tl-label_text-red {
+		top: -7px;
+		left: 9px;
+		color: $tl-c-apple-candy-red;
 		font-size: 11px;
 	}
 }

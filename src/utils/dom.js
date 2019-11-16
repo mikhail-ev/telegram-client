@@ -20,6 +20,16 @@ function removeClass(ele, cls) {
 	}
 }
 
+function showElement(element) {
+	removeClass(element, 'd-none');
+	addClass(element, 'd-block');
+}
+
+function hideElement(element) {
+	removeClass(element, 'd-block');
+	addClass(element, 'd-none');
+}
+
 function focusFirstInput(container) {
 	setTimeout(function () {
 		var input = container.querySelector('input');
@@ -42,4 +52,4 @@ function scrollToBottom(element) {
 	element.scrollTo(0, element.scrollHeight);
 }
 
-export { addClass, hasClass, removeClass, mountTemplate, focusFirstInput, delegate, scrollToBottom };
+export { addClass, hasClass, removeClass, mountTemplate, focusFirstInput, delegate, scrollToBottom, showElement, hideElement };

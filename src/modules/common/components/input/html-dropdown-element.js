@@ -1,4 +1,4 @@
-import {addClass, removeClass, hasClass} from '../../../../utils/dom';
+import {addClass, removeClass, hasClass, showElement, hideElement} from '../../../../utils/dom';
 
 /*options: {onSelectFn: function(selectedValue){}}*/
 
@@ -180,9 +180,8 @@ HtmlDropDownElement.prototype.open = function () {
 	self.$$isOpened = true;
 	self.$$callAutosuggest(self.$$input.value);
 	addClass(self.element, 'tl-dropdown_open');
-	removeClass(self.$$iconUp, 'd-none');
-	addClass(self.$$iconUp, 'd-block');
-	addClass(self.$$iconDown, 'd-none');
+	showElement(self.$$iconUp);
+	hideElement(self.$$iconDown);
 };
 
 HtmlDropDownElement.prototype.hide = function () {
@@ -194,9 +193,8 @@ HtmlDropDownElement.prototype.hide = function () {
 	}
 	removeClass(self.element, 'tl-dropdown_open');
 
-	removeClass(self.$$iconDown, 'd-none');
-	addClass(self.$$iconDown, 'd-block');
-	addClass(self.$$iconUp, 'd-none');
+	showElement(self.$$iconDown);
+	hideElement(self.$$iconUp);
 };
 
 HtmlDropDownElement.prototype.destroy = function () {

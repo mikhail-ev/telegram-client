@@ -129,7 +129,24 @@
 		<div class="login-page-submission">
 			<div
 				class="login-page-submission__image login-page-submission__image_small login-page-submission__image_pulled">
-				<img src="./assets/img/monkey1.png">
+				<div id="twoFactorSetupMonkeyIdle">
+					<tgs-player
+						autoplay
+						loop
+						mode="normal"
+						style="width: 150px; height: 150px;"
+						src="./assets/stickers/monkey/TwoFactorSetupMonkeyIdle.tgs">
+					</tgs-player>
+				</div>
+				<div id="twoFactorSetupMonkeyTracking" class="d-none">
+					<tgs-player id="twoFactorSetupMonkeyTracking"
+						autoplay
+						loop
+						mode="normal"
+						style="width: 150px; height: 150px;"
+						src="./assets/stickers/monkey/TwoFactorSetupMonkeyTracking.tgs">
+					</tgs-player>
+				</div>
 			</div>
 			<div class="login-page-submission__heading login-page__heading">
 				<span id="confirmationFormHeadingText">
@@ -145,7 +162,7 @@
 			<form class="login-page-submission__form">
 				<div class="tl-control-group login-page-submission__control">
 					<input id="confirmationCodeInput"
-						   type="text" class="tl-input" required/>
+						   type="text" class="tl-input" required autocomplete="off"/>
 					<label class="tl-label" for="confirmationCodeInput">Code</label>
 				</div>
 			</form>

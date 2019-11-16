@@ -3,7 +3,7 @@
 @mixin tl-label() {
 	position: absolute;
 	top: 17px;
-	left: 8px;
+	left: 12px;
 	padding: 0 3px;
 	background-color: $tl-c-white;
 	color: $tl-c-gray-suit;
@@ -11,5 +11,9 @@
 	
 	&_text-blue {
 		color: $tl-c-malibu;
+	}
+
+	&_text-red {
+		color: $tl-c-apple-candy-red;
 	}
 }
