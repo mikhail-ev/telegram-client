@@ -1,4 +1,4 @@
-import { focusFirstInput } from '../../../../utils/dom';
+import {focusFirstInput, hideElement, showElement} from '../../../../utils/dom';
 import { applyPasswordPreview } from '../../../common/components/password-preview/password-preview';
 import { applyRipple } from '../../../common/components/ripple/ripple';
 import { passwordConfirmedEvent } from '../../constants/events';
@@ -10,6 +10,8 @@ class PasswordFormComponent {
 		this.input = null;
 		this.container = null;
 		this.form = null;
+		this.twoFactorSetupMonkeyClose = null;
+		this.twoFactorSetupMonkeyPeek = null;
 	}
 
 	mount(mountContainer) {
@@ -18,13 +20,22 @@ class PasswordFormComponent {
 		var templateId = 'passwordFormComponent';
 		var template = document.getElementById(templateId);
 		this.container.innerHTML = template.innerHTML;
-
+		this.twoFactorSetupMonkeyClose = this.container.querySelector('#twoFactorSetupMonkeyClose');
+		this.twoFactorSetupMonkeyPeek = this.container.querySelector('#twoFactorSetupMonkeyPeek');
 		this.nextButton = this.container.querySelector('button');
 		this.nextButton.addEventListener('click', this.nextStep);
 		applyRipple(this.nextButton);
 
 		this.input = this.container.querySelector('input');
-		applyPasswordPreview(this.input);
+		applyPasswordPreview(this.input, (value) => {
+			if (value) {
+				hideElement(this.twoFactorSetupMonkeyClose);
+				showElement(this.twoFactorSetupMonkeyPeek);
+			} else {
+				hideElement(this.twoFactorSetupMonkeyPeek);
+				showElement(this.twoFactorSetupMonkeyClose);
+			}
+		});
 
 		this.form = this.container.querySelector('form');
 		this.form.addEventListener('submit', this.nextStep);

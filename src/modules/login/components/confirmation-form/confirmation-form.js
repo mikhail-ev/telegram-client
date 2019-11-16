@@ -105,7 +105,7 @@ class ConfirmationFormComponent {
 			case serverErrors.sighIn.PHONE_NUMBER_UNOCCUPIED:
 				this.container.dispatchEvent(componentEvent);
 				break;
-			case 'SESSION_PASSWORD_NEEDED':
+			case serverErrors.sighIn.SESSION_PASSWORD_NEEDED:
 				componentEvent.data.passwordNeeded = true;
 				this.container.dispatchEvent(componentEvent);
 				break;
