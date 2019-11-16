@@ -5,8 +5,21 @@ import { scrollToBottom } from '../../../../utils/dom';
 class ChatWindowComponent {
 	constructor() {
 		this.container = null;
+		this.loadLimit = 60;
+		this.reset();
+	}
+
+	reset() {
 		this.messages = null;
 		this.lastMessageDate = null;
+		this.viewOffset = 0;
+		this.messagesOffset = 0;
+		this.chatEnd = false;
+		this.isLoading = false;
+		this.peerType = null;
+		this.peerId = null;
+		this.peerAccessHash = null;
+		this.lastBlockHeight = 0;
 	}
 
 	mount(container) {
@@ -14,31 +27,76 @@ class ChatWindowComponent {
 		var template = document.getElementById(templateId);
 		this.container = container;
 		this.container.innerHTML = template.innerHTML;
-		this.messagesContainer = this.container.querySelector('.messenger-chat__messages');
+		this.messagesContainer = this.container.querySelector('.messenger-chat__messages-wrapper');
 		this.messageTemplate = document.getElementById('chatWindowMessageTemplate').content;
 	}
 
-	openChat(peerId, peerType, accessHash) {
+	openChat(peerId, peerType, peerAccessHash) {
+		this.reset();
+
+		this.peerId = peerId;
+		this.peerType = peerType;
+		this.peerAccessHash = peerAccessHash;
+
 		this.messagesContainer.innerHTML = '';
-		this.lastMessageDate = null; // TODO
-		// MtpApiManager.invokeApi('messages.getFullChat', {
-		// 	chat_id: peerId
-		// }, { timeout: 300, dcID: 2, createNetworker: true }).then((response) => {
-		// 	console.log(response);
-		// }, (e) => console.warn(e));
-		MtpApiManager.invokeApi('messages.getHistory', {
-			peer: getPeer(peerType, peerId, accessHash),
+		this.messagesContainer.removeEventListener('scroll', this.handleScroll);
+		this.messagesContainerSpacer = document.createElement('div');
+		this.messagesContainerSpacer.classList.add('messenger-chat__spacer');
+		this.messagesContainer.appendChild(this.messagesContainerSpacer);
+
+		this.isLoading = true;
+		this.loadMessages().then((response) => {
+			this.appendMessages(response.messages);
+			this.messages = response.messages;
+			scrollToBottom(this.messagesContainer);
+			setTimeout(() => {
+				this.isLoading = false;
+				this.messagesContainer.addEventListener('scroll', this.handleScroll);
+			});
+		}, e => console.error(e));
+	}
+
+	loadMessages() {
+		return MtpApiManager.invokeApi('messages.getHistory', {
+			peer: getPeer(this.peerType, this.peerId, this.peerAccessHash),
 			offset_id: 0,
-			add_offset: 0,
-			limit: 60
+			add_offset: this.messagesOffset,
+			limit: this.loadLimit
 		}, {
 			timeout: 300,
 			noErrorBox: true
 		}).then((response) => {
-			console.log(response);
-			this.messages = response.messages;
-			this.renderMessages(response.messages);
-		}, e => console.log(e));
+			this.messagesOffset += response.messages.length;
+			if (response.messages.length === 0) {
+				this.chatEnd = true;
+			}
+			return response;
+		}, (error) => {
+			this.isLoading = false;
+			return error;
+		});
+	}
+
+	handleScroll = (event) => {
+		if (!this.chatEnd && !this.isLoading && event.target.scrollTop < 50) {
+			this.isLoading = true;
+			this.loadMessages().then((response) => {
+				this.appendMessages(response.messages);
+				this.messagesContainer.scrollTop = this.lastBlockHeight;
+				this.messages = this.messages.concat(response.messages);
+				this.isLoading = false;
+			}, (e) => console.error(e));
+		}
+	};
+
+	appendMessages(messages) {
+		var container = this.renderMessages(messages);
+		this.messagesContainerSpacer.appendChild(container);
+		container.style.bottom = this.viewOffset + 'px';
+		var rect = container.getBoundingClientRect();
+		this.lastBlockHeight = rect.height;
+		this.viewOffset += this.lastBlockHeight;
+		this.messagesContainerSpacer.style.height = this.viewOffset + 'px';
 	}
 
 	renderMessages(messages) {
@@ -68,7 +126,7 @@ class ChatWindowComponent {
 					bubble.classList.add('tl-speech-bubble_droplet', 'tl-speech-bubble_my-droplet');
 				}
 				lastDirection = -1;
-			} else if(lastDirection === -1 || lastDirection === 0) {
+			} else if (lastDirection === -1 || lastDirection === 0) {
 				bubble.classList.add('tl-speech-bubble_droplet');
 				lastDirection = 1;
 			}
@@ -88,8 +146,11 @@ class ChatWindowComponent {
 
 		parts.reverse().forEach((part) => fragment.appendChild(part));
 
-		this.messagesContainer.appendChild(fragment);
-		scrollToBottom(this.messagesContainer.parentNode);
+		var container = document.createElement('div');
+		container.classList.add('messenger-chat__messages');
+		container.appendChild(fragment);
+
+		return container;
 	}
 
 	unmount() {
