@@ -1,12 +1,12 @@
 import { focusFirstInput } from '../../../../utils/dom';
-import { changePhoneEvent, codeConfirmedEvent, codeSentEvent } from '../../constants/events';
+import { changePhoneEvent, codeConfirmedEvent } from '../../constants/events';
 import { phoneToString } from '../../../../utils/phone';
 import { applyNumericInput } from '../../../common/components/numeric-input/numeric-input';
 
 class ConfirmationInfo {
-	constructor(code, userId) {
+	constructor(code, passwordNeeded) {
 		this.code = code;
-		this.userId = userId;
+		this.passwordNeeded = passwordNeeded;
 	}
 }
 
@@ -62,10 +62,15 @@ class ConfirmationFormComponent {
                 dcID: 2,
                 createNetworker: true
             }).then((result) => { // "{"_":"auth.authorization","pFlags":{},"flags":0,"user":{"_":"user","pFlags":{"self":true,"contact":true},"flags":3159,"id":696018,"access_hash":"11134724570702625712","first_name":"Mikhail","last_name":"mmm","phone":"48730887261","status":{"_":"userStatusOffline","was_online":1572983061}}}"
-            	componentEvent.data.userId = result.user.id;
+            	console.log(result);
                 this.container.dispatchEvent(componentEvent);
             }, (error) => {
+            	console.error(error);
             	if (error.type === 'PHONE_NUMBER_UNOCCUPIED') {
+					this.container.dispatchEvent(componentEvent);
+				}
+            	if (error.type === 'SESSION_PASSWORD_NEEDED') {
+					componentEvent.data.passwordNeeded = true;
 					this.container.dispatchEvent(componentEvent);
 				}
                 this.isLoading = false;

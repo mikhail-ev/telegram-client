@@ -35,7 +35,7 @@ window.MtpApiManager = (function() {
             user_auth: fullUserAuth
         })
         telegramMeNotify(true)
-        $rootScope.$broadcast('user_auth', fullUserAuth)
+        // $rootScope.$broadcast('user_auth', fullUserAuth) // TODO
 
         baseDcID = dcID
     }

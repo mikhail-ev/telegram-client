@@ -1,13 +1,7 @@
 import Modal from '../../../common/components/modal/modal';
 import { focusFirstInput } from '../../../../utils/dom';
 import { applyRipple } from '../../../common/components/ripple/ripple';
-import { codeConfirmedEvent, detailsSetEvent } from '../../constants/events';
-
-class DetailsInfo {
-	constructor(userId) {
-		this.userId = userId;
-	}
-}
+import { detailsSetEvent } from '../../constants/events';
 
 class DetailsFormComponent {
 	constructor(signInInfo, confirmationInfo) {
@@ -60,9 +54,8 @@ class DetailsFormComponent {
 		}, {
 			dcID: 2,
 			createNetworker: true
-		}).then((result) => {
+		}).then(() => {
 			var componentEvent = new Event(detailsSetEvent);
-			componentEvent.data = new DetailsInfo(result.user.id);
 			this.container.dispatchEvent(componentEvent);
 		}, (e) => {
 			this.isLoading = false;

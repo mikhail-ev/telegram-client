@@ -1,8 +1,15 @@
 import SignInFormComponent from './components/sign-in-form/sign-in-form';
 import ConfirmationFormComponent from './components/confirmation-form/confirmation-form';
-import { changePhoneEvent, codeConfirmedEvent, codeSentEvent, detailsSetEvent } from './constants/events';
+import {
+	changePhoneEvent,
+	codeConfirmedEvent,
+	codeSentEvent,
+	detailsSetEvent,
+	passwordConfirmedEvent
+} from './constants/events';
 import DetailsFormComponent from './components/details-form/details-form';
 import { setAuthAsValid } from './../common/services/auth-guard/auth-guard';
+import PasswordFormComponent from './components/password-form/password-form';
 
 let instance;
 
@@ -31,8 +38,10 @@ class LoginModule {
 		this.container.addEventListener(changePhoneEvent, this.handleChangePhone, true);
 		this.container.addEventListener(codeConfirmedEvent, this.handleConfirmedCode, true);
 		this.container.addEventListener(detailsSetEvent, this.handleDetailsSet, true);
+		this.container.addEventListener(passwordConfirmedEvent, this.handlePasswordConfirmed, true);
 
 		this.activeView = new SignInFormComponent();
+		// this.activeView = new PasswordFormComponent();
 		this.activeView.mount(this.innerContainer);
 	}
 
@@ -41,6 +50,7 @@ class LoginModule {
 		this.container.removeEventListener(changePhoneEvent, this.handleChangePhone);
 		this.container.removeEventListener(codeConfirmedEvent, this.handleConfirmedCode);
 		this.container.removeEventListener(detailsSetEvent, this.handleDetailsSet, true);
+		this.container.removeEventListener(passwordConfirmedEvent, this.handlePasswordConfirmed, true);
 		this.activeView.unmount();
 		this.innerContainer = null;
 		this.activeView = null;
@@ -50,6 +60,11 @@ class LoginModule {
 	}
 
 	handleDetailsSet = (event) => {
+		console.warn(event);
+		this.redirectToMessenger();
+	};
+
+	handlePasswordConfirmed = (event) => {
 		console.warn(event);
 		this.redirectToMessenger();
 	};
@@ -69,9 +84,14 @@ class LoginModule {
 	};
 
 	handleConfirmedCode = (event) => {
-		console.warn(event);
 		if (this.signInInfo.phoneRegistered) {
-			this.redirectToMessenger();
+			if (event.data.passwordNeeded) {
+				this.activeView.unmount();
+				this.activeView = new PasswordFormComponent();
+				this.activeView.mount(this.innerContainer);
+			} else {
+				this.redirectToMessenger();
+			}
 		} else {
 			this.activeView.unmount();
 			this.activeView = new DetailsFormComponent(this.signInInfo, event.data);
