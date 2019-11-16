@@ -1,4 +1,4 @@
-import { addClass, removeClass, hasClass } from '../../utils/dom';
+import { addClass, removeClass, hasClass } from '../../../../utils/dom';
 
 /*options: {onSelectFn: function(selectedValue){}}*/
 

@@ -2,7 +2,7 @@ import { applyRipple } from '../../../common/components/ripple/ripple';
 import { codeSentEvent } from '../../constants/events';
 import { applyNumericInput } from '../../../common/components/numeric-input/numeric-input';
 import { Countries } from '../../../common/constants/countries';
-import { HtmlDropDownElement } from '../../../../components/inputs-group/html-dropdown-element';
+import { HtmlDropDownElement } from '../../../../modules/common/components/input/html-dropdown-element';
 import { getNearestDC, sendCode } from '../../../../utils/telegram';
 
 class SignInInfo {
