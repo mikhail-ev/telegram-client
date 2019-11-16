@@ -1,13 +1,12 @@
 import { dateToTime, tillNewline } from './string';
 
-export function mapDialogs(response) {
+export function mapChats(response) {
 	return response.dialogs.map((dialog) => {
 		var peerType = dialog.peer._;
 		var peer = null;
 		var title = null;
 		var abbreviation = null;
 		var accessHash = null;
-		var deleted = false;
 
 		var messageText = null;
 		var message = response.messages.find((message) => message.id === dialog.top_message);

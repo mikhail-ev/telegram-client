@@ -16,9 +16,7 @@ class ChatWindowComponent {
 		this.lastMessageDate = null;
 		this.viewOffset = 0;
 		this.isLoading = false;
-		this.peerType = null;
-		this.peerId = null;
-		this.peerAccessHash = null;
+		this.chat = null;
 		this.lastBlockHeight = 0;
 	}
 
@@ -31,12 +29,10 @@ class ChatWindowComponent {
 		this.messageTemplate = document.getElementById('chatWindowMessageTemplate').content;
 	}
 
-	openChat(peerId, peerType, peerAccessHash) {
+	openChat(chat) {
 		this.reset();
 
-		this.peerId = peerId;
-		this.peerType = peerType;
-		this.peerAccessHash = peerAccessHash;
+		this.chat = chat;
 
 		this.messagesContainer.innerHTML = '';
 		this.messagesContainer.removeEventListener('scroll', this.handleScroll);
@@ -72,7 +68,7 @@ class ChatWindowComponent {
 
 	loadMessages() {
 		return MtpApiManager.invokeApi('messages.getHistory', {
-			peer: getPeer(this.peerType, this.peerId, this.peerAccessHash),
+			peer: getPeer(this.chat.peerType, this.chat.peerId, this.chat.peerAccessHash),
 			offset_id: 0,
 			add_offset: this.messages.length,
 			limit: this.loadLimit
