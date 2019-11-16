@@ -16,7 +16,7 @@ class DebugModule {
 		var template = document.getElementById(templateId);
 		this.container = container;
 		this.container.innerHTML = template.innerHTML;
-
+		setAuthAsInValid();
 		var deleteButton = document.getElementById('deleteAccountButton');
 		deleteButton.addEventListener('click', () => {
 			MtpApiManager.invokeApi('account.deleteAccount', {

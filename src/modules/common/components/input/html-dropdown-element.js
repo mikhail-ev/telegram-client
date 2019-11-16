@@ -1,4 +1,4 @@
-import { addClass, removeClass, hasClass } from '../../../../utils/dom';
+import {addClass, removeClass, hasClass} from '../../../../utils/dom';
 
 /*options: {onSelectFn: function(selectedValue){}}*/
 
@@ -45,8 +45,8 @@ HtmlDropDownElement.prototype.$$initMenuEvents = function () {
 	};
 	self.$$handleInputChangeFn = function (event) {
 		self.$$input.setAttribute('value', self.$$input.value);
-		self.$$callAutosuggest(self.$$input.value);
 		self.$$selected = false;
+		self.$$callAutosuggest(self.$$input.value);
 	};
 
 	self.$$handleInputFocusFn = function (event) {
@@ -105,21 +105,28 @@ HtmlDropDownElement.prototype.$$callAutosuggest = function (substring) {
 
 HtmlDropDownElement.prototype.$$renderData = function (dataArray) {
 	var self = this;
-	var ul = document.createElement('ul');
 	self.$$content.innerHTML = '';
-	ul.classList.add('tl-dropdown__list');
-	for (var i = 0; i < self.$$availableItems.length; i++) {
-		var li = document.createElement('li');
-		li.classList.add('tl-dropdown__list-item');
-		li.innerHTML += "<div class='tl-dropdown__list-item-content-wrapper' data.id='" + dataArray[i].id + "'><div class='tl-dropdown__list-item-flag-name'><i class='tl-dropdown__list-item-flag'>" + dataArray[i].icon + "</i>" +
-			"<span>" + dataArray[i][self.$$displayName] + "</span></div>" +
-			"<span class='tl-dropdown__list-item-phone-code'>" + dataArray[i].phoneCode + "</span></div>";
+	if (self.$$availableItems.length > 0) {
+		var ul = document.createElement('ul');
+		ul.classList.add('tl-dropdown__list');
+		for (var i = 0; i < self.$$availableItems.length; i++) {
+			var li = document.createElement('li');
+			li.classList.add('tl-dropdown__list-item');
+			li.innerHTML += "<div class='tl-dropdown__list-item-content-wrapper' data.id='" + dataArray[i].id + "'><div class='tl-dropdown__list-item-flag-name'><i class='tl-dropdown__list-item-flag'>" + dataArray[i].icon + "</i>" +
+				"<span>" + dataArray[i][self.$$displayName] + "</span></div>" +
+				"<span class='tl-dropdown__list-item-phone-code'>" + dataArray[i].phoneCode + "</span></div>";
 
 
-		li.setAttribute('data.id', dataArray[i][self.$$id]);
-		ul.appendChild(li)
+			li.setAttribute('data.id', dataArray[i][self.$$id]);
+			ul.appendChild(li);
+		}
+		self.$$content.appendChild(ul);
+	} else {
+		var noDataDiv = document.createElement('div');
+		noDataDiv.innerText = 'No Data Available';
+		addClass(noDataDiv, 'tl-dropdown__no-data-msg');
+		self.$$content.appendChild(noDataDiv);
 	}
-	self.$$content.appendChild(ul);
 };
 
 HtmlDropDownElement.prototype.setValue = function (countryCode, countryName) {
@@ -128,6 +135,7 @@ HtmlDropDownElement.prototype.setValue = function (countryCode, countryName) {
 	var value = self.$$data.find(function (item) {
 		return item.phoneCode.slice(1, item.phoneCode.length) == countryCode && item[self.$$displayName].toLowerCase() === countryName.toLowerCase();
 	});
+	self.$$selected = true;
 	this.$$setValue(value);
 };
 
@@ -201,4 +209,4 @@ HtmlDropDownElement.prototype.destroy = function () {
 	document.removeEventListener('click', self.$$handleDocumentClickFn);
 };
 
-export { HtmlDropDownElement };
+export {HtmlDropDownElement};

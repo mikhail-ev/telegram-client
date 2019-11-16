@@ -141,4 +141,11 @@ $c-color-select-item: $tl-c-whitesmoke;
 	&__country-group {
 
 	}
+
+	&__no-data-msg {
+		display: flex;
+		align-items: center;
+		padding: 5px;
+		color: $tl-c-gray-suit;
+	}
 }
