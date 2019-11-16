@@ -79,6 +79,7 @@ class ChatsComponent {
 				{ '_': 'inputPeerEmpty' },
 			limit: this.loadLimit
 		}, { timeout: 300, dcID: 2, createNetworker: true }).then((response) => {
+			console.log(response);
 			var chats = mapChats(response);
 			this.count = response.count;
 			if (chats.length !== 0) {

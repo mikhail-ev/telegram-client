@@ -1,5 +1,5 @@
 import { getPeer } from '../../../../utils/telegram';
-import { dateToDay, dateToTime } from '../../../../utils/string';
+import { dateToDay, dateToTime, stringToHex } from '../../../../utils/string';
 import { scrollToBottom } from '../../../../utils/dom';
 
 class ChatWindowComponent {
@@ -34,6 +34,8 @@ class ChatWindowComponent {
 
 		this.chat = chat;
 
+		this.updateHeader();
+
 		this.messagesContainer.innerHTML = '';
 		this.messagesContainer.removeEventListener('scroll', this.handleScroll);
 		var spinner = document.createElement('div');
@@ -47,6 +49,50 @@ class ChatWindowComponent {
 		this.messagesContainer.appendChild(this.messagesContainerSpacer);
 
 		this.initData();
+	}
+
+	updateHeader() {
+		var logo;
+		if (this.chat.imageBase64) {
+			logo = document.createElement('img');
+			logo.src = this.chat.imageBase64;
+		} else {
+			logo = document.createElement('div');
+			logo.style.backgroundColor = '#' + stringToHex(this.chat.title);
+			logo.innerText = this.chat.abbreviation;
+		}
+		var logoContainer = this.container.querySelector('.messenger-chat__person-image');
+		logoContainer.innerHTML = '';
+		logoContainer.appendChild(logo);
+
+		this.container.querySelector('.messenger-chat__person-name').innerText = this.chat.title;
+
+		var additionalInfoContainer = this.container.querySelector('.messenger-chat__person-additional-info');
+		if (this.chat.peerType === 'peerUser') {
+			additionalInfoContainer.innerText = this.chat.status;
+			if (this.chat.online) {
+				additionalInfoContainer.classList.add('messenger-chat__person-additional-info',
+					'messenger-chat__person-additional-info_status-online');
+			}
+		} else {
+			additionalInfoContainer.innerText = '';
+		}
+
+		if (this.chat.peerType === 'peerChannel') {
+			MtpApiManager.invokeApi('channels.getFullChannel', {
+				channel: getPeer(this.chat.peerType, this.chat.peerId, this.chat.peerAccessHash)
+			}, {
+				dcID: 2,
+				createNetworker: true
+			}).then(r => console.log(r));
+		} else if (this.chat.peerType === 'peerChat') {
+			MtpApiManager.invokeApi('messages.getFullChat', {
+				chat_id: this.chat.peerId
+			} , {
+				dcID: 2,
+				createNetworker: true
+			}).then(r => console.log(r));
+		}
 	}
 
 	initData() {

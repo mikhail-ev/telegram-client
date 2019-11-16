@@ -7,6 +7,8 @@ export function mapChats(response) {
 		var title = null;
 		var abbreviation = null;
 		var accessHash = null;
+		var status = null;
+		var online = false;
 
 		var messageText = null;
 		var message = response.messages.find((message) => message.id === dialog.top_message);
@@ -32,6 +34,10 @@ export function mapChats(response) {
 		} else if (peerType === 'peerUser') {
 			peer = response.users.find((user) => user.id === dialog.peer.user_id);
 			accessHash = peer.access_hash;
+			if (peer.status) {
+				status = statusToText(peer.status._);
+				online = peer.status._ === 'userStatusOnline';
+			}
 			if (peer.last_name) {
 				title = peer.first_name + ' ' + peer.last_name;
 				abbreviation = peer.first_name[0] + peer.last_name[0];
@@ -60,6 +66,8 @@ export function mapChats(response) {
 			unread: dialog.unread_count,
 			mentions: dialog.unread_mentions_count,
 			originalMessage: message,
+			status: status,
+			online: online,
 			deleted: peer.pFlags.deleted
 		};
 	});
@@ -123,4 +131,20 @@ export function makePasswordHash(salt, password) {
 	buffer = bufferConcat(bufferConcat(salt, byteView), salt)
 
 	return CryptoWorker.sha256Hash(buffer)
+}
+
+export function statusToText(status) {
+	switch (status) {
+		case 'userStatusEmpty':
+		case 'userStatusOffline':
+			return 'offline';
+		case 'userStatusOnline':
+			return 'online';
+		case 'userStatusRecently':
+			return 'last seen recently';
+		case 'userStatusLastWeek':
+			return 'last seen last week';
+		case 'userStatusLastMonth':
+			return 'last seen last month';
+	}
 }
