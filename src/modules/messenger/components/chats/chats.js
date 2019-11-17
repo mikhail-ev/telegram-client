@@ -85,6 +85,8 @@ class ChatsComponent {
 			if (chats.length !== 0) {
 				this.lastChat = chats[chats.length - 1];
 				this.chats = this.chats.concat(chats);
+			}
+			if (chats.length === 0) {
 				this.loader.style.display = 'none';
 			}
 			return chats;
