@@ -26,6 +26,10 @@ class LoginModule {
 	}
 
 	mount(container) {
+		// setting base dc
+		localStorage.clear();
+		localStorage.setItem('dc', 2);
+
 		this.container = container;
 
 		var templateId = 'loginPage';
