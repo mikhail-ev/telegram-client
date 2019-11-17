@@ -70,7 +70,7 @@ export function mapChats(response) {
 			originalMessage: message,
 			status: status,
 			online: online,
-			deleted: peer.pFlags.deleted,
+			deleted: peer.pFlags && peer.pFlags.deleted,
 			author: author
 		};
 	});
