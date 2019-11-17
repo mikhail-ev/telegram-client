@@ -68,30 +68,43 @@ class ChatWindowComponent {
 		this.container.querySelector('.messenger-chat__person-name').innerText = this.chat.title;
 
 		var additionalInfoContainer = this.container.querySelector('.messenger-chat__person-additional-info');
-		if (this.chat.peerType === 'peerUser') {
-			additionalInfoContainer.innerText = this.chat.status;
-			if (this.chat.online) {
-				additionalInfoContainer.classList.add('messenger-chat__person-additional-info',
-					'messenger-chat__person-additional-info_status-online');
+		switch (this.chat.peerType) {
+			case 'peerUser': {
+				additionalInfoContainer.innerText = this.chat.status;
+				if (this.chat.online) {
+					additionalInfoContainer.classList.add('messenger-chat__person-additional-info',
+						'messenger-chat__person-additional-info_status-online');
+				}
+				break;
 			}
-		} else {
-			additionalInfoContainer.innerText = '';
-		}
-
-		if (this.chat.peerType === 'peerChannel') {
-			MtpApiManager.invokeApi('channels.getFullChannel', {
-				channel: getPeer(this.chat.peerType, this.chat.peerId, this.chat.peerAccessHash)
-			}, {
-				dcID: 2,
-				createNetworker: true
-			}).then(r => console.log(r));
-		} else if (this.chat.peerType === 'peerChat') {
-			MtpApiManager.invokeApi('messages.getFullChat', {
-				chat_id: this.chat.peerId
-			} , {
-				dcID: 2,
-				createNetworker: true
-			}).then(r => console.log(r));
+			case 'peerChannel': {
+				additionalInfoContainer.innerText = '';
+				MtpApiManager.invokeApi('channels.getFullChannel', {
+					channel: getPeer(this.chat.peerType, this.chat.peerId, this.chat.peerAccessHash)
+				}, {
+					dcID: 2,
+					createNetworker: true
+				}).then(r => {
+					additionalInfoContainer.innerText = r.full_chat.participants_count + ' members';
+				});
+				break;
+			}
+			case 'peerChat': {
+				additionalInfoContainer.innerText = '';
+				MtpApiManager.invokeApi('messages.getFullChat', {
+					chat_id: this.chat.peerId
+				} , {
+					dcID: 2,
+					createNetworker: true
+				}).then(r => {
+					additionalInfoContainer.innerText = r.full_chat.participants_count + ' subscribers';
+				});
+				break;
+			}
+			default: {
+				additionalInfoContainer.innerText = '';
+				break;
+			}
 		}
 	}
 
