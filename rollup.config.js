@@ -14,16 +14,16 @@ if (prod) {
 }
 
 module.exports = [
-	{
-		input: 'src/modules/debug/debug.js',
-		output: {
-			name: 'debug',
-			file: 'dist/debug.js',
-			format: 'umd',
-			sourcemap: !prod
-		},
-		plugins
-	},
+	// {
+	// 	input: 'src/modules/debug/debug.js',
+	// 	output: {
+	// 		name: 'debug',
+	// 		file: 'dist/debug.js',
+	// 		format: 'umd',
+	// 		sourcemap: !prod
+	// 	},
+	// 	plugins
+	// },
 	{
 		input: 'src/modules/login/login.js',
 		output: {
