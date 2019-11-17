@@ -174,8 +174,9 @@ class ChatsComponent {
 				});
 			} else {
 				var logo = document.createElement('div');
-				logo.style.backgroundColor = '#' + stringToHex(chat.peer.first_name);
-				logo.innerText = chat.peer.first_name.slice(0, 2);
+				var firstName = chat.peer.first_name || '';
+				logo.style.backgroundColor = '#' + stringToHex(firstName);
+				logo.innerText = firstName.slice(0, 2);
 				imageContainer.appendChild(logo);
 			}
 

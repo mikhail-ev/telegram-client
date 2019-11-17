@@ -210,8 +210,9 @@ class ChatWindowComponent {
 						});
 					} else {
 						var abr = document.createElement('div');
-						abr.style.backgroundColor = '#' + stringToHex(message.author.first_name);
-						abr.innerText = message.author.first_name.slice(0, 2);
+						var firstName = message.author.first_name || '';
+						abr.style.backgroundColor = '#' + stringToHex(firstName);
+						abr.innerText = firstName.slice(0, 2);
 						author.appendChild(abr);
 					}
 					if (lastNode) {
