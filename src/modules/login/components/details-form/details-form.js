@@ -68,10 +68,10 @@ class DetailsFormComponent {
 	};
 
 	openModal = () => {
-		var modal = new Modal();
-		var templateId = 'detailsFormComponentModal';
-		var template = document.getElementById(templateId);
-		modal.mount(template);
+		// var modal = new Modal();
+		// var templateId = 'detailsFormComponentModal';
+		// var template = document.getElementById(templateId);
+		// modal.mount(template);
 	};
 
 	unmount() {
