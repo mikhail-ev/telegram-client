@@ -15,9 +15,9 @@ export function mapChats(response) {
 		if (message.message) {
 			messageText = tillNewline(message.message);
 		} else if (message.media && message.media.caption) {
-			messageText = tillNewline('[MEDIA] ' + message.media.caption);
+			messageText = tillNewline('📎' + message.media.caption);
 		} else {
-			messageText = '[MEDIA]';
+			messageText = '📎';
 		}
 
 		var time = dateToTime(message.date);

@@ -1,5 +1,5 @@
-import { getPeer } from '../../../../utils/telegram';
-import { dateToDay, dateToTime, stringToHex } from '../../../../utils/string';
+import { getPeer, loadSmallImage } from '../../../../utils/telegram';
+import { bytesToImageBase64, dateToDay, dateToTime, getImageMime, stringToHex } from '../../../../utils/string';
 import { scrollToBottom } from '../../../../utils/dom';
 
 class ChatWindowComponent {
@@ -93,7 +93,7 @@ class ChatWindowComponent {
 				additionalInfoContainer.innerText = '';
 				MtpApiManager.invokeApi('messages.getFullChat', {
 					chat_id: this.chat.peerId
-				} , {
+				}, {
 					dcID: 2,
 					createNetworker: true
 				}).then(r => {
@@ -177,15 +177,13 @@ class ChatWindowComponent {
 		var lastDirection = 0; // -1 out, 1 in
 		messages.forEach((message, i) => {
 			var node = this.messageTemplate.cloneNode(true);
-			var text = null;
-			if (message.media) {
-				text = '[MEDIA]';
-			} else {
-				text = message.message;
-			}
-			node.querySelector('.tl-speech-bubble__text-content div').innerText = text;
+
+			node.querySelector('.tl-speech-bubble__text-content div')
+				.replaceWith(this.getMessage(message));
+
 			var time = node.querySelector('.tl-speech-bubble__time');
 			time.innerText = dateToTime(message.date);
+
 			var bubble = node.querySelector('.tl-speech-bubble');
 			if (message.pFlags.out) {
 				time.classList.add('tl-speech-bubble__out-time');
@@ -201,6 +199,7 @@ class ChatWindowComponent {
 				bubble.classList.add('tl-speech-bubble_droplet');
 				lastDirection = 1;
 			}
+
 			var messageDate = dateToDay(message.date);
 			if (this.lastMessageDate === null) {
 				this.lastMessageDate = messageDate;
@@ -222,6 +221,93 @@ class ChatWindowComponent {
 		container.appendChild(fragment);
 
 		return container;
+	}
+
+	getMessage(message) {
+		if (message.media) {
+			switch (message.media._) {
+				case 'messageMediaWebPage': {
+					return this.getWebPageMessage(message);
+				}
+				case 'messageMediaPhoto': {
+					return this.getPhotoMessage(message)
+				}
+				case 'messageMediaDocument': {
+					return this.getMediaDocumentMessage(message)
+				}
+				default: {
+					return this.getOtherMessage(message);
+				}
+			}
+		} else if (message.message) {
+			return this.getRegularMessage(message);
+		}
+		return this.getOtherMessage(message);
+	}
+
+	getPhotoMessage(message) {
+		var node = document.createElement('div');
+		var sizeNumber = Math.min(1, message.media.photo.sizes.length);
+		var size = message.media.photo.sizes[sizeNumber];
+		var image = this.createImage(size);
+		node.appendChild(image);
+		if (message.media.caption) {
+			var mediaCaptionNode = document.createElement('div');
+			mediaCaptionNode.innerText = message.media.caption;
+			node.appendChild(mediaCaptionNode);
+		}
+		return node;
+	}
+
+	getWebPageMessage(message) {
+		var node = this.getRegularMessage(message);
+		var page = document.createElement('div');
+		page.innerText = 'quote: ' + message.media.webpage.description;
+		node.appendChild(page);
+		return node;
+	}
+
+	getMediaDocumentMessage(message) {
+		var node = document.createElement('div');
+		var documentNode = document.createElement('div');
+		documentNode.innerText = '📎';
+		node.appendChild(documentNode);
+		// if (message.media.caption) {
+		// 	var captionNode = document.createElement('div');
+		// 	captionNode.innerText = message.media.caption;
+		// 	node.appendChild(captionNode);
+		// }
+		// if (message.media.document.thumb) {
+		// 	var image = this.createImage(message.media.document.thumb);
+		// 	node.appendChild(image);
+		// }
+		// console.log(message);
+		return node;
+	}
+
+	getRegularMessage(message) {
+		var node = document.createElement('div');
+		node.innerText = message.message;
+		return node;
+	}
+
+	getOtherMessage(message) {
+		console.warn('Unrecognized message type', message);
+		var node = document.createElement('div');
+		node.innerText = 'Message content';
+		return node;
+	}
+
+	createImage(size) {
+		var image = document.createElement('img');
+		image.style.height = size.h;
+		image.style.opacity = '0';
+		loadSmallImage(size.location).then((response) => {
+			var mime = getImageMime(response.type._);
+			image.src = bytesToImageBase64(response.bytes, mime);
+			image.style.opacity = '1';
+		});
+		return image;
 	}
 
 	unmount() {
