@@ -66,7 +66,7 @@ $c-color-select-item: $tl-c-whitesmoke;
 	&__input:valid + &__label {
 		top: -5px;
 		left: 9px;
-		color: #61AEF6;
+		color: $tl-c-malibu;
 		font-size: 11px;
 	}
 
