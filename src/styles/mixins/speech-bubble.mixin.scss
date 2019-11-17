@@ -9,6 +9,7 @@
 	border-radius: 10px;
 	z-index: 2;
 	box-shadow: 0 1px 1px 0 rgba(160, 172, 182, .5);
+	max-height: 100%;
 
 	&_my {
 		align-self: flex-end;
@@ -58,6 +59,10 @@
 		display: flex;
 		justify-content: flex-end;
 		padding: 2px 8px;
+
+		& img {
+			max-width: 100%;
+		}
 	}
 
 	&__message {
