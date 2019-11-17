@@ -6,6 +6,7 @@ var connect = require('gulp-connect');
 var sass = require('gulp-sass');
 var rollup = require('rollup');
 var config = require('./rollup.config');
+var uglify = require('gulp-uglify-es').default;
 
 gulp.task('clean', function () {
     return gulp.src('dist/', { read: false })
@@ -33,6 +34,7 @@ gulp.task('js-lib', function () {
         'mtproto/mtproto-core/mtp-authorizer.js',
         'mtproto/mtproto-core/mtp-networker-factory.js',
         'mtproto/mtproto-core/mtp-api-manager.js'])
+		.pipe(uglify())
         .pipe(concat('vendors.js'))
         .pipe(gulp.dest('dist'));
 });
