@@ -40,8 +40,8 @@ class LoginModule {
 		this.container.addEventListener(detailsSetEvent, this.handleDetailsSet, true);
 		this.container.addEventListener(passwordConfirmedEvent, this.handlePasswordConfirmed, true);
 
-		this.activeView = new SignInFormComponent();
-		// this.activeView = new PasswordFormComponent();
+		// this.activeView = new SignInFormComponent();
+		this.activeView = new PasswordFormComponent();
 		this.activeView.mount(this.innerContainer);
 	}
 

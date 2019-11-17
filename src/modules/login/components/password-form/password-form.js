@@ -34,7 +34,6 @@ class PasswordFormComponent {
 		this.twoFactorSetupMonkeyPeek = this.container.querySelector('#twoFactorSetupMonkeyPeek');
 		this.nextButton = this.container.querySelector('button');
 		this.nextButton.addEventListener('click', this.nextStep);
-		applyRipple(this.nextButton);
 
 		this.input = this.container.querySelector('input');
 		this.label = this.container.querySelector('label');
