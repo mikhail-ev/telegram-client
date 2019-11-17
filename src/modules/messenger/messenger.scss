@@ -7,13 +7,13 @@
 	&__aside {
 		flex: 0 0 400px;
 		max-width: 400px;
-		border-right: 1px solid #dadce0;
+		border-right: 1px solid $tl-c-iron;
 		height: 100%;
 	}
 
 	&__content {
 		flex: 1 1 auto;
-		background-color: #e6ebee;
+		background-color: $tl-c-mystic;
 		overflow: hidden;
 	}
 }
@@ -38,7 +38,7 @@
 		width: 100%;
 		padding: 7px 10px;
 		cursor: pointer;
-		border-bottom: 1px solid #dadce0;
+		border-bottom: 1px solid $tl-c-iron;
 	}
 
 	$chat-height: 3em;
@@ -66,7 +66,7 @@
 			height: 100%;
 			transform: scale(1.2);
 			letter-spacing: 0.05em;
-			color: #ffffff;
+			color: $tl-c-white;
 			text-align: center;
 			font-family: "Roboto Bold", serif;
 			opacity: 0.8;
@@ -99,14 +99,14 @@
 		font-family: "Roboto Regular", serif;
 		font-size: 0.8em;
 		text-transform: lowercase;
-		color: #707579;
+		color: $tl-c-rolling-stone;
 
 		&_status-online {
 			color: $tl-c-malibu;
 		}
 
 		&_subscribers {
-			color: #707579;
+			color: $tl-c-rolling-stone;
 		}
 	}
 
@@ -153,7 +153,7 @@
 	}
 
 	&__text {
-		color: #707579;
+		color: $tl-c-rolling-stone;
 		text-align: center;
 		margin-top: 1em;
 		font-size: 1.5em;
@@ -170,26 +170,26 @@
 	&__icon {
 		width: 4.7em;
 		height: 4.7em;
-		background-color: #ffffff;
+		background-color: $tl-c-white;
 		border-radius: 50%;
 		display: inline-flex;
 		justify-content: center;
 		align-items: center;
 
 		.messenger-actions-action:hover & {
-			background-color: #4ea4f6;
+			background-color: $tl-c-cornflower-blue;
 		}
 	}
 
 	&__text {
-		color: #707579;
+		color: $tl-c-rolling-stone;
 		text-align: center;
 		margin-top: 0.5em;
 		font-size: 0.9em;
 		font-family: "Roboto Light", serif;
 
 		.messenger-actions-action:hover & {
-			color: #4ea4f6;
+			color: $tl-c-cornflower-blue;
 		}
 	}
 

@@ -1,3 +1,5 @@
+@import "../../../../styles/utils/variables/colors";
+
 .chats {
 	display: flex;
 	flex-direction: column;
@@ -32,7 +34,7 @@
 	}
 
 	&__search {
-		background-color: #f4f4f5;
+		background-color: $tl-c-whitesmoke;
 		font-size: 1em;
 		padding-left: 2.5em;
 		padding-right: 1em;
@@ -76,7 +78,7 @@ $image-height: $chat-height - 1.2em;
 	border-radius: 1em;
 
 	&:hover, &_active {
-		background-color: #f4f4f5;
+		background-color: $tl-c-whitesmoke;
 	}
 
 	&__image {
@@ -94,7 +96,7 @@ $image-height: $chat-height - 1.2em;
 			height: 100%;
 			transform: scale(1.4);
 			letter-spacing: 0.05em;
-			color: #ffffff;
+			color: $tl-c-white;
 			text-align: center;
 			font-family: "Roboto Bold", serif;
 			opacity: 0.9;
@@ -132,10 +134,10 @@ $image-height: $chat-height - 1.2em;
 
 		& span {
 			font-family: "Roboto Light", serif;
-			color: #000000;
+			color: $tl-c-black;
 
 			&:last-of-type {
-				color: #707579;
+				color: $tl-c-rolling-stone;
 			}
 		}
 
@@ -145,11 +147,11 @@ $image-height: $chat-height - 1.2em;
 	}
 
 	&__author {
-		color: #000000;
+		color: $tl-c-white;
 	}
 
 	&__time {
-		color: #707579;
+		color: $tl-c-rolling-stone;
 		font-family: "Roboto Light", serif;
 		font-size: 0.75em;
 	}
@@ -160,16 +162,16 @@ $image-height: $chat-height - 1.2em;
 	top: -0.1em;
 	border-radius: 1em;
 	height: 1.7em;
-	background-color: #4DCD5E;
+	background-color: $tl-c-emerald;
 	padding: 0 0.6em;
 	line-height: 1.9em;
 	text-align: center;
-	color: #ffffff;
+	color: $tl-c-white;
 	font-size: 12px;
 	font-family: "Roboto Medium", serif;
 
 	&_muted {
-		background-color: #c4c9cc;
+		background-color: $tl-c-silver-sand;
 	}
 }
 
@@ -183,7 +185,7 @@ $image-height: $chat-height - 1.2em;
 	cursor: pointer;
 
 	& div {
-		background-color: #707579;
+		background-color: $tl-c-rolling-stone;
 		width: 100%;
 		height: 2px;
 		border-radius: 3px;
