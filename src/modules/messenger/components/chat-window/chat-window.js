@@ -30,6 +30,9 @@ class ChatWindowComponent {
 	}
 
 	openChat(chat) {
+		if (chat === this.chat) {
+			return;
+		}
 		this.reset();
 
 		this.chat = chat;

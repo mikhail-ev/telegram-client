@@ -3,6 +3,7 @@ import { peerIdAttribute, peerTypeAttribute } from '../../constants/attributes';
 import { chatSelectEvent } from '../../constants/events';
 import { getPeer, loadSmallImage, mapChats } from '../../../../utils/telegram';
 import { bytesToImageBase64, getImageMime, stringToHex } from '../../../../utils/string';
+import { playRipple } from '../../../common/components/ripple/ripple';
 
 class ChatsComponent {
 	constructor() {
@@ -50,6 +51,7 @@ class ChatsComponent {
 			var selectEvent = new Event(chatSelectEvent);
 			selectEvent.data = peer;
 			this.container.dispatchEvent(selectEvent);
+			playRipple(delegated, event);
 		}
 	};
 
