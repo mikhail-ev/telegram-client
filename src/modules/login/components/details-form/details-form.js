@@ -1,6 +1,4 @@
-import Modal from '../../../common/components/modal/modal';
 import {focusFirstInput, toggleSpinnerInsideBtn} from '../../../../utils/dom';
-import { applyRipple } from '../../../common/components/ripple/ripple';
 import { detailsSetEvent } from '../../constants/events';
 
 class DetailsFormComponent {
@@ -25,7 +23,6 @@ class DetailsFormComponent {
 
 		this.nextButton = this.container.querySelector('button');
 		this.nextButton.addEventListener('click', this.nextStep);
-		applyRipple(this.nextButton);
 
 		this.photoPlaceholder = this.container.querySelector('img.details-form-photo-placeholder');
 		this.photoPlaceholder.addEventListener('click', this.openModal);

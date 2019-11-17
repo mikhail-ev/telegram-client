@@ -7,7 +7,6 @@ import {
 	toggleSpinnerInsideBtn
 } from '../../../../utils/dom';
 import { applyPasswordPreview } from '../../../common/components/password-preview/password-preview';
-import { applyRipple } from '../../../common/components/ripple/ripple';
 import { passwordConfirmedEvent } from '../../constants/events';
 import { makePasswordHash } from '../../../../utils/telegram';
 import {serverErrors} from '../../../common/constants/server-errors';

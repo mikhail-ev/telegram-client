@@ -1,9 +1,7 @@
-import { applyRipple } from '../../../common/components/ripple/ripple';
-import { codeSentEvent } from '../../constants/events';
 import { applyNumericInput } from '../../../common/components/numeric-input/numeric-input';
 import { Countries } from '../../../common/constants/countries';
 import { HtmlDropDownElement } from '../../../../modules/common/components/input/html-dropdown-element';
-import { getNearestDC, sendCode } from '../../../../utils/telegram';
+import { getNearestDC } from '../../../../utils/telegram';
 import { toggleSpinnerInsideBtn } from '../../../../utils/dom';
 
 class SignInInfo {
@@ -49,7 +47,6 @@ class SignInFormComponent {
 		this.container.innerHTML = template.innerHTML;
 
 		this.button = this.container.querySelector('button');
-		applyRipple(this.button);
 
 		this.form = this.container.querySelector('form');
 		this.form.addEventListener('submit', this.handleSubmit);
@@ -86,20 +83,20 @@ class SignInFormComponent {
 		this.isLoading = true;
 		toggleSpinnerInsideBtn(this.button, this.isLoading);
 
-		// var phone = this.phoneInput.value.toString();
-		// var country = this.countryCode.toString();
-		// sendCode(country + phone).then((result) => {
-		// 	var componentEvent = new Event(codeSentEvent);
-		// 	var registered = result.pFlags && !!result.pFlags.phone_registered;
-		// 	componentEvent.data = new SignInInfo(
-		// 		phone, country, result.phone_code_hash, result.type.length, registered, this.countryName);
-		// 	this.isLoading = false;
-		// 	toggleSpinnerInsideBtn(	this.button, this.isLoading);
-		// 	this.container.dispatchEvent(componentEvent);
-		// }, () => {
-		// 	this.isLoading = false;
-		// 	toggleSpinnerInsideBtn(this.button, this.isLoading);
-		// });
+		var phone = this.phoneInput.value.toString();
+		var country = this.countryCode.toString();
+		sendCode(country + phone).then((result) => {
+			var componentEvent = new Event(codeSentEvent);
+			var registered = result.pFlags && !!result.pFlags.phone_registered;
+			componentEvent.data = new SignInInfo(
+				phone, country, result.phone_code_hash, result.type.length, registered, this.countryName);
+			this.isLoading = false;
+			toggleSpinnerInsideBtn(	this.button, this.isLoading);
+			this.container.dispatchEvent(componentEvent);
+		}, () => {
+			this.isLoading = false;
+			toggleSpinnerInsideBtn(this.button, this.isLoading);
+		});
 
 		// var componentEvent = new Event(codeSentEvent);
 		// var registered = true;
