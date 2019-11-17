@@ -1,4 +1,11 @@
-import {addClass, focusFirstInput, hideElement, removeClass, showElement} from '../../../../utils/dom';
+import {
+	addClass,
+	focusFirstInput,
+	hideElement,
+	removeClass,
+	showElement,
+	toggleSpinnerInsideBtn
+} from '../../../../utils/dom';
 import { applyPasswordPreview } from '../../../common/components/password-preview/password-preview';
 import { applyRipple } from '../../../common/components/ripple/ripple';
 import { passwordConfirmedEvent } from '../../constants/events';
@@ -12,6 +19,7 @@ class PasswordFormComponent {
 		this.label = null;
 		this.container = null;
 		this.form = null;
+		this.isLoading = null;
 		this.twoFactorSetupMonkeyClose = null;
 		this.twoFactorSetupMonkeyPeek = null;
 	}
@@ -59,6 +67,8 @@ class PasswordFormComponent {
 		console.log('submit', this.input.value);
 		var password = this.input.value;
 
+		this.isLoading = true;
+		toggleSpinnerInsideBtn(this.nextButton, this.isLoading);
 		MtpApiManager.invokeApi('account.getPassword', {}, {
 			dcID: 2, createNetworker: true
 		}).then((state) => {
@@ -72,8 +82,12 @@ class PasswordFormComponent {
 			// MtpApiManager.setUserAuth(2, {
 			// 	id: result.user.id
 			// });
+			this.isLoading = false;
+			toggleSpinnerInsideBtn(this.nextButton, this.isLoading);
 			this.container.dispatchEvent(new Event(passwordConfirmedEvent));
 		}).catch((error) => {
+			this.isLoading = false;
+			toggleSpinnerInsideBtn(this.nextButton, this.isLoading);
 			this.handleGetPasswordErrors(error);
 		});
 	};

@@ -52,4 +52,20 @@ function scrollToBottom(element) {
 	element.scrollTo(0, element.scrollHeight);
 }
 
-export { addClass, hasClass, removeClass, mountTemplate, focusFirstInput, delegate, scrollToBottom, showElement, hideElement };
+function toggleSpinnerInsideBtn(btnEl, flag) {
+	if (flag) {
+		const loaderIcon = document.createElement('i');
+		addClass(loaderIcon, 'tl-spinner');
+		addClass(loaderIcon, 'tl-spinner_white');
+		addClass(loaderIcon, 'tl-spinner_inside-btn');
+		addClass(btnEl, 'tl-button_spinner-inside');
+		btnEl.setAttribute('data-original-text', btnEl.innerText);
+		btnEl.innerText = 'Please Wait...';
+		btnEl.appendChild(loaderIcon)
+	} else {
+		removeClass(btnEl, 'tl-button_spinner-inside');
+		btnEl.innerText = btnEl.getAttribute('data-original-text');
+	}
+}
+
+export { addClass, hasClass, removeClass, mountTemplate, focusFirstInput, delegate, scrollToBottom, showElement, hideElement, toggleSpinnerInsideBtn };

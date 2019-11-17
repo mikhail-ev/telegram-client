@@ -12,6 +12,17 @@ $spinner-size: 3em;
 	border-radius: 50%;
 	border-top-color: transparent;
 	animation: rotate 1s linear infinite;
+
+	&_white {
+		color: $tl-c-white;
+	}
+
+	&_inside-btn {
+		position: absolute;
+		top: 10px;
+		right: 15px;
+		font-size: 8px;
+	}
 }
 
 @keyframes rotate {

@@ -1,7 +1,8 @@
 export const routeNames = {
 	messenger: 'messenger',
 	debug: 'debug',
-	login: 'login'
+	login: 'login',
+	defaultPage: '*',
 };
 
 export var routing = {

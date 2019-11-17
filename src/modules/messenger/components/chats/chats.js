@@ -118,6 +118,9 @@ class ChatsComponent {
 	renderChats(chats) {
 		var fragment = document.createDocumentFragment();
 		chats.forEach((chat) => {
+			if (chat.deleted) {
+				chat.title = 'Deleted Account';
+			}
 			var node = this.chatTemplate.cloneNode(true);
 			node.querySelector('.chat').setAttribute(peerIdAttribute, chat.peerId);
 			node.querySelector('.chat').setAttribute(peerTypeAttribute, chat.peerType);
@@ -144,6 +147,7 @@ class ChatsComponent {
 			}
 
 			var imageContainer = node.querySelector('.chat__image');
+
 			if (chat.photo) {
 				loadSmallImage(chat.photo).then(response => {
 					// TODO

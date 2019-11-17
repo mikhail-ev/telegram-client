@@ -4,6 +4,7 @@ import { applyNumericInput } from '../../../common/components/numeric-input/nume
 import { Countries } from '../../../common/constants/countries';
 import { HtmlDropDownElement } from '../../../../modules/common/components/input/html-dropdown-element';
 import { getNearestDC, sendCode } from '../../../../utils/telegram';
+import { toggleSpinnerInsideBtn } from '../../../../utils/dom';
 
 class SignInInfo {
 	get fullPhone() {
@@ -83,6 +84,7 @@ class SignInFormComponent {
 			return;
 		}
 		this.isLoading = true;
+		toggleSpinnerInsideBtn(this.button, this.isLoading);
 
 		var phone = this.phoneInput.value.toString();
 		var country = this.countryCode.toString();
@@ -91,9 +93,12 @@ class SignInFormComponent {
 			var registered = result.pFlags && !!result.pFlags.phone_registered;
 			componentEvent.data = new SignInInfo(
 				phone, country, result.phone_code_hash, result.type.length, registered, this.countryName);
+			this.isLoading = false;
+			toggleSpinnerInsideBtn(	this.button, this.isLoading);
 			this.container.dispatchEvent(componentEvent);
 		}, () => {
 			this.isLoading = false;
+			toggleSpinnerInsideBtn(this.button, this.isLoading);
 		});
 		// var componentEvent = new Event(codeSentEvent);
 		// var registered = true;

@@ -22,7 +22,7 @@ function handleHashChange() {
 	if (route.name === routeNames.messenger && !isAuthValid()) {
 		location.replace('/#' + routeNames.login);
 	} else if (route.name === routeNames.login && isAuthValid()) {
-		location.replace('/#' + routeNames.messenger);
+		location.replace('/#');
 	} else {
 		loadScript('./' + route.file, () => {
 			if (activeModule) {

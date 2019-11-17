@@ -84,6 +84,7 @@ class ConfirmationFormComponent {
 
 		if (value && value.length === this.signInInfo.codeLength) {
 			this.isLoading = true;
+
 			MtpApiManager.invokeApi('auth.signIn', {
 				phone_number: this.signInInfo.fullPhone,
 				phone_code_hash: this.signInInfo.codeHash,

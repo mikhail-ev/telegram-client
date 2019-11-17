@@ -1,5 +1,5 @@
 import { setAuthAsInValid } from './../common/services/auth-guard/auth-guard';
-
+import { toggleSpinnerInsideBtn } from './../../utils/dom'
 let instance;
 
 class DebugModule {
@@ -18,6 +18,13 @@ class DebugModule {
 		this.container.innerHTML = template.innerHTML;
 		setAuthAsInValid();
 		var deleteButton = document.getElementById('deleteAccountButton');
+		var loadingBtn = document.getElementById('testLoadingBtn');
+		var flag;
+		loadingBtn.addEventListener('click', () => {
+			flag = !flag;
+			toggleSpinnerInsideBtn(loadingBtn, flag);
+		});
+
 		deleteButton.addEventListener('click', () => {
 			MtpApiManager.invokeApi('account.deleteAccount', {
 				reason: 'testing'
@@ -51,21 +58,21 @@ class DebugModule {
 		});
 
 		var getDialogsButton = document.getElementById('getDialogsButton');
-		getDialogsButton.addEventListener('click', () => {
-			MtpApiManager.invokeApi('messages.getDialogs', {
-				flags: 0,
-				offset_date: 0,
-				offset_id: 0,
-				offset_peer: {"_": "inputPeerEmpty"},
-				limit: 20
-			}, {
-				timeout: 300,
-				dcID: 2,
-				createNetworker: true
-			}).then((result) => {
-				console.warn(result);
-			}, (e) => console.warn(e));
-		});
+		// getDialogsButton.addEventListener('click', () => {
+		// 	MtpApiManager.invokeApi('messages.getDialogs', {
+		// 		flags: 0,
+		// 		offset_date: 0,
+		// 		offset_id: 0,
+		// 		offset_peer: {"_": "inputPeerEmpty"},
+		// 		limit: 20
+		// 	}, {
+		// 		timeout: 300,
+		// 		dcID: 2,
+		// 		createNetworker: true
+		// 	}).then((result) => {
+		// 		console.warn(result);
+		// 	}, (e) => console.warn(e));
+		// });
 		setAuthAsInValid();
 	}
 

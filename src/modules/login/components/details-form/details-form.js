@@ -1,5 +1,5 @@
 import Modal from '../../../common/components/modal/modal';
-import { focusFirstInput } from '../../../../utils/dom';
+import {focusFirstInput, toggleSpinnerInsideBtn} from '../../../../utils/dom';
 import { applyRipple } from '../../../common/components/ripple/ripple';
 import { detailsSetEvent } from '../../constants/events';
 
@@ -45,6 +45,8 @@ class DetailsFormComponent {
 			return;
 		}
 		this.isLoading = true;
+		toggleSpinnerInsideBtn(this.nextButton, this.isLoading);
+
 		MtpApiManager.invokeApi('auth.signUp', {
 			phone_number: this.signInInfo.fullPhone,
 			phone_code_hash: this.signInInfo.codeHash,
@@ -56,9 +58,12 @@ class DetailsFormComponent {
 			createNetworker: true
 		}).then(() => {
 			var componentEvent = new Event(detailsSetEvent);
+			this.isLoading = false;
+			toggleSpinnerInsideBtn(this.nextButton, this.isLoading);
 			this.container.dispatchEvent(componentEvent);
 		}, (e) => {
 			this.isLoading = false;
+			toggleSpinnerInsideBtn(this.nextButton, this.isLoading);
 		});
 	};
 
