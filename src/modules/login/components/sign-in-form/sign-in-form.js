@@ -4,6 +4,7 @@ import { HtmlDropDownElement } from '../../../../modules/common/components/input
 import { getNearestDC, sendCode } from '../../../../utils/telegram';
 import { toggleSpinnerInsideBtn } from '../../../../utils/dom';
 import { codeSentEvent } from '../../constants/events';
+import { Toastify} from '../../../common/components/toastify/toastify';
 
 class SignInInfo {
 	get fullPhone() {
@@ -97,6 +98,11 @@ class SignInFormComponent {
 		}, () => {
 			this.isLoading = false;
 			toggleSpinnerInsideBtn(this.button, this.isLoading);
+			Toastify({
+				text: "Server Error! Something went wrong!",
+				gravity: 'bottom',
+				duration: 5000
+			}).showToast();
 		});
 
 		// var componentEvent = new Event(codeSentEvent);

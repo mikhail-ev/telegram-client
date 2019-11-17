@@ -1,5 +1,6 @@
 import {focusFirstInput, toggleSpinnerInsideBtn} from '../../../../utils/dom';
 import { detailsSetEvent } from '../../constants/events';
+import {Toastify} from '../../../common/components/toastify/toastify';
 
 class DetailsFormComponent {
 	constructor(signInInfo, confirmationInfo) {
@@ -61,6 +62,11 @@ class DetailsFormComponent {
 		}, (e) => {
 			this.isLoading = false;
 			toggleSpinnerInsideBtn(this.nextButton, this.isLoading);
+			Toastify({
+				text: "Server Error! Something went wrong!",
+				gravity: 'bottom',
+				duration: 5000
+			}).showToast();
 		});
 	};
 

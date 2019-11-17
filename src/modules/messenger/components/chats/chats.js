@@ -4,6 +4,7 @@ import { chatSelectEvent } from '../../constants/events';
 import { getPeer, loadSmallImage, mapChats } from '../../../../utils/telegram';
 import { bytesToImageBase64, getImageMime, stringToHex } from '../../../../utils/string';
 import { playRipple } from '../../../common/components/ripple/ripple';
+import {Toastify} from '../../../common/components/toastify/toastify';
 
 class ChatsComponent {
 	constructor() {
@@ -64,7 +65,11 @@ class ChatsComponent {
 				this.appendChats(chats);
 				this.content.scrollTop = scrollPosition;
 				this.isLoading = false;
-			})
+			}).catch((error)=> Toastify({
+				text: "Server Error! Something went wrong!",
+				gravity: 'bottom',
+				duration: 5000
+			}).showToast());
 		}
 	};
 
@@ -105,7 +110,11 @@ class ChatsComponent {
 			this.loader.classList.add('tl-spinner-container_runtime');
 			this.loader.style.display = loaderDisplay;
 			this.isLoading = false;
-		});
+		}).catch((error)=> Toastify({
+			text: "Server Error! Something went wrong!",
+			gravity: 'bottom',
+			duration: 5000
+		}).showToast());
 	}
 
 	appendChats(chats) {
@@ -184,7 +193,11 @@ class ChatsComponent {
 					this.tryLoadImage(chat, container, false);
 				}, 100);
 			}
-		});
+		}).catch((error)=> Toastify({
+			text: "Server Error! Something went wrong!",
+			gravity: 'bottom',
+			duration: 5000
+		}).showToast());;
 	}
 
 	unmount() {

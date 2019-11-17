@@ -1,5 +1,6 @@
 import { setAuthAsInValid } from './../common/services/auth-guard/auth-guard';
 import { toggleSpinnerInsideBtn } from './../../utils/dom'
+import {Toastify} from '../common/components/toastify/toastify';
 let instance;
 
 class DebugModule {
@@ -23,6 +24,11 @@ class DebugModule {
 		loadingBtn.addEventListener('click', () => {
 			flag = !flag;
 			toggleSpinnerInsideBtn(loadingBtn, flag);
+			Toastify({
+				text: "Server Error! Something went wrong!",
+				gravity: 'bottom',
+				duration: 5000
+			}).showToast()
 		});
 
 		deleteButton.addEventListener('click', () => {

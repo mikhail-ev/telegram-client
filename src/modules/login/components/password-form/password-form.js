@@ -99,7 +99,11 @@ class PasswordFormComponent {
 				this.isLoading = false;
 				break;
 			default:
-				console.warn('Unhandled error: ', error.type);
+				Toastify({
+					text: "Server Error! Something went wrong!",
+					gravity: 'bottom',
+					duration: 5000
+				}).showToast();
 		}
 	};
 

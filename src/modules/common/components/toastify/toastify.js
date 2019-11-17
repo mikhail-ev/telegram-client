@@ -210,7 +210,7 @@ Toastify.lib = Toastify.prototype = {
 			this.toastElement.timeOutValue = window.setTimeout(
 				function () {
 					// Remove the toast from DOM
-					// this.removeElement(this.toastElement);
+					this.removeElement(this.toastElement);
 				}.bind(this),
 				this.options.duration
 			); // Binding `this` for function invocation

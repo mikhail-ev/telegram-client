@@ -1,6 +1,7 @@
 import { getPeer, loadSmallImage, mapMessages } from '../../../../utils/telegram';
 import { bytesToImageBase64, dateToDay, dateToTime, getImageMime, stringToHex } from '../../../../utils/string';
 import { scrollToBottom } from '../../../../utils/dom';
+import {Toastify} from '../../../common/components/toastify/toastify';
 
 class ChatWindowComponent {
 	constructor() {
@@ -89,7 +90,11 @@ class ChatWindowComponent {
 					createNetworker: true
 				}).then(r => {
 					additionalInfoContainer.innerText = r.full_chat.participants_count + ' subscribers';
-				});
+				}).catch((error)=> Toastify({
+					text: "Server Error! Something went wrong!",
+					gravity: 'bottom',
+					duration: 5000
+				}).showToast());
 				break;
 			}
 			case 'peerChat': {
@@ -101,7 +106,11 @@ class ChatWindowComponent {
 					createNetworker: true
 				}).then(r => {
 					additionalInfoContainer.innerText = r.full_chat.participants.participants.length + ' members';
-				});
+				}).catch((error)=> Toastify({
+					text: "Server Error! Something went wrong!",
+					gravity: 'bottom',
+					duration: 5000
+				}).showToast());;
 				break;
 			}
 			default: {
