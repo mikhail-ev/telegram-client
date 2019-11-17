@@ -1,8 +1,9 @@
 import { applyNumericInput } from '../../../common/components/numeric-input/numeric-input';
 import { Countries } from '../../../common/constants/countries';
 import { HtmlDropDownElement } from '../../../../modules/common/components/input/html-dropdown-element';
-import { getNearestDC } from '../../../../utils/telegram';
+import { getNearestDC, sendCode } from '../../../../utils/telegram';
 import { toggleSpinnerInsideBtn } from '../../../../utils/dom';
+import { codeSentEvent } from '../../constants/events';
 
 class SignInInfo {
 	get fullPhone() {
