@@ -117,12 +117,21 @@ class ChatsComponent {
 	renderChats(chats) {
 		var fragment = document.createDocumentFragment();
 		chats.forEach((chat) => {
+			console.log(chat);
 			var node = this.chatTemplate.cloneNode(true);
 			node.querySelector('.chat').setAttribute(peerIdAttribute, chat.peerId);
 			node.querySelector('.chat').setAttribute(peerTypeAttribute, chat.peerType);
 			node.querySelector('.chat__name').innerText = chat.title;
 			node.querySelector('.chat__time').innerText = chat.time;
-			node.querySelector('.chat__message').innerText = chat.message;
+			var messageContainer = node.querySelector('.chat__message');
+			if (chat.peerType !== 'peerUser' && chat.author) {
+				var authorNode = document.createElement('span');
+				authorNode.innerText = chat.author.first_name + ': ';
+				messageContainer.appendChild(authorNode);
+			}
+			var messageNode = document.createElement('span');
+			messageNode.innerText = chat.message;
+			messageContainer.appendChild(messageNode);
 
 			if (chat.unread && chat.unread > 0) {
 				var unreadIcon = document.createElement('div');

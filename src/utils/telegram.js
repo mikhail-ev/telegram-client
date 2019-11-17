@@ -9,6 +9,7 @@ export function mapChats(response) {
 		var accessHash = null;
 		var status = null;
 		var online = false;
+		var author = null;
 
 		var messageText = null;
 		var message = response.messages.find((message) => message.id === dialog.top_message);
@@ -19,6 +20,7 @@ export function mapChats(response) {
 		} else {
 			messageText = '📎';
 		}
+		var author = response.users.find((user) => user.id === message.from_id);
 
 		var time = dateToTime(message.date);
 
@@ -68,7 +70,8 @@ export function mapChats(response) {
 			originalMessage: message,
 			status: status,
 			online: online,
-			deleted: peer.pFlags.deleted
+			deleted: peer.pFlags.deleted,
+			author: author
 		};
 	});
 }

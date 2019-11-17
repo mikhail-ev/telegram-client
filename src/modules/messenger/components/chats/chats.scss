@@ -123,12 +123,20 @@ $image-height: $chat-height - 1.2em;
 
 	&__message {
 		flex: 1 1 auto;
-		color: #707579;
-		font-family: "Roboto Light", serif;
 		text-overflow: ellipsis;
+		color: #707579;
 		overflow: hidden;
 		white-space: nowrap;
 		padding-right: 1em;
+
+		& span {
+			font-family: "Roboto Light", serif;
+			color: #000000;
+
+			&:last-of-type {
+				color: #707579;
+			}
+		}
 
 		& br {
 			display: none;
