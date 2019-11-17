@@ -85,7 +85,7 @@ class ChatWindowComponent {
 					dcID: 2,
 					createNetworker: true
 				}).then(r => {
-					additionalInfoContainer.innerText = r.full_chat.participants_count + ' members';
+					additionalInfoContainer.innerText = r.full_chat.participants_count + ' subscribers';
 				});
 				break;
 			}
@@ -97,7 +97,8 @@ class ChatWindowComponent {
 					dcID: 2,
 					createNetworker: true
 				}).then(r => {
-					additionalInfoContainer.innerText = r.full_chat.participants_count + ' subscribers';
+					console.log('chat', r);
+					additionalInfoContainer.innerText = r.full_chat.participants.participants.length + ' members';
 				});
 				break;
 			}
