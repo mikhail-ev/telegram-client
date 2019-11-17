@@ -24,7 +24,7 @@ window.MtpNetworkerFactory = (function() {
     delete $http.defaults.headers.common['Accept']
 
     $rootScope.retryOnline = function () {
-        $(document.body).trigger('online')
+        // $(document.body).trigger('online') jquery
     }
 
     function MtpNetworker(dcID, authKey, serverSalt, options) {
@@ -389,14 +389,14 @@ window.MtpNetworkerFactory = (function() {
 
             this.onOnlineCb = this.checkConnection.bind(this)
 
-            $(document.body).on('online focus', this.onOnlineCb)
+            // $(document.body).on('online focus', this.onOnlineCb) jquery
         } else {
             delete this.longPollPending
             this.checkLongPoll()
             this.sheduleRequest()
 
             if (this.onOnlineCb) {
-                $(document.body).off('online focus', this.onOnlineCb)
+                // $(document.body).off('online focus', this.onOnlineCb) jquery
             }
             $timeout.cancel(this.checkConnectionPromise)
         }
