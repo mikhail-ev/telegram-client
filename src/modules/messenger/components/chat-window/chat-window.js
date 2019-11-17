@@ -137,7 +137,7 @@ class ChatWindowComponent {
 		}).then((response) => {
 			response.messages = mapMessages(response);
 			this.messages = this.messages.concat(response.messages);
-			if (this.messages.length === response.count) {
+			if (response.messages.length < this.loadLimit) {
 				this.loader.style.display = 'none';
 			}
 			return response;
