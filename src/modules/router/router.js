@@ -20,9 +20,9 @@ function handleHashChange() {
 	}
 
 	if (route.name === routeNames.messenger && !isAuthValid()) {
-		location.replace('/#' + routeNames.login);
+		location.replace(location.origin + location.pathname + location.search + '#' + routeNames.login);
 	} else if (route.name === routeNames.login && isAuthValid()) {
-		location.replace('/#');
+		location.replace(location.origin + location.pathname + location.search + '#');
 	} else {
 		loadScript('./' + route.file, () => {
 			if (activeModule) {

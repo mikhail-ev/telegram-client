@@ -105,7 +105,7 @@ class LoginModule {
 
 	redirectToMessenger() {
 		setAuthAsValid();
-		location.replace('/#');
+		location.replace(location.origin + location.pathname + location.search + '#');
 	}
 }
 
