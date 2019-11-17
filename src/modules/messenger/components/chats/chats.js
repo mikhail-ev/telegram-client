@@ -149,29 +149,7 @@ class ChatsComponent {
 			var imageContainer = node.querySelector('.chat__image');
 
 			if (chat.photo) {
-				loadSmallImage(chat.photo).then(response => {
-					// TODO
-					// {
-					// 	"code": 401,
-					// 	"type": "AUTH_KEY_UNREGISTERED",
-					// 	"description": "CODE#401 AUTH_KEY_UNREGISTERED",
-					// 	"originalError": {
-					// 	"_": "rpc_error",
-					// 		"error_code": 401,
-					// 		"error_message": "AUTH_KEY_UNREGISTERED"
-					// },
-					// 	"input": "upload.getFile",
-					// 	"stack": "Error\n    at Object.mtpInvokeApi [as invokeApi] (http://localhost:4000/vendors.js:10738:22)\n    at loadSmallImage (http://localhost:4000/messenger.js:115:25)\n    at http://localhost:4000/messenger.js:205:10\n    at Array.forEach (<anonymous>)\n    at ChatsComponent.renderChats (http://localhost:4000/messenger.js:182:12)\n    at http://localhost:4000/messenger.js:176:13"
-					// }
-					var mime = getImageMime(response.type._);
-					var base64 = bytesToImageBase64(response.bytes, mime);
-					chat.imageBase64 = base64;
-					var image = document.createElement('img');
-					image.setAttribute('src', base64);
-					imageContainer.appendChild(image);
-				}, (error) => {
-					console.error(error, chat.photo);
-				});
+				this.tryLoadImage(chat, imageContainer, true);
 			} else {
 				var logo = document.createElement('div');
 				var firstName = chat.peer.first_name || '';
@@ -188,6 +166,23 @@ class ChatsComponent {
 		block.appendChild(fragment);
 
 		return block;
+	}
+
+	tryLoadImage(chat, container, retry) {
+		loadSmallImage(chat.photo).then(response => {
+			var mime = getImageMime(response.type._);
+			var base64 = bytesToImageBase64(response.bytes, mime);
+			chat.imageBase64 = base64;
+			var image = document.createElement('img');
+			image.setAttribute('src', base64);
+			container.appendChild(image);
+		}, (error) => {
+			if (error.type === 'AUTH_KEY_UNREGISTERED' && retry) {
+				setTimeout(() => {
+					this.tryLoadImage(chat, container, false);
+				}, 100);
+			}
+		});
 	}
 
 	unmount() {
