@@ -10,7 +10,7 @@ window.MtpNetworkerFactory = (function() {
     var $timeout = window.$timeout;
     var $interval = window.$interval;
     var $rootScope = window.$rootScope;
-    var angular = window.angular;
+    var helpers = window.helpers;
     var updatesProcessor;
     var iii = 0,
         offline
@@ -103,7 +103,7 @@ window.MtpNetworkerFactory = (function() {
         var self = this
         if (sentMessage.container) {
             var newInner = []
-            angular.forEach(sentMessage.inner, function (innerSentMessageID) {
+            helpers.forEach(sentMessage.inner, function (innerSentMessageID) {
                 var innerSentMessage = self.updateSentMessage(innerSentMessageID)
                 if (innerSentMessage) {
                     newInner.push(innerSentMessage.msg_id)
@@ -263,13 +263,13 @@ window.MtpNetworkerFactory = (function() {
     MtpNetworker.prototype.pushMessage = function (message, options) {
         var deferred = $q.defer()
 
-        this.sentMessages[message.msg_id] = angular.extend(message, options || {}, {deferred: deferred})
+        this.sentMessages[message.msg_id] = helpers.extend(message, options || {}, {deferred: deferred})
         this.pendingMessages[message.msg_id] = 0
 
         if (!options || !options.noShedule) {
             this.sheduleRequest()
         }
-        if (angular.isObject(options)) {
+        if (helpers.isObject(options)) {
             options.messageID = message.msg_id
         }
 
@@ -439,7 +439,7 @@ window.MtpNetworkerFactory = (function() {
         var singlesCount = 0
         var self = this
 
-        angular.forEach(this.pendingMessages, function (value, messageID) {
+        helpers.forEach(this.pendingMessages, function (value, messageID) {
             if (!value || value >= currentTime) {
                 if (message = self.sentMessages[messageID]) {
                     var messageByteLength = (message.body.byteLength || message.body.length) + 32
@@ -518,7 +518,7 @@ window.MtpNetworkerFactory = (function() {
                 inner: innerMessages
             }
 
-            message = angular.extend({body: container.getBytes(true)}, containerSentMessage)
+            message = helpers.extend({body: container.getBytes(true)}, containerSentMessage)
 
             this.sentMessages[message.msg_id] = containerSentMessage
 
@@ -544,7 +544,7 @@ window.MtpNetworkerFactory = (function() {
 
                 self.processMessage(response.response, response.messageID, response.sessionID)
 
-                angular.forEach(noResponseMsgs, function (msgID) {
+                helpers.forEach(noResponseMsgs, function (msgID) {
                     if (self.sentMessages[msgID]) {
                         var deferred = self.sentMessages[msgID].deferred
                         delete self.sentMessages[msgID]
@@ -560,7 +560,7 @@ window.MtpNetworkerFactory = (function() {
             console.error('Encrypted request failed', error)
 
             if (message.container) {
-                angular.forEach(message.inner, function (msgID) {
+                helpers.forEach(message.inner, function (msgID) {
                     self.pendingMessages[msgID] = 0
                 })
                 delete self.sentMessages[message.msg_id]
@@ -568,7 +568,7 @@ window.MtpNetworkerFactory = (function() {
                 self.pendingMessages[message.msg_id] = 0
             }
 
-            angular.forEach(noResponseMsgs, function (msgID) {
+            helpers.forEach(noResponseMsgs, function (msgID) {
                 if (self.sentMessages[msgID]) {
                     var deferred = self.sentMessages[msgID].deferred
                     delete self.sentMessages[msgID]
@@ -649,7 +649,7 @@ window.MtpNetworkerFactory = (function() {
             var baseError = {code: 406, type: 'NETWORK_BAD_RESPONSE', url: url}
 
             try {
-                options = angular.extend(options || {}, {
+                options = helpers.extend(options || {}, {
                     responseType: 'arraybuffer',
                     transformRequest: null
                 })
@@ -666,7 +666,7 @@ window.MtpNetworkerFactory = (function() {
                 },
                 function (error) {
                     if (!error.message && !error.type) {
-                        error = angular.extend(baseError, {type: 'NETWORK_BAD_REQUEST', originalError: error})
+                        error = helpers.extend(baseError, {type: 'NETWORK_BAD_REQUEST', originalError: error})
                     }
                     return $q.reject(error)
                 }
@@ -828,7 +828,7 @@ window.MtpNetworkerFactory = (function() {
         var self = this
         var notEmpty = false
         // console.log('clean start', this.dcID/*, this.sentMessages*/)
-        angular.forEach(this.sentMessages, function (message, msgID) {
+        helpers.forEach(this.sentMessages, function (message, msgID) {
             // console.log('clean iter', msgID, message)
             if (message.notContentRelated && self.pendingMessages[msgID] === undefined) {
                 // console.log('clean notContentRelated', msgID)

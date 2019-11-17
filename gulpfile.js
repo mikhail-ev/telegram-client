@@ -16,7 +16,7 @@ gulp.task('js-lib', function () {
     return gulp.src([
         'config.js',
         'lib/**/*.js',
-        'mtproto/mtproto-utils/angular.js',
+        'mtproto/mtproto-utils/helpers.js',
         'mtproto/mtproto-utils/timeout.js',
         'mtproto/mtproto-utils/crypto-worker.js',
         'mtproto/mtproto-utils/http.js',

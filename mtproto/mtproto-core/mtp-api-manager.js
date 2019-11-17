@@ -5,7 +5,7 @@ window.MtpApiManager = (function() {
     var MtpNetworkerFactory = window.MtpNetworkerFactory;
     var $rootScope = window.$rootScope;
     var $q = window.$q;
-    var angular = window.angular;
+    var helpers = window.helpers;
     var cachedNetworkers = {}
     var cachedUploadNetworkers = {}
     var cachedExportPromise = {}
@@ -29,7 +29,7 @@ window.MtpApiManager = (function() {
     }
 
     function mtpSetUserAuth (dcID, userAuth) {
-        var fullUserAuth = angular.extend({dcID: dcID}, userAuth)
+        var fullUserAuth = helpers.extend({dcID: dcID}, userAuth)
         Storage.set({
             dc: dcID,
             user_auth: fullUserAuth
@@ -79,7 +79,7 @@ window.MtpApiManager = (function() {
         Storage.get(saveKeys).then(function (values) {
             Storage.clear().then(function () {
                 var restoreObj = {}
-                angular.forEach(saveKeys, function (key, i) {
+                helpers.forEach(saveKeys, function (key, i) {
                     var value = values[i]
                     if (value !== false && value !== undefined) {
                         restoreObj[key] = value
@@ -151,7 +151,7 @@ window.MtpApiManager = (function() {
         var rejectPromise = function (error) {
                 if (!error) {
                     error = {type: 'ERROR_EMPTY'}
-                } else if (!angular.isObject(error)) {
+                } else if (!helpers.isObject(error)) {
                     error = {message: error}
                 }
                 deferred.reject(error)

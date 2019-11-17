@@ -1,4 +1,4 @@
-window.angular = (function () {
+window.helpers = (function () {
     var MAX_SAFE_INTEGER = 9007199254740991;
 
     function isLength(value) {

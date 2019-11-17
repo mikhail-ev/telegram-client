@@ -7,7 +7,7 @@ window.MtpAuthorizer = (function () {
     var CryptoWorker = window.CryptoWorker;
     var $http = window.$http;
     var $q = window.$q;
-    var angular = window.angular;
+    var helpers = window.helpers;
     var $timeout = window.$timeout;
     var chromeMatches = navigator.userAgent.match(/Chrome\/(\d+(\.\d+)?)/)
     var chromeVersion = chromeMatches && parseFloat(chromeMatches[1]) || false
@@ -45,7 +45,7 @@ window.MtpAuthorizer = (function () {
                 transformRequest: null
             })
         } catch (e) {
-            requestPromise = $q.reject(angular.extend(baseError, { originalError: e }))
+            requestPromise = $q.reject(helpers.extend(baseError, { originalError: e }))
         }
         return requestPromise.then(
             function (result) {
@@ -59,14 +59,14 @@ window.MtpAuthorizer = (function () {
                     var msg_id = deserializer.fetchLong('msg_id')
                     var msg_len = deserializer.fetchInt('msg_len')
                 } catch (e) {
-                    return $q.reject(angular.extend(baseError, { originalError: e }))
+                    return $q.reject(helpers.extend(baseError, { originalError: e }))
                 }
 
                 return deserializer
             },
             function (error) {
                 if (!error.message && !error.type) {
-                    error = angular.extend(baseError, { originalError: error })
+                    error = helpers.extend(baseError, { originalError: error })
                 }
                 return $q.reject(error)
             }
