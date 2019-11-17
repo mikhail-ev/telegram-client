@@ -17,6 +17,7 @@ class ChatsComponent {
 		this.viewOffset = 0;
 		this.chats = [];
 		this.count = 0;
+		this.end = false;
 	}
 
 	mount(container) {
@@ -66,7 +67,7 @@ class ChatsComponent {
 	};
 
 	isLoaded() {
-		return this.count === this.chats.length;
+		return this.end;
 	}
 
 	load() {
@@ -87,6 +88,7 @@ class ChatsComponent {
 				this.chats = this.chats.concat(chats);
 			}
 			if (chats.length === 0) {
+				this.end = true;
 				this.loader.style.display = 'none';
 			}
 			return chats;
