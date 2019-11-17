@@ -1,13 +1,15 @@
-import {focusFirstInput, hideElement, showElement} from '../../../../utils/dom';
+import {addClass, focusFirstInput, hideElement, removeClass, showElement} from '../../../../utils/dom';
 import { applyPasswordPreview } from '../../../common/components/password-preview/password-preview';
 import { applyRipple } from '../../../common/components/ripple/ripple';
 import { passwordConfirmedEvent } from '../../constants/events';
 import { makePasswordHash } from '../../../../utils/telegram';
+import {serverErrors} from '../../../common/constants/server-errors';
 
 class PasswordFormComponent {
 	constructor() {
 		this.nextButton = null;
 		this.input = null;
+		this.label = null;
 		this.container = null;
 		this.form = null;
 		this.twoFactorSetupMonkeyClose = null;
@@ -27,6 +29,9 @@ class PasswordFormComponent {
 		applyRipple(this.nextButton);
 
 		this.input = this.container.querySelector('input');
+		this.label = this.container.querySelector('label');
+		this.input.addEventListener('input', this.handleInput);
+
 		applyPasswordPreview(this.input, (value) => {
 			if (value) {
 				hideElement(this.twoFactorSetupMonkeyClose);
@@ -43,10 +48,17 @@ class PasswordFormComponent {
 		focusFirstInput(this.container);
 	}
 
+	handleInput = (event) => {
+		this.label.innerText = 'Password';
+		removeClass(this.input, 'tl-input_border-red');
+		removeClass(this.label, 'tl-label_text-red');
+	}
+
 	nextStep = (event) => {
 		event.preventDefault();
 		console.log('submit', this.input.value);
 		var password = this.input.value;
+
 		MtpApiManager.invokeApi('account.getPassword', {}, {
 			dcID: 2, createNetworker: true
 		}).then((state) => {
@@ -62,8 +74,21 @@ class PasswordFormComponent {
 			// });
 			this.container.dispatchEvent(new Event(passwordConfirmedEvent));
 		}).catch((error) => {
-			console.error(error);
+			this.handleGetPasswordErrors(error);
 		});
+	};
+
+	handleGetPasswordErrors = (error, componentEvent) => {
+		switch (error.type) {
+			case serverErrors.checkPassword.PASSWORD_HASH_INVALID:
+				addClass(this.input, 'tl-input_border-red');
+				addClass(this.label, 'tl-label_text-red');
+				this.label.innerText = 'Invalid Password';
+				this.isLoading = false;
+				break;
+			default:
+				console.warn('Unhandled error: ', error.type);
+		}
 	};
 
 	unmount() {
