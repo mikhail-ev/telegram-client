@@ -1,64 +1,122 @@
+@import "../utils/variables/colors";
+
 @mixin tl-speech-bubble {
 	margin: 3px;
 	align-self: flex-start;
 	display: flex;
-	align-items: center;
+	align-items: flex-end;
 	position: relative;
-	max-width: 420px;
-	background-color: #fff;
-	border-radius: 10px;
-	z-index: 2;
-	box-shadow: 0 1px 1px 0 rgba(160, 172, 182, .5);
-	max-height: 100%;
+	padding-right: 34px;
+
+	&__quote {
+		padding-left: 2px;
+	}
+
+	&__title {
+		color: $tl-c-malibu;
+		font-size: 12px;
+		padding-top: 2px;
+	}
+
+	&__text {
+		//max-width: 420px;
+		border-radius: 10px;
+		box-shadow: 0 1px 1px 0 rgba(160, 172, 182, 0.5);
+		background-color: #ffffff;
+		position: relative;
+
+		&_droplet:before {
+			position: absolute;
+			content: '';
+			bottom: 0;
+			left: -9px;
+			width: 14px;
+			height: 1px;
+			background-color: inherit;
+			z-index: 1;
+			box-shadow: 0px 0px 1px 1px rgba(160, 172, 182, 0.4);
+		}
+
+		&_droplet:after {
+			position: absolute;
+			content: '';
+			bottom: 2px;
+			left: -11px;
+			width: 16px;
+			height: 10px;
+			clip-path: url(#left-droplet);
+			transform: scale(1.4);
+			background-color: inherit;
+			z-index: 1;
+			box-shadow: 0 1px 1px 0 rgba(160, 172, 182, .5);
+		}
+
+		&_my-droplet:before {
+			right: -8px;
+			left: initial;
+			//box-shadow: 0 1px 1px 1px rgba(93, 196, 82, .5);
+		}
+
+		&_my-droplet:after {
+			right: -10px;
+			left: initial;
+			clip-path: url(#right-droplet);
+		}
+	}
+
+	&__author {
+		background-color: #ffffff;
+		width: 30px;
+		margin-right: 4px;
+		border-radius: 15px;
+		flex: 0 0 30px;
+		visibility: hidden;
+		opacity: 0;
+		height: 1px;
+		overflow: hidden;
+
+		& img {
+			max-width: 100%;
+			max-height: 100%;
+		}
+
+		& div {
+			height: 100%;
+			letter-spacing: 0.05em;
+			color: #ffffff;
+			text-align: center;
+			font-family: "Roboto Bold", serif;
+			opacity: 0.8;
+			line-height: 2.2em;
+			padding-left: 1px;
+			text-transform: uppercase;
+		}
+
+		&_visible {
+			visibility: visible;
+			opacity: 1;
+			height: 30px;
+		}
+	}
 
 	&_my {
 		align-self: flex-end;
-		background-color: #effdde;
-		// box-shadow: 0 2px 1px 0 rgba(93, 196, 82, .5);
-	}
+		flex-direction: row-reverse;
+		padding-left: 34px;
 
-	&_droplet:before {
-		position: absolute;
-		content: '';
-		bottom: 0;
-		left: -9px;
-		width: 14px;
-		height: 1px;
-		background-color: inherit;
-		z-index: 1;
-		box-shadow: 0px 0px 1px 1px rgba(160, 172, 182, 0.4);
-	}
+		& .tl-speech-bubble__text {
+			background-color: #effdde;
+		}
 
-	&_droplet:after {
-		position: absolute;
-		content: '';
-		bottom: 2px;
-		left: -11px;
-		width: 16px;
-		height: 10px;
-		clip-path: url(#left-droplet);
-		transform: scale(1.4);
-		background-color: inherit;
-		z-index: 1;
-		box-shadow: 0 1px 1px 0 rgba(160, 172, 182, .5);
-	}
-
-	&_my-droplet:before {
-		right: -8px;
-		left: initial;
-		//box-shadow: 0 1px 1px 1px rgba(93, 196, 82, .5);
-	}
-
-	&_my-droplet:after {
-		right: -10px;
-		left: initial;
-		clip-path: url(#right-droplet);
+		& .tl-speech-bubble__author {
+			margin-left: 4px;
+			margin-right: 0;
+		}
 	}
 
 	&__text-content {
-		display: flex;
-		justify-content: flex-end;
 		padding: 2px 8px;
+		word-break: break-word;
 
 		& img {
 			max-width: 100%;
@@ -68,6 +126,11 @@
 	&__message {
 		padding: 3px 0;
 		word-break: break-word;
+		display: inline-block;
+	}
+
+	&__body {
+		display: flex;
 	}
 
 	&__text,
@@ -81,6 +144,7 @@
 		text-align: right;
 		font-size: 11px;
 		color: #a0acb6;
+		word-break: keep-all;
 
 		& .tl-2checks_svg {
 			filter: invert(56%) sepia(97%) saturate(296%) hue-rotate(71deg) brightness(87%) contrast(88%);

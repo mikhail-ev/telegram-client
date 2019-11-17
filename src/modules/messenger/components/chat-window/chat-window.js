@@ -1,4 +1,4 @@
-import { getPeer, loadSmallImage } from '../../../../utils/telegram';
+import { getPeer, loadSmallImage, mapMessages } from '../../../../utils/telegram';
 import { bytesToImageBase64, dateToDay, dateToTime, getImageMime, stringToHex } from '../../../../utils/string';
 import { scrollToBottom } from '../../../../utils/dom';
 
@@ -45,7 +45,7 @@ class ChatWindowComponent {
 		this.loader.appendChild(spinner);
 		this.messagesContainer.appendChild(this.loader);
 		this.messagesContainerSpacer = document.createElement('div');
-		this.messagesContainerSpacer.style.position = 'relative';
+		this.messagesContainerSpacer.classList.add('messenger-chat__spacer');
 		this.messagesContainer.appendChild(this.messagesContainerSpacer);
 
 		this.initData();
@@ -97,7 +97,6 @@ class ChatWindowComponent {
 					dcID: 2,
 					createNetworker: true
 				}).then(r => {
-					console.log('chat', r);
 					additionalInfoContainer.innerText = r.full_chat.participants.participants.length + ' members';
 				});
 				break;
@@ -136,7 +135,7 @@ class ChatWindowComponent {
 			timeout: 300,
 			noErrorBox: true
 		}).then((response) => {
-			console.log(response);
+			response.messages = mapMessages(response);
 			this.messages = this.messages.concat(response.messages);
 			if (this.messages.length === response.count) {
 				this.loader.style.display = 'none';
@@ -174,12 +173,13 @@ class ChatWindowComponent {
 		var fragment = document.createDocumentFragment();
 		var parts = [];
 
-		var lastDirection = 0; // -1 out, 1 in
+		var lastAuthor = null;
+		var lastNode = null;
 		messages.forEach((message, i) => {
 			var node = this.messageTemplate.cloneNode(true);
 
-			node.querySelector('.tl-speech-bubble__text-content div')
-				.replaceWith(this.getMessage(message));
+			node.querySelector('.tl-speech-bubble__text-content .tl-speech-bubble__message')
+				.appendChild(this.getMessage(message));
 
 			var time = node.querySelector('.tl-speech-bubble__time');
 			time.innerText = dateToTime(message.date);
@@ -191,13 +191,35 @@ class ChatWindowComponent {
 				status.classList.add('tl-2checks_svg', 'tl-2checks_svg-dims');
 				node.querySelector('.tl-speech-bubble__info').appendChild(status);
 				bubble.classList.add('tl-speech-bubble_my');
-				if (lastDirection === 1 || lastDirection === 0) {
-					bubble.classList.add('tl-speech-bubble_droplet', 'tl-speech-bubble_my-droplet');
+			}
+			if (message.author && message.author !== lastAuthor) {
+				if (message.pFlags.out) {
+					node.querySelector('.tl-speech-bubble__text')
+						.classList.add('tl-speech-bubble__text_droplet', 'tl-speech-bubble__text_my-droplet');
+				} else {
+					node.querySelector('.tl-speech-bubble__text')
+						.classList.add('tl-speech-bubble__text_droplet');
 				}
-				lastDirection = -1;
-			} else if (lastDirection === -1 || lastDirection === 0) {
-				bubble.classList.add('tl-speech-bubble_droplet');
-				lastDirection = 1;
+				if (this.chat.peerType !== 'peerUser') {
+					var author = node.querySelector('.tl-speech-bubble__author');
+					author.classList.add('tl-speech-bubble__author_visible');
+					if (message.author.photo) {
+						loadSmallImage(message.author.photo.photo_small).then((response) => {
+							var mime = getImageMime(response.type._);
+							author.querySelector('img').src = bytesToImageBase64(response.bytes, mime);
+						});
+					} else {
+						var abr = document.createElement('div');
+						abr.style.backgroundColor = '#' + stringToHex(message.author.first_name);
+						abr.innerText = message.author.first_name.slice(0, 2);
+						author.appendChild(abr);
+					}
+					if (lastNode) {
+						lastNode.querySelector('.tl-speech-bubble__title').innerText = lastAuthor.first_name;
+					}
+				}
+
+				lastAuthor = message.author;
 			}
 
 			var messageDate = dateToDay(message.date);
@@ -212,6 +234,7 @@ class ChatWindowComponent {
 				this.lastMessageDate = messageDate;
 			}
 			parts.push(node);
+			lastNode = node;
 		});
 
 		parts.reverse().forEach((part) => fragment.appendChild(part));
@@ -262,7 +285,7 @@ class ChatWindowComponent {
 	getWebPageMessage(message) {
 		var node = this.getRegularMessage(message);
 		var page = document.createElement('div');
-		page.innerText = 'quote: ' + message.media.webpage.description;
+		page.innerText = '>> ' + message.media.webpage.description;
 		node.appendChild(page);
 		return node;
 	}
@@ -272,7 +295,6 @@ class ChatWindowComponent {
 		var documentNode = document.createElement('div');
 		documentNode.innerText = '📎';
 		node.appendChild(documentNode);
-		console.warn(message);
 		if (message.media.caption) {
 			var captionNode = document.createElement('div');
 			captionNode.innerText = message.media.caption;
@@ -282,7 +304,6 @@ class ChatWindowComponent {
 		// 	var image = this.createImage(message.media.document.thumb);
 		// 	node.appendChild(image);
 		// }
-		// console.log(message);
 		return node;
 	}
 

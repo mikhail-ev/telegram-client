@@ -80,7 +80,6 @@ class ChatsComponent {
 				{ '_': 'inputPeerEmpty' },
 			limit: this.loadLimit
 		}, { timeout: 300, dcID: 2, createNetworker: true }).then((response) => {
-			console.log(response);
 			var chats = mapChats(response);
 			this.count = response.count;
 			if (chats.length !== 0) {
@@ -119,7 +118,6 @@ class ChatsComponent {
 	renderChats(chats) {
 		var fragment = document.createDocumentFragment();
 		chats.forEach((chat) => {
-			console.log(chat);
 			var node = this.chatTemplate.cloneNode(true);
 			node.querySelector('.chat').setAttribute(peerIdAttribute, chat.peerId);
 			node.querySelector('.chat').setAttribute(peerTypeAttribute, chat.peerType);
@@ -172,8 +170,8 @@ class ChatsComponent {
 				});
 			} else {
 				var logo = document.createElement('div');
-				logo.style.backgroundColor = '#' + stringToHex(chat.title);
-				logo.innerText = chat.abbreviation;
+				logo.style.backgroundColor = '#' + stringToHex(chat.peer.first_name);
+				logo.innerText = chat.peer.first_name.slice(0, 2);
 				imageContainer.appendChild(logo);
 			}
 

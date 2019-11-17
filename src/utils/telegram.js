@@ -71,13 +71,25 @@ export function mapChats(response) {
 			status: status,
 			online: online,
 			deleted: peer.pFlags && peer.pFlags.deleted,
-			author: author
+			author: author,
+			peer: peer
 		};
 	});
 }
 
+export function mapMessages(response) {
+	return response.messages.map((message) =>
+		Object.assign({}, message,
+			{ author: response.users.find((user) => user.id === message.from_id) }));
+}
+
+var imageCache = {};
 export function loadSmallImage(location) {
-	return MtpApiManager.invokeApi('upload.getFile', {
+	var id = location.dc_id + '_' + location.volume_id;
+	if (imageCache[id]) {
+		return imageCache[id];
+	}
+	var promise =  MtpApiManager.invokeApi('upload.getFile', {
 		location: Object.assign({}, location, { _: 'inputFileLocation' }),
 		offset: 0,
 		limit: 1024 * 1024
@@ -86,6 +98,10 @@ export function loadSmallImage(location) {
 		fileDownload: true,
 		createNetworker: true
 	});
+
+	imageCache[id] = promise;
+
+	return promise;
 }
 
 export function getNearestDC() {
