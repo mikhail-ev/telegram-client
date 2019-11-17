@@ -86,20 +86,21 @@ class SignInFormComponent {
 		this.isLoading = true;
 		toggleSpinnerInsideBtn(this.button, this.isLoading);
 
-		var phone = this.phoneInput.value.toString();
-		var country = this.countryCode.toString();
-		sendCode(country + phone).then((result) => {
-			var componentEvent = new Event(codeSentEvent);
-			var registered = result.pFlags && !!result.pFlags.phone_registered;
-			componentEvent.data = new SignInInfo(
-				phone, country, result.phone_code_hash, result.type.length, registered, this.countryName);
-			this.isLoading = false;
-			toggleSpinnerInsideBtn(	this.button, this.isLoading);
-			this.container.dispatchEvent(componentEvent);
-		}, () => {
-			this.isLoading = false;
-			toggleSpinnerInsideBtn(this.button, this.isLoading);
-		});
+		// var phone = this.phoneInput.value.toString();
+		// var country = this.countryCode.toString();
+		// sendCode(country + phone).then((result) => {
+		// 	var componentEvent = new Event(codeSentEvent);
+		// 	var registered = result.pFlags && !!result.pFlags.phone_registered;
+		// 	componentEvent.data = new SignInInfo(
+		// 		phone, country, result.phone_code_hash, result.type.length, registered, this.countryName);
+		// 	this.isLoading = false;
+		// 	toggleSpinnerInsideBtn(	this.button, this.isLoading);
+		// 	this.container.dispatchEvent(componentEvent);
+		// }, () => {
+		// 	this.isLoading = false;
+		// 	toggleSpinnerInsideBtn(this.button, this.isLoading);
+		// });
+
 		// var componentEvent = new Event(codeSentEvent);
 		// var registered = true;
 		// componentEvent.data = new SignInInfo(

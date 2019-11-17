@@ -16,10 +16,6 @@
 	min-height: $tl-button-height;
 	text-transform: uppercase;
 
-	&_spinner-inside {
-		padding-right: 50px;
-	}
-
 	&_primary {
 		color: $tl-c-white;
 		background-color: $tl-c-malibu;
