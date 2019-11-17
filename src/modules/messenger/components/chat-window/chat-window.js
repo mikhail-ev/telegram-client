@@ -272,11 +272,12 @@ class ChatWindowComponent {
 		var documentNode = document.createElement('div');
 		documentNode.innerText = '📎';
 		node.appendChild(documentNode);
-		// if (message.media.caption) {
-		// 	var captionNode = document.createElement('div');
-		// 	captionNode.innerText = message.media.caption;
-		// 	node.appendChild(captionNode);
-		// }
+		console.warn(message);
+		if (message.media.caption) {
+			var captionNode = document.createElement('div');
+			captionNode.innerText = message.media.caption;
+			node.appendChild(captionNode);
+		}
 		// if (message.media.document.thumb) {
 		// 	var image = this.createImage(message.media.document.thumb);
 		// 	node.appendChild(image);
