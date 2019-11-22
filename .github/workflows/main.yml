@@ -11,14 +11,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
       - uses: actions/checkout@v1
       
       - name: Deploy
         env:
           HEROKU_APP: contest-telegram-client
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      - run: |
+        run: |
           docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
           docker build -t web .
           heroku container:push web -a $HEROKU_APP
