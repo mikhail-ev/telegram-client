@@ -9,7 +9,7 @@ var config = require('./rollup.config');
 var uglify = require('gulp-uglify-es').default;
 
 gulp.task('clean', function () {
-    return gulp.src('dist/', { read: false })
+    return gulp.src('dist/', { read: false, allowEmpty: true })
         .pipe(clean());
 });
 
