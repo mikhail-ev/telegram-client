@@ -4,3 +4,5 @@ import {init as initRouter} from './modules/router/router';
 localStorage.setItem('dc', 2);
 
 initRouter();
+
+console.log('App is bootstrapped!');
