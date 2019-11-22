@@ -1,4 +1,4 @@
-name: CD
+name: CI
 
 on: 
   push:
@@ -9,10 +9,14 @@ jobs:
   deploy:
 
     runs-on: ubuntu-latest
-    env:
-      HEROKU_APP: contest-telegram-client
-      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
     steps:
       - name: Deploying to Heroku
-        uses: actions/heroku@master
+        env:
+          HEROKU_APP: contest-telegram-client
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+          heroku container:push web -a $HEROKU_APP
+          heroku container:release web -a $HEROKU_APP
+        
