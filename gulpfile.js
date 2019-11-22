@@ -15,25 +15,25 @@ gulp.task('clean', function () {
 
 gulp.task('js-lib', function () {
     return gulp.src([
-        'config.js',
-        'lib/**/*.js',
-        'mtproto/mtproto-utils/helpers.js',
-        'mtproto/mtproto-utils/timeout.js',
-        'mtproto/mtproto-utils/crypto-worker.js',
-        'mtproto/mtproto-utils/http.js',
-        'mtproto/mtproto-utils/interval.js',
-        'mtproto/mtproto-utils/q.js',
-        'mtproto/mtproto-utils/root-scope.js',
-        'mtproto/mtproto-utils/storage.js',
-        'mtproto/mtproto-utils/utils.js',
-        'mtproto/mtproto-utils/tl-utils.js',
-        'mtproto/mtproto-core/mtp-dc-configurator.js',
-        'mtproto/mtproto-core/mtp-rsa-keys-manager.js',
-        'mtproto/mtproto-core/mtp-secure-random.js',
-        'mtproto/mtproto-core/mtp-time-manager.js',
-        'mtproto/mtproto-core/mtp-authorizer.js',
-        'mtproto/mtproto-core/mtp-networker-factory.js',
-        'mtproto/mtproto-core/mtp-api-manager.js'])
+        'src/config.js',
+        'src/lib/**/*.js',
+        'src/mtproto/mtproto-utils/helpers.js',
+        'src/mtproto/mtproto-utils/timeout.js',
+        'src/mtproto/mtproto-utils/crypto-worker.js',
+        'src/mtproto/mtproto-utils/http.js',
+        'src/mtproto/mtproto-utils/interval.js',
+        'src/mtproto/mtproto-utils/q.js',
+        'src/mtproto/mtproto-utils/root-scope.js',
+        'src/mtproto/mtproto-utils/storage.js',
+        'src/mtproto/mtproto-utils/utils.js',
+        'src/mtproto/mtproto-utils/tl-utils.js',
+        'src/mtproto/mtproto-core/mtp-dc-configurator.js',
+        'src/mtproto/mtproto-core/mtp-rsa-keys-manager.js',
+        'src/mtproto/mtproto-core/mtp-secure-random.js',
+        'src/mtproto/mtproto-core/mtp-time-manager.js',
+        'src/mtproto/mtproto-core/mtp-authorizer.js',
+        'src/mtproto/mtproto-core/mtp-networker-factory.js',
+        'src/mtproto/mtproto-core/mtp-api-manager.js'])
 		.pipe(uglify())
         .pipe(concat('vendors.js'))
         .pipe(gulp.dest('dist'));
